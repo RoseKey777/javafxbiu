@@ -4,8 +4,10 @@ module com.example.biubiu {
     requires javafx.media;
     requires java.sql;
     requires mail;
-    requires java.desktop;
+    requires lombok;
+    requires commons.dbutils;
     requires fastjson;
+    requires java.desktop;
 
 
     opens com.example.biubiu to javafx.fxml;

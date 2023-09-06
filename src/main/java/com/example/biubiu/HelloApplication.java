@@ -1,6 +1,5 @@
 package com.example.biubiu;
 
-import com.example.biubiu.net.tcp.TCPClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
