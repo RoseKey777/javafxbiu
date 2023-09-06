@@ -2,12 +2,34 @@ package com.example.biubiu.sprite;
 
 import com.example.biubiu.Director;
 import com.example.biubiu.scene.GameScene;
+import com.example.biubiu.util.SoundEffect;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
 public class Player extends Role{
 
+
+    private int count = 0;
+    private int MOD = 7;
+    private static Image[] images = new Image[] {
+//            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-3.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-4.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-5.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
+
+    };
     double weaponDir;//武器方向
 
     boolean keyup, keydown, keyleft, keyright;
@@ -18,7 +40,7 @@ public class Player extends Role{
         super(x, y, 32, 32, dir, gameScene);
         this.weaponDir = weaponDir;
         speed = 2;
-        imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/role1.png").toExternalForm()));//video 7 diffrent
+        imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
     }
 
     public void pressed(KeyCode keyCode){
@@ -112,33 +134,78 @@ public class Player extends Role{
             weaponDir = calc();//todo: 目前是武器和人物一个方向，需要修改武器360度转向
         }
     }
-
+    public void wakeChange(){
+        imageMap.put("walk",images[count]);//video 7 diffrent
+    }
     @Override
     public void move() {
+
         if(dir == 1.0){
             x += speed;
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD== 0){
+                wakeChange();
+            }
         }else if(dir == 2.0){
-            x += speed / Math.sqrt(2);
-            y -= speed / Math.sqrt(2);
+            x += speed/Math.sqrt(2);
+            y -= speed/Math.sqrt(2);
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD== 0){
+                wakeChange();
+            }
         }else if(dir == 3.0){
             y -= speed;
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD == 0){
+                wakeChange();
+            }
         }else if(dir == 4.0){
-            y -= speed / Math.sqrt(2);
-            x -= speed / Math.sqrt(2);
+            y -= speed/Math.sqrt(2);
+            x -= speed/Math.sqrt(2);
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD == 0){
+                wakeChange();
+            }
         }else if(dir == 5.0){
             x -= speed;
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD == 0){
+                wakeChange();
+            }
         }else if(dir == 6.0){
-            y += speed / Math.sqrt(2);
-            x -= speed / Math.sqrt(2);
+            y += speed/Math.sqrt(2);
+            x -= speed/Math.sqrt(2);
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD == 0){
+                wakeChange();
+            }
         }else if(dir == 7.0){
             y += speed;
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD == 0){
+                wakeChange();
+            }
         }else if(dir == 8.0){
-            x += speed / Math.sqrt(2);
-            y += speed / Math.sqrt(2);
+            x += speed/Math.sqrt(2);
+            y += speed/Math.sqrt(2);
+            count = (count + 1) % images.length;
+            MOD = (MOD + 1) % 6;
+            if(MOD == 0){
+                wakeChange();
+            }
+        }else{
+            count = 0;
+            imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
         }
-
         if(dir != 0){
-            weaponDir = calc();//todo: 目前是武器和人物一个方向，需要修改武器360度转向
+            weaponDir = dir;//todo: 目前是武器和人物一个方向，需要修改武器360度转向
         }
         if(x < 0) x = 0;
         if(y < 0) y = 0;
@@ -155,6 +222,7 @@ public class Player extends Role{
     }
 
     public void openFire(){
+        SoundEffect.play("/com/example/biubiu/mp3/gun.mp3");
         double bx = x + width/2;
         double by = y + height/2;
         weaponDir = calc();
