@@ -55,6 +55,9 @@ public class LoginController implements Initializable {
                 String sql = "SELECT * FROM user WHERE username =? AND password =?";
                 PreparedStatement pstmt;
                 ResultSet rs;
+                //System.out.println(HelloApplication.clientSocket.getPort());
+                System.out.println(HelloApplication.sendRequest(username));
+                System.out.println(HelloApplication.sendRequest("{\"data\":{\"username\": \"123\", \"password\": \"123\"},\"type\":\"signup\"}"));
                 try {
                     Connection connection = DButil.getconnection();
                     pstmt = connection.prepareStatement(sql);
