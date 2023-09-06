@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="gr" alignment="CENTER" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.LoginController">
+    <children>
+        <Label text="欢迎登陆biubiu游戏" GridPane.columnSpan="2">
+            <font>
+                <Font size="29.0" />
+            </font></Label>
+        <Label text="账户：" GridPane.rowIndex="1" />
+        <TextField fx:id="t_name" promptText="请输入用户名" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="密码：" GridPane.rowIndex="2" />
+        <PasswordField fx:id="t_password" promptText="请输入密码" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button fx:id="login" text="登录"  GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <!--       <Button fx:id="email" text="发送验证码"  GridPane.columnIndex="2" GridPane.rowIndex="4" />-->
+        <Button fx:id="register" text="注册" GridPane.rowIndex="4" />
+
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.IndexController">
+   <children>
+      <Button fx:id="gamehall" layoutX="435.0" layoutY="197.0" mnemonicParsing="false" onMouseClicked="#mouseClikedGameHall" onMouseEntered="#mouseEnteredGameHall" onMouseExited="#mouseExitedGameHall" text="游戏大厅" />
+      <Button fx:id="store" layoutX="435.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#mouseClikedStore" onMouseEntered="#mouseEnteredStore" onMouseExited="#mouseExitedStore" text="商店  " />
+      <Button fx:id="setting" layoutX="25.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#mouseClikedSetting" onMouseEntered="#mouseEnteredSetting" onMouseExited="#mouseExitedSetting" text="设置" />
+      <Button fx:id="playchoose" layoutX="429.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#mouseClikedPlayChoose" onMouseEntered="#mouseEnteredPlayChoose" onMouseExited="#mouseExitedPlayChoose" text="角色选择" textFill="#38453a" />
+   </children>
+</Pane>
