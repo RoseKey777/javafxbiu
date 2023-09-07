@@ -40,7 +40,7 @@ public class GameScene {
 
     public List<Bullet> bullets = new ArrayList<>();
 
-    public List<EnemyBullet> enemyBbullets = new ArrayList<>();
+    public List<EnemyBullet> enemybullets = new ArrayList<>();
 
     class TalkReceive implements Runnable{
         DatagramSocket datagramSocket =null;
@@ -100,7 +100,7 @@ public class GameScene {
                 double bx = tmpx + 24;
                 double by = tmpy + 24;
                 EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
-                enemyBbullets.add(bullet);
+                enemybullets.add(bullet);
             }
         }
     }
@@ -115,6 +115,9 @@ public class GameScene {
         selfPlayer.paint(graphicsContext);
         enemy.paint(graphicsContext);
         for(Bullet bullet:bullets){
+            bullet.paint(graphicsContext);
+        }
+        for(EnemyBullet bullet:enemybullets){
             bullet.paint(graphicsContext);
         }
     }
