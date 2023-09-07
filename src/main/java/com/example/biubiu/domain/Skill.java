@@ -10,5 +10,5 @@ public class Skill {
     private int characterid;
     private String skillname;
     private String skilldescription;
-    private BigDecimal price;
+    private double price;
 }

@@ -10,5 +10,5 @@ public class Matchdetail {
     private int matchid;
     private int userid;
     private int scorechange;
-    private BigDecimal coinchange;
+    private double coinchange;
 }

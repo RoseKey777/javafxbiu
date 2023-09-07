@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 public class Character {
     private int id;
     private String charactername;
-    private BigDecimal price;
+    private double price;
     private double hp;
 }
