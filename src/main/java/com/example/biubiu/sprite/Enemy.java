@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
-public class Player extends Role{
+public class Enemy extends Role{
 
     Image weaponImage;
     private int count = 0;
@@ -49,21 +49,21 @@ public class Player extends Role{
     };
 
     private static Image[] images = new Image[] {
-//            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()),
+//            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-3.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-3.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-4.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-4.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-5.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-5.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
+            new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
 
     };
     double weaponDir;//武器方向
@@ -72,31 +72,31 @@ public class Player extends Role{
 
     double sceneX,sceneY;
 
-    public Player(double x, double y, double dir, double weaponDir, GameScene gameScene) {
+    public Enemy(double x, double y, double dir, double weaponDir, GameScene gameScene) {
         super(x, y, 32, 32, dir, gameScene);
         this.weaponDir = weaponDir;
         speed = 2;
-        imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
-        imageMap.put("weapon",new Image(Player.class.getResource("/com/example/biubiu/image/ak47.png").toExternalForm()));
+        imageMap.put("walk",new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
+        imageMap.put("weapon",new Image(Enemy.class.getResource("/com/example/biubiu/image/ak47.png").toExternalForm()));
     }
 
-    public void pressed(KeyCode keyCode){
-        switch (keyCode){
-            case W:
-                keyup = true;
-                break;
-            case S:
-                keydown = true;
-                break;
-            case A:
-                keyleft = true;
-                break;
-            case D:
-                keyright = true;
-        }
-        //每次键盘状态改变，调用重定向
-        redirect();
-    }
+//    public void pressed(KeyCode keyCode){
+//        switch (keyCode){
+//            case W:
+//                keyup = true;
+//                break;
+//            case S:
+//                keydown = true;
+//                break;
+//            case A:
+//                keyleft = true;
+//                break;
+//            case D:
+//                keyright = true;
+//        }
+//        //每次键盘状态改变，调用重定向
+//        redirect();
+//    }
 
     private double calc(){
 //        System.out.println(x);
@@ -114,25 +114,25 @@ public class Player extends Role{
 //        return Math.atan((sceneY - y)/(sceneX - x));
     }
 
-    public void released(KeyCode keyCode){
-        switch (keyCode){
-//            case SPACE:
-//                openFire();
+//    public void released(KeyCode keyCode){
+//        switch (keyCode){
+////            case SPACE:
+////                openFire();
+////                break;
+//            case W:
+//                keyup = false;
 //                break;
-            case W:
-                keyup = false;
-                break;
-            case S:
-                keydown = false;
-                break;
-            case A:
-                keyleft = false;
-                break;
-            case D:
-                keyright = false;
-        }
-        redirect();
-    }
+//            case S:
+//                keydown = false;
+//                break;
+//            case A:
+//                keyleft = false;
+//                break;
+//            case D:
+//                keyright = false;
+//        }
+//        redirect();
+//    }
 
     public void direct(double sx, double sy){
         sceneX = sx;
@@ -198,6 +198,7 @@ public class Player extends Role{
         if(block[realYYYY][realXXXX] == 10){//右上
             return false;
         }
+
         return true;
     }
 
@@ -284,7 +285,7 @@ public class Player extends Role{
             }
         }else{
             count = 0;
-            imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
+            imageMap.put("walk",new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
         }
         if(dir != 0){
             weaponDir = dir;//todo: 目前是武器和人物一个方向，需要修改武器360度转向
