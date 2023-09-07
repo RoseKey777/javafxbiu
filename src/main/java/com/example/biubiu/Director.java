@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Director {
 
-    public static final double WIDTH = 960, HEIGHT = 640;
+    public static final double WIDTH = 1024, HEIGHT = 1024;
 
     private static Director instance = new Director();
 

@@ -14,45 +14,11 @@ public class Bullet extends Role{
 
     @Override
     public void move() {
-//
-//        if(dir >= 0 && dir <= Math.PI/2){
+
             x += speed * Math.cos(dir);
             y -= speed * Math.sin(dir);
-//        }else if(dir >= Math.PI/2 && dir <= Math.PI){
-//            x -= speed * Math.cos(dir);
-//            y -= speed * Math.sin(dir);
-//        }else if(dir >= Math.PI && dir <= Math.PI*1.5){
-//            x -= speed * Math.cos(dir);
-//            y += speed * Math.sin(dir);
-//        }else{
-//            x += speed * Math.cos(dir);
-//            y += speed * Math.sin(dir);
-//        }
 
-
-
-//        if(dir == 1.0){//这里暂时用的是角色角度
-//            x += speed;
-//        }else if(dir == 2.0){
-//            x += speed;
-//            y -= speed;
-//        }else if(dir == 3.0){
-//            y -= speed;
-//        }else if(dir == 4.0){
-//            y -= speed;
-//            x -= speed;
-//        }else if(dir == 5.0){
-//            x -= speed;
-//        }else if(dir == 6.0){
-//            y += speed;
-//            x -= speed;
-//        }else if(dir == 7.0){
-//            y += speed;
-//        }else if(dir == 8.0){
-//            x += speed;
-//            y += speed;
-//        }
-//todo:子弹越出边界后应该删除，还未写
+//        todo:子弹越出边界后应该删除，还未写
 //        if(x < 0) x = 0;
 //        if(y < 0) y = 0;
 //        if(x > Director.WIDTH - width) x = Director.WIDTH - width;
@@ -63,6 +29,11 @@ public class Bullet extends Role{
     public void paint(GraphicsContext graphicsContext) {
 
 //        graphicsContext.drawImage(image,x,y,width,height);
+        if(!alive){
+            gameScene.bullets.remove(this);
+            return;
+        }
+
         graphicsContext.save();
         graphicsContext.translate(x,y);
         graphicsContext.rotate(Math.toDegrees(-dir));

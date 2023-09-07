@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GameScene {
     public double mouseX,mouseY;
-    private Canvas canvas = new Canvas(960,640);
+    private Canvas canvas = new Canvas(1024,1024);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
     private KeyProcess keyProcess = new KeyProcess();

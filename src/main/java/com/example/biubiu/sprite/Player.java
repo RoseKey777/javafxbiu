@@ -9,9 +9,45 @@ import javafx.scene.input.KeyCode;
 
 public class Player extends Role{
 
-
+    Image weaponImage;
     private int count = 0;
     private int MOD = 7;
+
+    private   int [][]block={
+            {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 10, 10, 10, 10, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 10, 10, 10, 10, 0, 0, 10, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 10, 0, 0, 0, 0, 10, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 10, 0, 0, 0, 0, 10, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 10},
+            {10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 10, 10},
+            {10, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 0, 0, 0, 10},
+            {10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 10, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 10, 10, 10, 10, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 0, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
+            {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}
+    };
+
     private static Image[] images = new Image[] {
 //            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()),
 
@@ -41,6 +77,7 @@ public class Player extends Role{
         this.weaponDir = weaponDir;
         speed = 2;
         imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
+        imageMap.put("weapon",new Image(Player.class.getResource("/com/example/biubiu/image/ak47.png").toExternalForm()));
     }
 
     public void pressed(KeyCode keyCode){
@@ -100,6 +137,7 @@ public class Player extends Role{
     public void direct(double sx, double sy){
         sceneX = sx;
         sceneY = sy;
+        weaponDir = calc();
     }
 
     public void redirect(){
@@ -137,68 +175,113 @@ public class Player extends Role{
     public void wakeChange(){
         imageMap.put("walk",images[count]);//video 7 diffrent
     }
+
+    public boolean illegal(double xx,double yy){
+        int realX = (int)Math.floor((xx+5)/32.0);
+        int realY = (int)Math.floor((yy+10)/32.0);
+        int realXX = (int)Math.floor((xx+24)/32.0);
+        int realYY = (int)Math.floor((yy+32)/32.0);
+        int realXXX = (int)Math.floor((xx+5)/32.0);
+        int realYYY = (int)Math.floor((yy+32)/32.0);
+        int realXXXX = (int)Math.floor((xx+24)/32.0);
+        int realYYYY = (int)Math.floor((yy+10)/32.0);
+
+        if(block[realY][realX] == 10){//左上
+            return false;
+        }
+        if(block[realYY][realXX] == 10){//右下
+            return false;
+        }
+        if(block[realYYY][realXXX] == 10){//左下
+            return false;
+        }
+        if(block[realYYYY][realXXXX] == 10){//右上
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     public void move() {
 
+//        System.out.println("x = " + x);
+//        System.out.println("y = " + y);
         if(dir == 1.0){
-            x += speed;
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD== 0){
-                wakeChange();
+            if(illegal(x+speed,y)){
+                x += speed;
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if(MOD== 0){
+                    wakeChange();
+                }
             }
         }else if(dir == 2.0){
-            x += speed/Math.sqrt(2);
-            y -= speed/Math.sqrt(2);
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD== 0){
-                wakeChange();
+            if(illegal(x+speed/Math.sqrt(2), y-speed/Math.sqrt(2))){
+                x += speed/Math.sqrt(2);
+                y -= speed/Math.sqrt(2);
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if(MOD== 0){
+                    wakeChange();
+                }
             }
         }else if(dir == 3.0){
-            y -= speed;
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD == 0){
-                wakeChange();
+            if(illegal(x, y-speed)) {
+                y -= speed;
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if (MOD == 0) {
+                    wakeChange();
+                }
             }
         }else if(dir == 4.0){
-            y -= speed/Math.sqrt(2);
-            x -= speed/Math.sqrt(2);
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD == 0){
-                wakeChange();
+            if(illegal(x-speed/Math.sqrt(2), y-speed/Math.sqrt(2))) {
+                y -= speed / Math.sqrt(2);
+                x -= speed / Math.sqrt(2);
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if (MOD == 0) {
+                    wakeChange();
+                }
             }
         }else if(dir == 5.0){
-            x -= speed;
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD == 0){
-                wakeChange();
+            if(illegal(x-speed, y)) {
+                x -= speed;
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if (MOD == 0) {
+                    wakeChange();
+                }
             }
         }else if(dir == 6.0){
-            y += speed/Math.sqrt(2);
-            x -= speed/Math.sqrt(2);
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD == 0){
-                wakeChange();
+            if(illegal(x-speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
+                y += speed / Math.sqrt(2);
+                x -= speed / Math.sqrt(2);
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if (MOD == 0) {
+                    wakeChange();
+                }
             }
         }else if(dir == 7.0){
-            y += speed;
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD == 0){
-                wakeChange();
+            if(illegal(x, y+speed)) {
+                y += speed;
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if (MOD == 0) {
+                    wakeChange();
+                }
             }
         }else if(dir == 8.0){
-            x += speed/Math.sqrt(2);
-            y += speed/Math.sqrt(2);
-            count = (count + 1) % images.length;
-            MOD = (MOD + 1) % 6;
-            if(MOD == 0){
-                wakeChange();
+            if(illegal(x+speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
+                x += speed / Math.sqrt(2);
+                y += speed / Math.sqrt(2);
+                count = (count + 1) % images.length;
+                MOD = (MOD + 1) % 6;
+                if (MOD == 0) {
+                    wakeChange();
+                }
             }
         }else{
             count = 0;
@@ -216,8 +299,15 @@ public class Player extends Role{
     @Override
     public void paint(GraphicsContext graphicsContext) {
         image = imageMap.get("walk");
-
+        weaponImage = imageMap.get("weapon");
         super.paint(graphicsContext);
+        graphicsContext.save();
+        graphicsContext.translate(x+16,y+16);
+        graphicsContext.rotate(Math.toDegrees(-weaponDir));
+        graphicsContext.drawImage(weaponImage,-16,-16,32,32);
+//        graphicsContext.drawImage(image,-24,-12.5,width,height);
+        graphicsContext.restore();
+//        graphicsContext.drawImage(weaponImage,x+5,y+5,32,32);
         move();
     }
 
