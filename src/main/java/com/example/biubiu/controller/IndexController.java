@@ -30,7 +30,8 @@ public class IndexController implements Initializable {
 
     @FXML
     void mouseClikedGameHall(MouseEvent event) {
-        Director.getInstance().gameStart();
+        //Director.getInstance().gameStart();
+        Director.getInstance().gamehallStart();
     }
 
     @FXML
