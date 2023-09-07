@@ -34,7 +34,7 @@ public class TalkReceive implements Runnable {
                 datagramSocket.receive(datagramPacket);
                 byte[] data = datagramPacket.getData();
                 String s = new String(data, 0, datagramPacket.getLength());
-//                System.out.println(this.user+":"+s.trim());
+                System.out.println(this.user+":"+s.trim());
                 handleData(s);
                 if (s.contains("bye")){
                     break;

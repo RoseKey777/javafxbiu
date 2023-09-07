@@ -10,7 +10,7 @@ public abstract class Role extends Sprite{
     boolean alive = true;
     double dir;
     double speed;
-    Map<String, Image> imageMap  =new HashMap<>();
+    public Map<String, Image> imageMap  =new HashMap<>();
 
     public Role(double x, double y, double width, double height, double dir,GameScene gameScene) {
         super(null, x, y, width, height, gameScene);

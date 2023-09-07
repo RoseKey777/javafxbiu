@@ -66,7 +66,7 @@ public class Enemy extends Role{
             new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
 
     };
-    double weaponDir;//武器方向
+    public double weaponDir;//武器方向
 
     boolean keyup, keydown, keyleft, keyright;
 

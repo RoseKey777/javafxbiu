@@ -7,11 +7,11 @@ import javafx.scene.image.Image;
 
 public abstract class Sprite {
 
-    Image image;
-    double x;
-    double y;
-    double width;
-    double height;
+    public Image image;
+    public double x;
+    public double y;
+    public double width;
+    public double height;
     GameScene gameScene;
 
     public Sprite(Image image, double x, double y, double width, double height, GameScene gameScene) {
