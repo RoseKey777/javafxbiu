@@ -57,7 +57,7 @@ public class TCPServer extends JFrame{
     // 将给定的输出流从共享集合中删除
     private synchronized void remove(String  key) {
         storeInfo.remove(key);
-        m_display.append("当前在线人数为："+ storeInfo.size());
+//        m_display.append("当前在线人数为："+ storeInfo.size());
         //for(String name: storeInfo.key)
     }
 
@@ -196,9 +196,11 @@ public class TCPServer extends JFrame{
                     else if("signup".equals(type)){
                         requestHandler.signup(data);
                     }
-                    //获取用户名
-                    else if("getusername".equals(type)){
-                        pw.println(userClient.user.getUsername());
+                    //获取用户信息
+                    else if("getuserinfo".equals(type)){
+                        Map<String, Object> req = new HashMap<>();
+                        req.put("username", userClient.user.getUsername());
+                        requestHandler.getuserinfo(req);
                     }
 
 //                    // 检验是否为私聊（格式：@昵称：内容）
@@ -227,7 +229,7 @@ public class TCPServer extends JFrame{
                 remove(name);
                 // 通知所有客户端，某某客户已经下线
 //                sendToAll("*系统消息* "+name + "已经下线了。\n");
-                System.out.println(name + "已经下线了。");
+                m_display.append(name + "已经下线了。\n");
 
                 if(socket!=null) {
                     try {

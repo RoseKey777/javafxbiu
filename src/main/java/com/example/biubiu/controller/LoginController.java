@@ -61,7 +61,8 @@ public class LoginController implements Initializable {
                 //发送登录请求
                 Request request = new Request("login", new User(username, password));
                 System.out.println(HelloApplication.sendRequest(request));
-
+                Request request1 = new Request("getuserinfo", null);
+                System.out.println(HelloApplication.sendRequest(request1));
                 try {
                     Connection connection = DButil.getconnection();
                     pstmt = connection.prepareStatement(sql);

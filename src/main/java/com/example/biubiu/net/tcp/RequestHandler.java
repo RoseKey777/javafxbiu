@@ -1,6 +1,7 @@
 package com.example.biubiu.net.tcp;
 
 
+import com.alibaba.fastjson.JSON;
 import com.example.biubiu.dao.UserDao;
 import com.example.biubiu.domain.User;
 
@@ -43,6 +44,13 @@ public class RequestHandler {
             output.println("用户名已存在，请重新注册");
     }
 
+    //获取用户信息
+    public void getuserinfo(Map<String, Object> data){
+        String username = (String)(data.get("username"));
+        User user = userDao.getUserByUsername(username);
+        System.out.println(JSON.toJSONString(user));
+        output.println(JSON.toJSONString(user));
+    }
 
     //创建房间
     public void createroom(Map<String, Object> data){

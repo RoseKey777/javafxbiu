@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
             Map<String, Object> reqStr = new HashMap<>();
             reqStr.put("type", request.type);
             reqStr.put("data", request.data);
-            System.out.println(JSON.toJSONString(reqStr));
+//            System.out.println(JSON.toJSONString(reqStr));
             pw.println(JSON.toJSONString(reqStr));
             return br.readLine();
         }catch (IOException e){
