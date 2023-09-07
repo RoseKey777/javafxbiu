@@ -2,6 +2,7 @@ package com.example.biubiu.scene;
 
 import com.example.biubiu.sprite.Background;
 import com.example.biubiu.sprite.Bullet;
+import com.example.biubiu.sprite.Enemy;
 import com.example.biubiu.sprite.Player;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -29,13 +30,16 @@ public class GameScene {
     private boolean running  = false;//为false则停止刷新，为true则启动刷新
 
     private Background background = new Background();
-    private Player selfPlayer = new Player(400,500,1.0, 0.0,this);
+    private Player selfPlayer = new Player(400,500,0, 0.0,this);
+
+    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
 
     public List<Bullet> bullets = new ArrayList<>();
 
     private void paint(){
         background.paint(graphicsContext);
         selfPlayer.paint(graphicsContext);
+        enemy.paint(graphicsContext);
         for(Bullet bullet:bullets){
             bullet.paint(graphicsContext);
         }
