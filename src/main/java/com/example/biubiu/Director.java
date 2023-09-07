@@ -1,6 +1,7 @@
 package com.example.biubiu;
 
 import com.example.biubiu.scene.GameScene;
+import com.example.biubiu.scene.Gamehall;
 import com.example.biubiu.scene.Index;
 import com.example.biubiu.scene.Login;
 import javafx.scene.Scene;
@@ -16,6 +17,7 @@ public class Director {
 
     private Stage stage;
     private GameScene gameScene = new GameScene();
+    private Gamehall gamehall = new Gamehall();
     private Director(){}
 
     public static Director getInstance(){
@@ -67,6 +69,10 @@ public class Director {
 
     public void gameStart(){
         gameScene.init(stage);
+    }
+
+    public void gamehallStart(){
+        gamehall.load(stage);
     }
 
 }
