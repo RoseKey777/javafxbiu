@@ -1,6 +1,7 @@
 package com.example.biubiu.net.tcp;
 
 import com.alibaba.fastjson.JSON;
+import com.example.biubiu.domain.User;
 
 import java.io.*;
 import java.net.*;
@@ -26,7 +27,7 @@ public class TCPServer extends JFrame{
     private ExecutorService exec;
 
     //客户端列表
-    ArrayList<UserClient> userClients;
+    Map<String, UserClient> userClients = new HashMap<>();
 
     // 存放客户端之间私聊的信息
     private Map<String,PrintWriter> storeInfo;
@@ -64,8 +65,6 @@ public class TCPServer extends JFrame{
     private synchronized void sendToAll(String message) {
         for(PrintWriter out: storeInfo.values()) {
             out.println(message);
-
-
             // m_display.append("已经发送了");
         }
     }
@@ -115,33 +114,33 @@ public class TCPServer extends JFrame{
             this.socket = socket;
         }
 
-        // 创建内部类来获取昵称
-        private String getName() throws Exception {
-            try {
-                //服务端的输入流读取客户端发送来的昵称输出流
-                BufferedReader bReader = new BufferedReader(
-                        new InputStreamReader(socket.getInputStream(), "UTF-8"));
-                //服务端将昵称验证结果通过自身的输出流发送给客户端
-                PrintWriter ipw = new PrintWriter(
-                        new OutputStreamWriter(socket.getOutputStream(), "UTF-8"),true);
-
-                requestHandler.output = ipw;//输出流
-                //requestHandler.output.println("wrrwerwr");
-
-                //读取客户端发来的昵称
-                while(true) {
-                    String nameString = bReader.readLine();
-                    if ((nameString.trim().length() == 0) || storeInfo.containsKey(nameString)) {
-                        ipw.println("FAIL");
-                    } else {
-                        ipw.println("OK");
-                        return nameString;
-                    }
-                }
-            } catch(Exception e) {
-                throw e;
-            }
-        }
+        // 创建内部类来获取昵称(IP)
+//        private String getName() throws Exception {
+//            try {
+//                //服务端的输入流读取客户端发送来的昵称输出流
+//                BufferedReader bReader = new BufferedReader(
+//                        new InputStreamReader(socket.getInputStream(), "UTF-8"));
+//                //服务端将昵称验证结果通过自身的输出流发送给客户端
+//                PrintWriter ipw = new PrintWriter(
+//                        new OutputStreamWriter(socket.getOutputStream(), "UTF-8"),true);
+//
+//                requestHandler.output = ipw;//输出流
+//                //requestHandler.output.println("wrrwerwr");
+//
+//                //读取客户端发来的昵称
+//                while(true) {
+//                    String nameString = bReader.readLine();
+//                    if ((nameString.trim().length() == 0) || storeInfo.containsKey(nameString)) {
+//                        ipw.println("FAIL");
+//                    } else {
+//                        ipw.println("OK");
+//                        return nameString;
+//                    }
+//                }
+//            } catch(Exception e) {
+//                throw e;
+//            }
+//        }
 
         @Override
         public void run() {
@@ -156,7 +155,8 @@ public class TCPServer extends JFrame{
                 /*
                  * 将客户昵称和其所说的内容存入共享集合HashMap中
                  */
-                name = getName();
+                name = socket.getInetAddress().getHostAddress();
+                requestHandler.output = pw;//输出流
                 putIn(name, pw);
                 Thread.sleep(100);
 
@@ -179,44 +179,55 @@ public class TCPServer extends JFrame{
                     Object dataObj = request.get("data");
                     Map<String, Object> data = JSON.parseObject(dataObj.toString());
                     System.out.println(request);
-                    System.out.println("请求类型:" + type);
-                    System.out.println("请求数据:" + data);
+                    m_display.append(name + ": \n");
+                    m_display.append("    请求类型: " + type + "\n");
+                    m_display.append("    请求数据: " + data + "\n");
 
                     //登录请求
                     if("login".equals(type)){
-                        requestHandler.login(data);
+                        User user = requestHandler.login(data);
+                        if (user != null) {
+                            userClient = new UserClient(user, name);
+                            System.out.println(userClient);
+                            userClients.put(name, userClient);
+                        }
                     }
                     //注册请求
                     else if("signup".equals(type)){
                         requestHandler.signup(data);
                     }
-
-                    // 检验是否为私聊（格式：@昵称：内容）
-                    if(msgString.startsWith("@")) {
-                        int index = msgString.indexOf("：");
-                        if(index >= 0) {
-                            //获取昵称
-                            String theName = msgString.substring(1, index);
-                            String info = msgString.substring(index+1, msgString.length());
-                            info =  name + "："+ info;
-                            //将私聊信息发送出去
-                            sendToSomeone(theName, info);
-
-                            sendToSomeone(name,info);
-
-                            continue;
-                        }
+                    //获取用户名
+                    else if("getusername".equals(type)){
+                        pw.println(userClient.user.getUsername());
                     }
-                    // 遍历所有输出流，将该客户端发送的信息转发给所有客户端
-                    m_display.append(name+"："+ msgString+"\n");
-                    sendToAll(name+"："+ msgString);
+
+//                    // 检验是否为私聊（格式：@昵称：内容）
+//                    if(msgString.startsWith("@")) {
+//                        int index = msgString.indexOf("：");
+//                        if(index >= 0) {
+//                            //获取昵称
+//                            String theName = msgString.substring(1, index);
+//                            String info = msgString.substring(index+1, msgString.length());
+//                            info =  name + "："+ info;
+//                            //将私聊信息发送出去
+//                            sendToSomeone(theName, info);
+//
+//                            sendToSomeone(name,info);
+//
+//                            continue;
+//                        }
+//                    }
+//                    // 遍历所有输出流，将该客户端发送的信息转发给所有客户端
+//                    m_display.append(name+"："+ msgString+"\n");
+//                    sendToAll(name+"："+ msgString);
                 }
             } catch (Exception e) {
-                // e.printStackTrace();
+                e.printStackTrace();
             } finally {
                 remove(name);
                 // 通知所有客户端，某某客户已经下线
 //                sendToAll("*系统消息* "+name + "已经下线了。\n");
+                System.out.println(name + "已经下线了。");
 
                 if(socket!=null) {
                     try {

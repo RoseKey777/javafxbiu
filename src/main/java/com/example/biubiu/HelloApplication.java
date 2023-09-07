@@ -1,5 +1,7 @@
 package com.example.biubiu;
 
+import com.alibaba.fastjson.JSON;
+import com.example.biubiu.domain.Request;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -13,19 +15,24 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HelloApplication extends Application {
     public static Socket clientSocket;//客户端
 
     //发送请求给服务器并接收响应
-    public static String sendRequest(String req) {
+    public static String sendRequest(Request request) {
         try{
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
             PrintWriter pw = new PrintWriter(
                     new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
-            System.out.println(req);
-            pw.println(req);
+            Map<String, Object> reqStr = new HashMap<>();
+            reqStr.put("type", request.type);
+            reqStr.put("data", request.data);
+            System.out.println(JSON.toJSONString(reqStr));
+            pw.println(JSON.toJSONString(reqStr));
             return br.readLine();
         }catch (IOException e){
             e.printStackTrace();

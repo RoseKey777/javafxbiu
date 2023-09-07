@@ -2,6 +2,8 @@ package com.example.biubiu.controller;
 
 import com.example.biubiu.Director;
 import com.example.biubiu.HelloApplication;
+import com.example.biubiu.domain.Request;
+import com.example.biubiu.domain.User;
 import com.example.biubiu.util.DButil;
 import com.example.biubiu.util.SendMailUtil;
 import javafx.event.ActionEvent;
@@ -56,8 +58,10 @@ public class LoginController implements Initializable {
                 PreparedStatement pstmt;
                 ResultSet rs;
                 //System.out.println(HelloApplication.clientSocket.getPort());
-                System.out.println(HelloApplication.sendRequest(username));
-                System.out.println(HelloApplication.sendRequest("{\"data\":{\"username\": \"123\", \"password\": \"123\"},\"type\":\"signup\"}"));
+                //发送登录请求
+                Request request = new Request("login", new User(username, password));
+                System.out.println(HelloApplication.sendRequest(request));
+
                 try {
                     Connection connection = DButil.getconnection();
                     pstmt = connection.prepareStatement(sql);
