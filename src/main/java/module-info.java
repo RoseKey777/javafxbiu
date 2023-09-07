@@ -13,5 +13,6 @@ module com.example.biubiu {
     opens com.example.biubiu to javafx.fxml;
     exports com.example.biubiu;
     exports com.example.biubiu.controller;
+    exports com.example.biubiu.domain;
     opens com.example.biubiu.controller to javafx.fxml;
 }
