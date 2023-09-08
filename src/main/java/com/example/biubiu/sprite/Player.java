@@ -13,6 +13,8 @@ public class Player extends Role{
     private int count = 0;
     private int MOD = 7;
 
+    public double hp;
+
     private   int [][]block={
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
@@ -76,6 +78,7 @@ public class Player extends Role{
         super(x, y, 32, 32, dir, gameScene);
         this.weaponDir = weaponDir;
         speed = 2;
+        hp = 5;
         imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
         imageMap.put("weapon",new Image(Player.class.getResource("/com/example/biubiu/image/ak47.png").toExternalForm()));
     }
@@ -295,11 +298,19 @@ public class Player extends Role{
         if(y > Director.HEIGHT - height) y = Director.HEIGHT - height;
     }
 
+    public void paintHP(GraphicsContext graphicsContext){
+        for(int i = 1; i <= hp;++i){
+            Image image1 = new Image(Player.class.getResource("/com/example/biubiu/image/hp.png").toExternalForm());
+            graphicsContext.drawImage(image1,x-32 + 16 * (i-1),y-20,16,16);
+        }
+    }
+
     @Override
     public void paint(GraphicsContext graphicsContext) {
         image = imageMap.get("walk");
         weaponImage = imageMap.get("weapon");
         super.paint(graphicsContext);
+        paintHP(graphicsContext);
         graphicsContext.save();
         graphicsContext.translate(x+16,y+16);
         graphicsContext.rotate(Math.toDegrees(-weaponDir));

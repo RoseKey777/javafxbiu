@@ -101,7 +101,7 @@ public class EnemyBullet extends Role{
 
 //        graphicsContext.drawImage(image,x,y,width,height);
         if(!alive){
-            gameScene.bullets.remove(this);
+            gameScene.enemybullets.remove(this);
             return;
         }
 

@@ -84,14 +84,14 @@ public class GameScene {
 
         public void handleData(String data){
             String[] dataList = data.split("\\|");
-            System.out.println(data);
-            System.out.println(dataList[0]);
+//            System.out.println(data);
+//            System.out.println(dataList[0]);
             if("loc".equals(dataList[0])){  //位置信息数据包
                 enemy.x = Double.parseDouble(dataList[2]);
                 enemy.y = Double.parseDouble(dataList[3]);
                 enemy.weaponDir = Double.parseDouble(dataList[4]);
-                System.out.println(enemy.x);
-                System.out.println(enemy.y);
+//                System.out.println(enemy.x);
+//                System.out.println(enemy.y);
             }else if("atk".equals(dataList[0])){   //开枪数据包
                 double tmpx = Double.parseDouble(dataList[2]);
                 double tmpy = Double.parseDouble(dataList[3]);
@@ -115,11 +115,24 @@ public class GameScene {
         selfPlayer.paint(graphicsContext);
         enemy.paint(graphicsContext);
         for(Bullet bullet:bullets){
+            if(bullet.getContour().intersects(enemy.getContour())){
+//                System.out.println(bullet);
+                enemy.hp --;
+                bullet.alive = false;
+            }
             bullet.paint(graphicsContext);
         }
         for(EnemyBullet bullet:enemybullets){
-            bullet.paint(graphicsContext);
+            if(bullet.getContour().intersects(selfPlayer.getContour())){
+                System.out.println(bullet.x);
+                System.out.println(bullet.y);
+                System.out.println(bullet.alive);
+                selfPlayer.hp --;
+                bullet.alive = false;
+            }
+                bullet.paint(graphicsContext);
         }
+        System.out.println(enemybullets.size());
     }
 
     public void init(Stage stage){
