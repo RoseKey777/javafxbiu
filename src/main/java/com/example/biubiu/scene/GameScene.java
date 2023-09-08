@@ -154,7 +154,7 @@ public class GameScene {
                 selfPlayer.hp --;
                 bullet.alive = false;
             }
-                bullet.paint(graphicsContext);
+            bullet.paint(graphicsContext);
         }
     }
 
@@ -193,7 +193,7 @@ public class GameScene {
                 sendToAll(tmpString);
 //                send.sendData(tmpString);
                 String tmpString1 = "hp|"+ ips[0] +"|" + selfPlayer.hp;
-                sendToAll(tmpString);
+                sendToAll(tmpString1);
 //                send.sendData(tmpString);
                 paint();
             }
