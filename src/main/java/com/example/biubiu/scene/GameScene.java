@@ -1,5 +1,6 @@
 package com.example.biubiu.scene;
 
+import com.example.biubiu.Director;
 import com.example.biubiu.net.udp.TalkReceive;
 import com.example.biubiu.net.udp.TalkSend;
 import com.example.biubiu.sprite.*;
@@ -25,10 +26,14 @@ import java.util.Map;
 
 public class GameScene {
 
-    public String[] ips = new String[4];
-    public int numOfPlayer = 3;
+//    public String[] ips = new String[4];
+    public int numOfPlayer;
+
+    public int enemynum;
 
     private int [][]positionPlayer = {{32,32},{950,32},{32,950},{950,950}};
+
+    public String selfIP;//自己的IP
 
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
@@ -42,7 +47,7 @@ public class GameScene {
     private boolean running  = false;//为false则停止刷新，为true则启动刷新
 
     private Background background = new Background();
-    private Player selfPlayer = new Player(400,500,0, 0.0,this);
+    private Player selfPlayer;
 
 //    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
 
@@ -131,10 +136,20 @@ public class GameScene {
 
     private void paint(){
         background.paint(graphicsContext);
-        selfPlayer.paint(graphicsContext);
+
+        if(selfPlayer.alive && !selfPlayer.realDie){
+            selfPlayer.paint(graphicsContext);
+        }
+//        if(!selfPlayer.alive){
+//            selfPlayer
+//        }
+
+
         for(String key:enemys.keySet()){
             Enemy enemy = enemys.get(key);
-            enemy.paint(graphicsContext);
+            if(enemy.alive){
+                enemy.paint(graphicsContext);
+            }
         }
 
         for(Bullet bullet:bullets){
@@ -142,8 +157,21 @@ public class GameScene {
             for(String key:enemys.keySet()){
                 if(bullet.alive == false) break;
                 Enemy enemy = enemys.get(key);
+                if(enemy.alive == false){
+                    continue;
+                }
                 if(bullet.getContour().intersects(enemy.getContour())){
                     enemy.hp --;
+                    if(enemy.hp == 0){
+                        enemy.alive = false;
+                        enemynum --;
+                        if(enemynum == 0){
+                            Director.getInstance().gameOver(true);
+                        }
+                        if(enemynum == 1 && !selfPlayer.alive){
+                            Director.getInstance().gameOver(false);
+                        }
+                    }
                     bullet.alive = false;
                 }
             }
@@ -151,21 +179,42 @@ public class GameScene {
         }
         for(EnemyBullet bullet:enemybullets){
             if(bullet.getContour().intersects(selfPlayer.getContour())){
-                selfPlayer.hp --;
+                if(selfPlayer.alive == false){
+                    continue;
+                }
+                if(selfPlayer.hp>0) {
+                    selfPlayer.hp --;
+                }
+                if(selfPlayer.hp == 0){
+                    selfPlayer.alive = false;
+                }
+                if(enemynum == 1 && !selfPlayer.alive){
+                    Director.getInstance().gameOver(false);
+                }
+                if(selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
+                    selfPlayer.x += 5 * Math.cos(bullet.dir);
+                    selfPlayer.y -= 5 * Math.sin(bullet.dir);
+                }
                 bullet.alive = false;
             }
             bullet.paint(graphicsContext);
         }
     }
 
-    public void init(Stage stage){
-        for(int i = 1;i < numOfPlayer ;++i){
-            Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],0,0,this);
+    public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[]){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
+        numOfPlayer = total;
+        enemynum = numOfPlayer - 1;
+        for(int i = 0;i < numOfPlayer ;++i){
+            if(i == roomchair) continue;//roomchair这个位置的是selfplayer
+            Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
+            tmpenemy.alive = true;
             enemys.put(ips[i],tmpenemy);
             send[i - 1] = new TalkSend(6666 + i,ips[i],8888);
             new Thread(send[i - 1]).start();
         }
-
+        selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
+                0.0,this);
+        selfIP = ips[roomchair];
 //        new Thread(send).start();
         new Thread(receive).start();
         AnchorPane root = new AnchorPane(canvas);
@@ -178,9 +227,16 @@ public class GameScene {
         refresh.start();
     }
 
-    public void clear(Stage stage){
-        stage.getScene().removeEventHandler(KeyEvent.KEY_RELEASED,keyProcess);
+    public void clear(Stage stage) {
+        stage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, keyProcess);
+        stage.getScene().removeEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
+        stage.getScene().removeEventHandler(MouseEvent.MOUSE_CLICKED,mouseProcess);
+        stage.getScene().removeEventHandler(MouseEvent.MOUSE_MOVED,mouseProcess);
         refresh.stop();
+        selfPlayer = null;
+        bullets.clear();
+        enemybullets.clear();
+        enemys.clear();
     }
 
     private class Refresh extends AnimationTimer{
@@ -188,11 +244,11 @@ public class GameScene {
         @Override
         public void handle(long l) {//每一帧的刷新会调用paint
             if(running){
-                String tmpString = "loc|"+ ips[0]+ "|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
+                String tmpString = "loc|"+ selfIP+ "|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + selfPlayer.height + "|" + selfPlayer.width + "|" + selfPlayer.imageMap.get("weapon") + "|";
                 sendToAll(tmpString);
 //                send.sendData(tmpString);
-                String tmpString1 = "hp|"+ ips[0] +"|" + selfPlayer.hp;
+                String tmpString1 = "hp|"+ selfIP +"|" + selfPlayer.hp;
                 sendToAll(tmpString1);
 //                send.sendData(tmpString);
                 paint();
@@ -225,7 +281,7 @@ public class GameScene {
             selfPlayer.direct(sx,sy);
             if(mouseEvent.getEventType() == mouseEvent.MOUSE_CLICKED){
                 selfPlayer.clicked();
-                String tmpString = "atk|"+ ips[0] +"|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
+                String tmpString = "atk|"+ selfIP +"|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + "5" + "|";
                 sendToAll(tmpString);
             }

@@ -1,10 +1,15 @@
 package com.example.biubiu;
 
+import com.example.biubiu.domain.Request;
+import com.example.biubiu.domain.Room;
+import com.example.biubiu.net.tcp.UserClient;
 import com.example.biubiu.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Director {
 
@@ -15,6 +20,8 @@ public class Director {
     private Stage stage;
     private GameScene gameScene = new GameScene();
     private Gamehall gamehall = new Gamehall();
+
+    private WaitingRoom waitingRoom = new WaitingRoom();
 
     private Store store = new Store();
     private Director(){}
@@ -75,15 +82,28 @@ public class Director {
         Login.load(stage);
     }
 
-    public void gameOver(){
-
+    public void gameOver(boolean success){
+        gameScene.clear(stage);
+        GameOver.load(stage,success);
     }
 
-    public void gameStart(){
-        gameScene.ips[0] = "192.168.43.37";
-        gameScene.ips[1] = "192.168.43.168";
-        gameScene.ips[2] = "192.168.43.144";
-        gameScene.init(stage);
+    public void gameStart(Room room, int Roomchair){
+        int total = room.num;
+        ArrayList<UserClient> userClients = room.userClients;
+        int []ChaID = new int[4];
+        int []WeaID = new int[4];
+        String []ips = new String[4];
+
+        int tmp = 0;
+
+        for(UserClient userClient:userClients){
+            WeaID[tmp] = userClient.weapenid;
+            ChaID[tmp] = userClient.characterid;
+            ips[tmp] = userClient.ip;
+            tmp++;
+        }
+        // 房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
+        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips);
     }
 
     public void gamehallStart(){

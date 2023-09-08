@@ -7,15 +7,23 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
+import java.sql.Struct;
+
 public class Player extends Role{
 
+    public boolean realDie;
+
+    public String username;
     Image weaponImage;
     private int count = 0;
+
+    public int characterid = 0;
+
+    public int weaponid = 0;
+    private int countDie = 0;
     private int MOD = 7;
-
     public double hp;
-
-    private   int [][]block={
+    private int [][]block={
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 10, 10, 10, 10, 0, 0, 0, 10},
@@ -51,7 +59,6 @@ public class Player extends Role{
     };
 
     private static Image[] images = new Image[] {
-//            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()),
 
             new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
 
@@ -68,19 +75,58 @@ public class Player extends Role{
             new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
 
     };
+
+    private static Image[] dieImages = new Image[] {
+//            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die1.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die2.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die3.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die4.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die5.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die6.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die7.png").toExternalForm()),
+
+            new Image(Player.class.getResource("/com/example/biubiu/image/die8.png").toExternalForm()),
+
+    };
+
     public double weaponDir;//武器方向
 
     boolean keyup, keydown, keyleft, keyright;
 
     double sceneX,sceneY;
 
-    public Player(double x, double y, double dir, double weaponDir, GameScene gameScene) {
+    private String[] chaURL = {"/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
+            "/com/example/biubiu/image/moverole1-0.gif"};
+
+    private String[] weaURL = {"/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
+            "/com/example/biubiu/image/Kar98k.png"};
+
+    private double spd[] = {2, 4, 1.5};
+    private double hps[] = {10, 8, 14};
+    private double bulletspeed[] = {5,7,8};
+    public void dressup(int chaID,int weaID){
+        speed = spd[chaID];
+        hp = hps[chaID];
+        imageMap.put("walk",new Image(Player.class.getResource(chaURL[chaID]).toExternalForm()));
+        imageMap.put("weapon",new Image(Player.class.getResource(weaURL[weaID]).toExternalForm()));
+    }
+
+    public Player(double x, double y,int chaID,int weaID, double dir, double weaponDir, GameScene gameScene) {
         super(x, y, 32, 32, dir, gameScene);
         this.weaponDir = weaponDir;
-        speed = 2;
-        hp = 5;
-        imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
-        imageMap.put("weapon",new Image(Player.class.getResource("/com/example/biubiu/image/ak47.png").toExternalForm()));
+        characterid = chaID;
+        weaponid = weaID;
+
+        realDie = false;
+        dressup(chaID,weaID);
     }
 
     public void pressed(KeyCode keyCode){
@@ -102,11 +148,6 @@ public class Player extends Role{
     }
 
     private double calc(){
-//        System.out.println(x);
-//        System.out.println(sceneX);
-//        System.out.println(y);
-//        System.out.println(sceneY);
-//        System.out.println(Math.atan(Math.abs(sceneY - y)/Math.abs(sceneX - x)));
         double tmp = Math.atan((sceneY - y - 16)/(sceneX - x - 16));
         if(sceneX < x){
             return Math.PI - tmp;
@@ -177,6 +218,10 @@ public class Player extends Role{
     }
     public void wakeChange(){
         imageMap.put("walk",images[count]);//video 7 diffrent
+    }
+
+    public void dieChange(){
+        imageMap.put("walk",dieImages[countDie]);
     }
 
     public boolean illegal(double xx,double yy){
@@ -287,7 +332,14 @@ public class Player extends Role{
             }
         }else{
             count = 0;
-            imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
+            if(!alive && !realDie) {
+                dieChange();
+                countDie++;
+                if(countDie == 7) realDie = true;
+            }
+            if(alive) {
+                imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
+            }
         }
         if(dir != 0){
             weaponDir = dir;//todo: 目前是武器和人物一个方向，需要修改武器360度转向
@@ -311,14 +363,20 @@ public class Player extends Role{
         weaponImage = imageMap.get("weapon");
         super.paint(graphicsContext);
         paintHP(graphicsContext);
-        graphicsContext.save();
-        graphicsContext.translate(x+16,y+16);
-        graphicsContext.rotate(Math.toDegrees(-weaponDir));
-        graphicsContext.drawImage(weaponImage,-16,-16,32,32);
+        if(alive){
+            graphicsContext.save();
+            graphicsContext.translate(x+16,y+16);
+            graphicsContext.rotate(Math.toDegrees(-weaponDir));
+            graphicsContext.drawImage(weaponImage,-16,-16,32,32);
 //        graphicsContext.drawImage(image,-24,-12.5,width,height);
-        graphicsContext.restore();
+            graphicsContext.restore();
 //        graphicsContext.drawImage(weaponImage,x+5,y+5,32,32);
-        move();
+            move();
+        }
+    }
+    public void speedchange(double bx,double by,int weaponid){
+        Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,gameScene);
+        gameScene.bullets.add(bullet);
     }
 
     public void openFire(){
@@ -326,8 +384,7 @@ public class Player extends Role{
         double bx = x + width/2;
         double by = y + height/2;
         weaponDir = calc();
-        Bullet bullet = new Bullet(bx,by,48,25,weaponDir,gameScene);
-        gameScene.bullets.add(bullet);
+        speedchange(bx, by, weaponid);
     }
 
     @Override
@@ -336,6 +393,6 @@ public class Player extends Role{
     }
 
     public void clicked() {
-        openFire();
+        if(alive) openFire();
     }
 }

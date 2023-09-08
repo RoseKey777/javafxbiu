@@ -8,7 +8,7 @@ import java.util.Map;
 
 public abstract class Role extends Sprite{
     public boolean alive = true;
-    double dir;
+    public double dir;
     double speed;
     public Map<String, Image> imageMap  =new HashMap<>();
 

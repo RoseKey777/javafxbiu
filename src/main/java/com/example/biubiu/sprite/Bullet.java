@@ -6,9 +6,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Bullet extends Role{
-    public Bullet(double x, double y, double width, double height, double dir, GameScene gameScene) {
+    public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, GameScene gameScene) {
         super(x, y, width, height, dir, gameScene);
-        speed = 5;
+        speed = weaponspeed;
         image = new Image(Bullet.class.getResource("/com/example/biubiu/image/missile.png").toExternalForm());
     }
 

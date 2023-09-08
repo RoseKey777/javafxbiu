@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GamehallController implements Initializable {
+    @FXML
+    private Button joinBtn;
 
     @FXML
     private Label waitMsg;
@@ -91,7 +93,7 @@ public class GamehallController implements Initializable {
     }
 
     @FXML
-    public void returnClicked(){
+    public void returnClicked(MouseEvent event){
         Director.getInstance().toIndex();
     }
 
@@ -107,7 +109,6 @@ public class GamehallController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         labelList.add(label1);
         labelList.add(label2);
         labelList.add(label3);
