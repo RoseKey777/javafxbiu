@@ -1,6 +1,7 @@
 package com.example.biubiu.net.tcp;
 
 import com.alibaba.fastjson.JSON;
+import com.example.biubiu.domain.Room;
 import com.example.biubiu.domain.User;
 
 import java.io.*;
@@ -29,11 +30,17 @@ public class TCPServer extends JFrame{
     //客户端列表
     Map<String, UserClient> userClients = new HashMap<>();
 
+    //房间列表
+    Room[] rooms = new Room[8];
+
     // 存放客户端之间私聊的信息
     private Map<String,PrintWriter> storeInfo;
 
     public TCPServer() {
-        super("聊天程序服务器端");
+        super("服务器端");
+        for(int i = 0; i < 8; i++){
+            rooms[i] = new Room();
+        }
         Container c=getContentPane();
         c.add(new JScrollPane(m_display),BorderLayout.CENTER);
         try {
@@ -201,6 +208,14 @@ public class TCPServer extends JFrame{
                         Map<String, Object> req = new HashMap<>();
                         req.put("username", userClient.user.getUsername());
                         requestHandler.getuserinfo(req);
+                    }
+                    //获取房间人数
+                    else if("getRoomNum".equals(type)){
+                        String res = "";
+                        for(int i = 0; i < 8; i++){
+                            res += rooms[i].num;
+                        }
+                        pw.println(res);
                     }
 
 //                    // 检验是否为私聊（格式：@昵称：内容）

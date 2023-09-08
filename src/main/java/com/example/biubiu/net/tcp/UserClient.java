@@ -7,6 +7,11 @@ public class UserClient {
     public String ip;
     //public int port;
 
+    public UserClient(){
+        user = null;
+        ip = null;
+    }
+
     public UserClient(User user, String ip) {
         this.user = user;
         this.ip = ip;
