@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="476.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.GamehallControl">
+<AnchorPane prefHeight="476.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.GamehallController">
    <children>
       <GridPane alignment="CENTER" layoutX="77.0" layoutY="63.0" prefHeight="251.0" prefWidth="478.0">
         <columnConstraints>
@@ -20,17 +21,62 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="label1" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间1" />
-            <Label fx:id="label2" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间2" GridPane.columnIndex="1" />
-            <Label fx:id="label3" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间3" GridPane.columnIndex="2" />
-            <Label fx:id="label4" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间4" GridPane.columnIndex="3" />
-            <Label fx:id="label5" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间5" GridPane.rowIndex="1" />
-            <Label fx:id="label6" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间6" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="label7" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间7" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="label8" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间8" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="label1" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间1" />
+                  <Label fx:id="number1" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <Label fx:id="label2" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间2" />
+                  <Label fx:id="number2" alignment="CENTER" prefHeight="20.0" prefWidth="125.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+               <children>
+                  <Label fx:id="label3" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间3" />
+                  <Label fx:id="number3" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+               <children>
+                  <Label fx:id="label4" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间4" />
+                  <Label fx:id="number4" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="label5" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间5" />
+                  <Label fx:id="number5" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="label6" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间6" />
+                  <Label fx:id="number6" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="label7" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间7" />
+                  <Label fx:id="number7" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="label8" alignment="CENTER" prefHeight="155.0" prefWidth="192.0" text="房间8" />
+                  <Label fx:id="number8" alignment="CENTER" prefHeight="43.0" prefWidth="120.0" text="0/4" />
+               </children>
+            </VBox>
          </children>
       </GridPane>
       <Button fx:id="joinBtn" layoutX="165.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#joinRoomClicked" prefHeight="30.0" prefWidth="127.0" text="加入房间" />
       <Button fx:id="returnBtn" layoutX="340.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#returnClicked" prefHeight="30.0" prefWidth="127.0" text="返回" />
+      <Label fx:id="waitMsg" alignment="CENTER" layoutX="215.0" layoutY="25.0" prefHeight="47.0" prefWidth="202.0" text="等待加入...">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
