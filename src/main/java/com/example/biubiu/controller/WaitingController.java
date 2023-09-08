@@ -61,6 +61,8 @@ WaitingController implements Initializable {
 
     @FXML
     private void exit(){
+        Request request = new Request("leaveRoom", null);
+        HelloApplication.sendRequest(request);
         Director.getInstance().gamehallStart();
     }
 
@@ -76,12 +78,12 @@ WaitingController implements Initializable {
     }
 
     private void refreshRoom(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("roomid", room.id);
-        Request request = new Request("refreshRoom", map);
-
-        String str = HelloApplication.sendRequest(request);
-        room = toRoom(str);
+        ArrayList<UserClient> userClients = room.userClients;
+        int size = userClients.size();
+        for(int i = 0; i < size; i++){
+            String username = userClients.get(i).user.getUsername();
+            nameList.get(i).setText(username);
+        }
     }
 
     private Room toRoom(String str){
@@ -150,6 +152,11 @@ WaitingController implements Initializable {
         String str = HelloApplication.sendRequest(request);
         room.id = Integer.parseInt(str);
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("roomid", room.id);
+        Request request1 = new Request("refreshRoom", map);
+        String str1 = HelloApplication.sendRequest(request1);
+        room = toRoom(str1);
         refreshRoom();
 
         try {
@@ -190,7 +197,7 @@ WaitingController implements Initializable {
                         }
                         else
                             room = toRoom(msgString);
-
+                            refreshRoom();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
