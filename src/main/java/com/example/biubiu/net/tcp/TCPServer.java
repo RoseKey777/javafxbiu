@@ -40,6 +40,7 @@ public class TCPServer extends JFrame{
         super("服务器端");
         for(int i = 0; i < 8; i++){
             rooms[i] = new Room();
+            rooms[i].id = i + 1;
         }
         Container c=getContentPane();
         c.add(new JScrollPane(m_display),BorderLayout.CENTER);
@@ -76,10 +77,10 @@ public class TCPServer extends JFrame{
         }
     }
 
-    // 将给定的消息转发给私聊的客户端
-    private synchronized void sendToSomeone(String name,String message) {
-        PrintWriter pw = storeInfo.get(name); //将对应客户端的聊天信息取出作为私聊内容发送出去
-        if(pw != null) pw.println("私聊:     "+message);
+    // 将给定的消息转发给指定客户端
+    private synchronized void sendToSomeone(String ip,String message) {
+        PrintWriter pw = storeInfo.get(ip); //获取对应输出流
+        if(pw != null) pw.println(message);
     }
 
     public void start() {
@@ -116,6 +117,8 @@ public class TCPServer extends JFrame{
         private String name;
         private UserClient userClient;
         private RequestHandler requestHandler = new RequestHandler();//请求处理器
+        private int currentRoom;    //当前房间号
+        private int inRoomNum;  //当前玩家在房间中的序号
 
         public ListenrClient(Socket socket) {
             this.socket = socket;
@@ -182,10 +185,11 @@ public class TCPServer extends JFrame{
                 //根据用户的请求进行分类处理
                 while((msgString = bReader.readLine()) != null) {
                     Map<String, Object> request = JSON.parseObject(msgString);//转成json对象
+                    System.out.println(request);
                     String type = (String)(request.get("type"));
                     Object dataObj = request.get("data");
                     Map<String, Object> data = JSON.parseObject(dataObj.toString());
-                    System.out.println(request);
+
                     m_display.append(name + ": \n");
                     m_display.append("    请求类型: " + type + "\n");
                     m_display.append("    请求数据: " + data + "\n");
@@ -209,7 +213,7 @@ public class TCPServer extends JFrame{
                         req.put("username", userClient.user.getUsername());
                         requestHandler.getuserinfo(req);
                     }
-                    //获取房间人数
+                    //获取所有房间人数
                     else if("getRoomNum".equals(type)){
                         String res = "";
                         for(int i = 0; i < 8; i++){
@@ -217,7 +221,45 @@ public class TCPServer extends JFrame{
                         }
                         pw.println(res);
                     }
-
+                    //加入房间
+                    else if("joinRoom".equals(type)){
+                        int roomid = ((int)(data.get("roomid"))) - 1;
+                        if(rooms[roomid].num <= 3){
+                            rooms[roomid].userClients.add(userClient);
+                            inRoomNum = rooms[roomid].num;
+                            rooms[roomid].num++;
+                            currentRoom = roomid;
+                            pw.println("加入成功");
+                            //向房间中的其他人发送信息
+                            for (int i = 0; i < rooms[currentRoom].num; i++) {
+                                if(i != inRoomNum)
+                                    sendToSomeone(rooms[currentRoom].userClients.get(i).ip, "游戏开始");
+                            }
+                        }
+                        else
+                            pw.println("人数已满");
+                    }
+                    //刷新房间
+                    else if("refreshRoom".equals(type)){
+                        int roomid = ((int)(data.get("roomid"))) - 1;
+                        System.out.println(JSON.toJSONString(rooms[roomid]));
+                        pw.println(JSON.toJSONString(rooms[roomid]));
+                    }
+                    //获取玩家所在房间号
+                    else if("getCurrentRoom".equals(type)){
+                        pw.println(currentRoom + 1);
+                    }
+                    //获取玩家在房间中的序号
+                    else if("getPlayerNum".equals(type)){
+                        pw.println(inRoomNum);
+                    }
+                    //开始游戏
+                    else if("gameStart".equals(type)){
+                        for (int i = 0; i < rooms[currentRoom].num - 1; i++) {
+                            if(i != inRoomNum)
+                                sendToSomeone(rooms[currentRoom].userClients.get(i).ip, "游戏开始");
+                        }
+                    }
 //                    // 检验是否为私聊（格式：@昵称：内容）
 //                    if(msgString.startsWith("@")) {
 //                        int index = msgString.indexOf("：");
