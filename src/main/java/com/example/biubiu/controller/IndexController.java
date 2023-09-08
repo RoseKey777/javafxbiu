@@ -46,7 +46,7 @@ public class IndexController implements Initializable {
 
     @FXML
     void mouseClikedStore(MouseEvent event) {
-
+        Director.getInstance().storeStart();
     }
 
     @FXML

@@ -1,9 +1,6 @@
 package com.example.biubiu;
 
-import com.example.biubiu.scene.GameScene;
-import com.example.biubiu.scene.Gamehall;
-import com.example.biubiu.scene.Index;
-import com.example.biubiu.scene.Login;
+import com.example.biubiu.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +15,8 @@ public class Director {
     private Stage stage;
     private GameScene gameScene = new GameScene();
     private Gamehall gamehall = new Gamehall();
+
+    private Store store = new Store();
     private Director(){}
 
     public static Director getInstance(){
@@ -75,4 +74,7 @@ public class Director {
         gamehall.load(stage);
     }
 
+    public void storeStart(){
+        store.load(stage);
+    }
 }

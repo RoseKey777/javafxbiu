@@ -42,6 +42,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("index.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 ////        Image backgroundImage = new Image(getClass().getResource("background.png").toExternalForm(),600,400,false,true);
