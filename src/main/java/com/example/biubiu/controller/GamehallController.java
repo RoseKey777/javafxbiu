@@ -1,6 +1,11 @@
 package com.example.biubiu.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.biubiu.Director;
+import com.example.biubiu.HelloApplication;
+import com.example.biubiu.domain.Request;
+import com.example.biubiu.domain.User;
+import com.example.biubiu.net.tcp.RequestHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,11 +15,11 @@ import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GamehallController implements Initializable {
-    @FXML
-    private Button joinBtn;
 
     @FXML
     private Label waitMsg;
@@ -57,38 +62,52 @@ public class GamehallController implements Initializable {
     private ArrayList<Label> numberList = new ArrayList<>();
 
     @FXML
-    public void joinRoomClicked(MouseEvent event){
+    public void joinRoomClicked(){
         if(selectedLabel != null){
-            Label numberLabel = numberList.get(findLabelIndex(selectedLabel));
-            int number = numberLabel.getText().charAt(0) - 48;
-            if(number < 4){
-                number++;
-                String roonName = selectedLabel.getText();
+            int roomid = selectedLabel.getText().charAt(2) - 48;
+            Map<String, Object> map = new HashMap<>();
+            map.put("roomid", roomid);
+            Request request = new Request("joinRoom", map);
+            String result = HelloApplication.sendRequest(request);
 
-
-
-                numberLabel.setText(number + "/4");
-                if(number != 4){
-                    waitMsg.setText("等待其他玩家加入...");
-                }else{
-                    Director.getInstance().gameStart();
-                }
-                Director.getInstance().gameStart();
+            if(result.equals("加入成功")){
+                Director.getInstance().waitingRoomStart();
             }else{
-                waitMsg.setText("房间人数已满");
+                waitMsg.setText(result);
             }
+//            Label numberLabel = numberList.get(findLabelIndex(selectedLabel));
+//            int number = numberLabel.getText().charAt(0) - 48;
+//            if(number < 4){
+//                number++;
+//                String roonName = selectedLabel.getText();
+//                numberLabel.setText(number + "/4");
+//                Director.getInstance().waitingRoomStart();
+//            }else{
+//                waitMsg.setText("房间人数已满");
+//            }
         }else{
             waitMsg.setText("请先选择房间");
         }
     }
 
     @FXML
-    public void returnClicked(MouseEvent event){
+    public void returnClicked(){
         Director.getInstance().toIndex();
+    }
+
+    @FXML
+    private void refresh(){
+        Request request = new Request("getRoomNum", null);
+        String roomNum = HelloApplication.sendRequest(request);
+
+        for(int i = 0; i < 8; i++){
+            numberList.get(i).setText(roomNum.charAt(i) - 48 + "/4");
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         labelList.add(label1);
         labelList.add(label2);
         labelList.add(label3);
@@ -107,12 +126,15 @@ public class GamehallController implements Initializable {
         numberList.add(number7);
         numberList.add(number8);
 
+        //为标签绑定点击函数
         for(int i = 0; i < 8; i++){
             int finalI = i;
             labelList.get(i).setOnMouseClicked(event -> {
                 handleCellClick(labelList.get(finalI));
             });
         }
+
+        refresh();
     }
 
     private void handleCellClick(Label clickedLabel) {
@@ -128,6 +150,7 @@ public class GamehallController implements Initializable {
         selectedLabel.setTextFill(Color.RED);
     }
 
+    //寻找第几个标签
     private int findLabelIndex(Label selectedLabel){
         for(int i = 0; i < 8; i++){
             if(selectedLabel == labelList.get(i)){

@@ -93,4 +93,8 @@ public class Director {
     public void storeStart(){
         store.load(stage);
     }
+
+    public void waitingRoomStart(){
+        waitingRoom.load(stage);
+    }
 }
