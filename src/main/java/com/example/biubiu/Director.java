@@ -67,6 +67,9 @@ public class Director {
     }
 
     public void gameStart(){
+        gameScene.ips[0] = "192.168.43.37";
+        gameScene.ips[1] = "192.168.43.168";
+        gameScene.ips[2] = "192.168.43.144";
         gameScene.init(stage);
     }
 

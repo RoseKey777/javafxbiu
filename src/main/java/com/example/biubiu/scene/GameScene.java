@@ -80,7 +80,6 @@ public class GameScene {
                     datagramSocket.receive(datagramPacket);
                     byte[] data = datagramPacket.getData();
                     String s = new String(data, 0, datagramPacket.getLength());
-//                    System.out.println(this.user+":"+s.trim());
                     handleData(s.trim());
                     if (s.contains("bye")){
                         break;
@@ -94,7 +93,7 @@ public class GameScene {
 
         public void handleData(String data){
             String[] dataList = data.split("\\|");
-
+//            System.out.println(data);
             if("loc".equals(dataList[0])){  //位置信息数据包
                 String tmpip = dataList[1];
                 enemys.get(tmpip).x = Double.parseDouble(dataList[2]);
@@ -119,9 +118,16 @@ public class GameScene {
     }
 
     //网络类
-    TalkSend send = new TalkSend(6666,"192.168.43.168",8888);
+    TalkSend[] send = new TalkSend[4];
     TalkReceive receive = new TalkReceive(8888,"老师",this);
 
+    private void sendToAll(String data){
+        for(int i = 0;i < numOfPlayer - 1;++i){
+            if(send[i] != null){
+                send[i].sendData(data);
+            }
+        }
+    }
 
     private void paint(){
         background.paint(graphicsContext);
@@ -146,23 +152,21 @@ public class GameScene {
         for(EnemyBullet bullet:enemybullets){
             if(bullet.getContour().intersects(selfPlayer.getContour())){
                 selfPlayer.hp --;
-                String tmpString = "hp|"+ ips[0] +"|" + selfPlayer.hp;
-                send.sendData(tmpString);
                 bullet.alive = false;
             }
                 bullet.paint(graphicsContext);
         }
-        System.out.println(enemybullets.size());
     }
 
     public void init(Stage stage){
         for(int i = 1;i < numOfPlayer ;++i){
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],0,0,this);
             enemys.put(ips[i],tmpenemy);
+            send[i - 1] = new TalkSend(6666 + i,ips[i],8888);
+            new Thread(send[i - 1]).start();
         }
 
-
-        new Thread(send).start();
+//        new Thread(send).start();
         new Thread(receive).start();
         AnchorPane root = new AnchorPane(canvas);
         stage.getScene().setRoot(root);
@@ -186,7 +190,11 @@ public class GameScene {
             if(running){
                 String tmpString = "loc|"+ ips[0]+ "|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + selfPlayer.height + "|" + selfPlayer.width + "|" + selfPlayer.imageMap.get("weapon") + "|";
-                send.sendData(tmpString);
+                sendToAll(tmpString);
+//                send.sendData(tmpString);
+                String tmpString1 = "hp|"+ ips[0] +"|" + selfPlayer.hp;
+                sendToAll(tmpString);
+//                send.sendData(tmpString);
                 paint();
             }
         }
@@ -219,7 +227,7 @@ public class GameScene {
                 selfPlayer.clicked();
                 String tmpString = "atk|"+ ips[0] +"|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + "5" + "|";
-                send.sendData(tmpString);
+                sendToAll(tmpString);
             }
         }
     }
