@@ -101,6 +101,9 @@ public class GameScene {
                 double by = tmpy + 24;
                 EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
                 enemybullets.add(bullet);
+            }else if("hp".equals(dataList[0])){
+                double tmpx = Double.parseDouble(dataList[2]);
+                enemy.hp = tmpx;
             }
         }
     }
@@ -116,7 +119,6 @@ public class GameScene {
         enemy.paint(graphicsContext);
         for(Bullet bullet:bullets){
             if(bullet.getContour().intersects(enemy.getContour())){
-//                System.out.println(bullet);
                 enemy.hp --;
                 bullet.alive = false;
             }
@@ -124,10 +126,9 @@ public class GameScene {
         }
         for(EnemyBullet bullet:enemybullets){
             if(bullet.getContour().intersects(selfPlayer.getContour())){
-                System.out.println(bullet.x);
-                System.out.println(bullet.y);
-                System.out.println(bullet.alive);
                 selfPlayer.hp --;
+                String tmpString = "hp|0|" + selfPlayer.hp;
+                send.sendData(tmpString);
                 bullet.alive = false;
             }
                 bullet.paint(graphicsContext);

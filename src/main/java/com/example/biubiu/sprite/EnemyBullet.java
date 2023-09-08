@@ -100,10 +100,10 @@ public class EnemyBullet extends Role{
     public void paint(GraphicsContext graphicsContext) {
 
 //        graphicsContext.drawImage(image,x,y,width,height);
-        if(!alive){
-            gameScene.enemybullets.remove(this);
-            return;
-        }
+//        if(!alive){
+//            gameScene.enemybullets.remove(this);
+//            return;
+//        }
 
         graphicsContext.save();
         graphicsContext.translate(x,y);
@@ -111,6 +111,10 @@ public class EnemyBullet extends Role{
         graphicsContext.drawImage(image,-24,-12.5,width,height);
         graphicsContext.restore();
         move();
+        if(!alive){
+            gameScene.enemybullets.remove(this);
+            return;
+        }
     }
 
     @Override
