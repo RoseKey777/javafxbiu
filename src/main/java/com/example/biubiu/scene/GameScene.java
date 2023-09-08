@@ -35,6 +35,8 @@ public class GameScene {
 
     public String selfIP;//自己的IP
 
+    public int selfNum;//自己的位置
+
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -127,7 +129,8 @@ public class GameScene {
     TalkReceive receive = new TalkReceive(8888,"老师",this);
 
     private void sendToAll(String data){
-        for(int i = 0;i < numOfPlayer - 1;++i){
+        for(int i = 0;i < numOfPlayer;++i){
+            if(i == selfNum) continue;
             if(send[i] != null){
                 send[i].sendData(data);
             }
@@ -204,13 +207,14 @@ public class GameScene {
     public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[]){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
         numOfPlayer = total;
         enemynum = numOfPlayer - 1;
+        selfNum = roomchair;
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
             tmpenemy.alive = true;
             enemys.put(ips[i],tmpenemy);
-            send[i - 1] = new TalkSend(6666 + i,ips[i],8888);
-            new Thread(send[i - 1]).start();
+            send[i] = new TalkSend(6666 + i,ips[i],8888);
+            new Thread(send[i]).start();
         }
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
                 0.0,this);
