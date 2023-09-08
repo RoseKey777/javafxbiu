@@ -21,7 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class WaitingController implements Initializable {
+public class
+WaitingController implements Initializable {
 
     private Room room = new Room();
 
@@ -69,6 +70,8 @@ public class WaitingController implements Initializable {
         Request request = new Request("getPlayerNum", null);
         String str = HelloApplication.sendRequest(request);
         int number = Integer.parseInt(str);
+        Request request1 = new Request("gameStart", null);
+        HelloApplication.sendRequest(request1);
         Director.getInstance().gameStart(room,number);
     }
 
@@ -179,8 +182,12 @@ public class WaitingController implements Initializable {
                 try {
                     if ((msgString = reader.readLine())!= null) {   //接收到数据后进行的操作
                         System.out.println("收到服务器的消息：" + msgString);
-                        if(msgString == "游戏开始")
-                            startClick();
+                        if(msgString.equals("游戏开始")){
+                            Request request = new Request("getPlayerNum", null);
+                            String str = HelloApplication.sendRequest(request);
+                            int number = Integer.parseInt(str);
+                            Director.getInstance().gameStart(room,number);
+                        }
                         else
                             room = toRoom(msgString);
 
