@@ -3,7 +3,7 @@ package com.example.biubiu;
 import com.example.biubiu.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Director {
@@ -38,7 +38,7 @@ public class Director {
     }
 
     public void Toindex(Stage stage){
-        AnchorPane root = new AnchorPane();
+        Pane root = new Pane();
         Scene scene = new Scene(root, WIDTH,HEIGHT);
         stage.setTitle("biubiu");
         stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
@@ -48,6 +48,19 @@ public class Director {
         stage.setHeight(HEIGHT);
         this.stage = stage;
         toIndex();
+        stage.show();
+    }
+    public void Tostore(Stage stage){
+        Pane root = new Pane();
+        Scene scene = new Scene(root, WIDTH,HEIGHT);
+        stage.setTitle("biubiu");
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
+        this.stage = stage;
+        storeStart();
         stage.show();
     }
 

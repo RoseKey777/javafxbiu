@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.StoreController">
    <children>
-      <Label alignment="CENTER" disable="true" layoutX="288.0" layoutY="18.0" prefHeight="34.0" prefWidth="183.0" style="-fx-background-image:url('../image/store/title.png');" text="游戏商店">
+      <Label alignment="CENTER" disable="true" layoutX="338.0" layoutY="18.0" prefHeight="34.0" prefWidth="183.0" style="-fx-background-image:url('../image/store/title.png');" text="游戏商店">
          <font>
             <Font name="Calibri" size="20.0" />
          </font>
@@ -33,8 +33,8 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="商品1" />
-                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Label fx:id="cargo1" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="70.0" prefWidth="139.0" text="商品1" />
+                                    <Button fx:id="cargoButton1" mnemonicParsing="false" onMouseClicked="#cargoShopping" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
@@ -99,13 +99,13 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="商品1" />
+                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="小堆金币" />
                                     <Button mnemonicParsing="false" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="商品1" />
+                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="大堆金币" />
                                     <Button mnemonicParsing="false" text="Button" />
                                  </children>
                               </VBox>
@@ -175,19 +175,19 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="商品1" />
-                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Label id="cargo1" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="70.0" prefWidth="139.0" text="中分头" />
+                                    <Button id="cargoButton1" mnemonicParsing="false" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="商品1" />
+                                    <Label alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="70.0" prefWidth="139.0" text="背带裤" />
                                     <Button mnemonicParsing="false" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="70.0" prefWidth="139.0" text="商品1" />
+                                    <Label alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="70.0" prefWidth="139.0" text="商品1" />
                                     <Button mnemonicParsing="false" text="Button" />
                                  </children>
                               </VBox>
@@ -245,7 +245,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="49.0" text="Esc" />
-      <TextArea layoutX="509.0" layoutY="392.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button id="exitMenu" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="41.0" prefWidth="49.0" text="Esc" />
+      <TextArea fx:id="allOfMsg" layoutX="509.0" layoutY="392.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

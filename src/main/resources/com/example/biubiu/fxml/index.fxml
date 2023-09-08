@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.IndexController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.IndexController">
    <children>
-      <Button fx:id="gamehall" layoutX="435.0" layoutY="197.0" mnemonicParsing="false" onMouseClicked="#mouseClikedGameHall" onMouseEntered="#mouseEnteredGameHall" onMouseExited="#mouseExitedGameHall" text="游戏大厅" />
-      <Button fx:id="store" layoutX="435.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#mouseClikedStore" onMouseEntered="#mouseEnteredStore" onMouseExited="#mouseExitedStore" text="商店  " />
-      <Button fx:id="setting" layoutX="25.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#mouseClikedSetting" onMouseEntered="#mouseEnteredSetting" onMouseExited="#mouseExitedSetting" text="设置" />
-      <Button fx:id="playchoose" layoutX="429.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#mouseClikedPlayChoose" onMouseEntered="#mouseEnteredPlayChoose" onMouseExited="#mouseExitedPlayChoose" text="角色选择" textFill="#38453a" />
+      <Button fx:id="gamehall" layoutX="350.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#mouseClikedGameHall" onMouseEntered="#mouseEnteredGameHall" onMouseExited="#mouseExitedGameHall" prefHeight="75.0" prefWidth="400.0" text="加入房间" />
+      <Button fx:id="playchoose" layoutX="350.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#mouseClikedPlayChoose" onMouseEntered="#mouseEnteredPlayChoose" onMouseExited="#mouseExitedPlayChoose" prefHeight="75.0" prefWidth="400.0" text="角色选择" textFill="#38453a" />
+      <Label fx:id="username" layoutX="95.0" layoutY="13.0" onMouseClicked="#mouseClikedusername" prefHeight="40.0" prefWidth="80.0" text="label" />
+      <Label fx:id="dengji" layoutX="95.0" layoutY="53.0" prefHeight="40.0" prefWidth="80.0" text="LV.8" />
+      <Label fx:id="scores" layoutX="270.0" layoutY="29.0" prefHeight="48.0" prefWidth="114.0">
+         <font>
+            <Font size="32.0" />
+         </font></Label>
+      <Label fx:id="coins" layoutX="465.0" layoutY="29.0" prefHeight="48.0" prefWidth="115.0">
+         <font>
+            <Font size="32.0" />
+         </font></Label>
+      <Button fx:id="help" layoutX="350.0" layoutY="750.0" mnemonicParsing="false" onMouseClicked="#helpMouseClicked" prefHeight="75.0" prefWidth="400.0" text="帮助" />
+      <Label fx:id="scores_icon" layoutX="225.0" layoutY="29.0" prefHeight="40.0" prefWidth="40.0" />
+      <Label fx:id="coin_icon" layoutX="420.0" layoutY="29.0" prefHeight="40.0" prefWidth="40.0" />
+      <Label fx:id="add_coin" layoutX="575.0" layoutY="29.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
+      <Label fx:id="setting" layoutX="850.0" layoutY="29.0" onMouseClicked="#settingMouseClicked" onMouseEntered="#settingMouseEntered" prefHeight="48.0" prefWidth="48.0" />
+      <Label fx:id="store" layoutX="930.0" layoutY="29.0" onMouseClicked="#storeMouseClicked" onMouseEntered="#storeMouseEntered" prefHeight="48.0" prefWidth="48.0" />
+      <Label fx:id="avatar" layoutX="24.0" layoutY="20.0" onMouseClicked="#mouseClikedAvatar" onMouseEntered="#mouseEnteredAvatar" prefHeight="60.0" prefWidth="60.0" />
    </children>
 </Pane>

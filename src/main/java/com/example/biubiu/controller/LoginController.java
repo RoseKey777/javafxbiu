@@ -1,5 +1,6 @@
 package com.example.biubiu.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.biubiu.Director;
 import com.example.biubiu.HelloApplication;
 import com.example.biubiu.domain.Request;
@@ -61,8 +62,8 @@ public class LoginController implements Initializable {
                 //发送登录请求
                 Request request = new Request("login", new User(username, password));
                 System.out.println(HelloApplication.sendRequest(request));
-                Request request1 = new Request("getuserinfo", null);
-                System.out.println(HelloApplication.sendRequest(request1));
+
+
                 try {
                     Connection connection = DButil.getconnection();
                     pstmt = connection.prepareStatement(sql);
