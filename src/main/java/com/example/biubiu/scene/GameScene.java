@@ -19,9 +19,17 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameScene {
+
+    public String[] ips = new String[4];
+    public int numOfPlayer = 3;
+
+    private int [][]positionPlayer = {{32,32},{950,32},{32,950},{950,950}};
+
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -36,9 +44,11 @@ public class GameScene {
     private Background background = new Background();
     private Player selfPlayer = new Player(400,500,0, 0.0,this);
 
-    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
+//    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
 
     public List<Bullet> bullets = new ArrayList<>();
+
+    public Map<String,Enemy> enemys = new HashMap<>();
 
     public List<EnemyBullet> enemybullets = new ArrayList<>();
 
@@ -84,14 +94,13 @@ public class GameScene {
 
         public void handleData(String data){
             String[] dataList = data.split("\\|");
-//            System.out.println(data);
-//            System.out.println(dataList[0]);
+
             if("loc".equals(dataList[0])){  //位置信息数据包
-                enemy.x = Double.parseDouble(dataList[2]);
-                enemy.y = Double.parseDouble(dataList[3]);
-                enemy.weaponDir = Double.parseDouble(dataList[4]);
-//                System.out.println(enemy.x);
-//                System.out.println(enemy.y);
+                String tmpip = dataList[1];
+                enemys.get(tmpip).x = Double.parseDouble(dataList[2]);
+                enemys.get(tmpip).y = Double.parseDouble(dataList[3]);
+                enemys.get(tmpip).weaponDir = Double.parseDouble(dataList[4]);
+
             }else if("atk".equals(dataList[0])){   //开枪数据包
                 double tmpx = Double.parseDouble(dataList[2]);
                 double tmpy = Double.parseDouble(dataList[3]);
@@ -103,7 +112,8 @@ public class GameScene {
                 enemybullets.add(bullet);
             }else if("hp".equals(dataList[0])){
                 double tmpx = Double.parseDouble(dataList[2]);
-                enemy.hp = tmpx;
+                String tmpip = dataList[1];
+                enemys.get(tmpip).hp = tmpx;
             }
         }
     }
@@ -116,18 +126,27 @@ public class GameScene {
     private void paint(){
         background.paint(graphicsContext);
         selfPlayer.paint(graphicsContext);
-        enemy.paint(graphicsContext);
+        for(String key:enemys.keySet()){
+            Enemy enemy = enemys.get(key);
+            enemy.paint(graphicsContext);
+        }
+
         for(Bullet bullet:bullets){
-            if(bullet.getContour().intersects(enemy.getContour())){
-                enemy.hp --;
-                bullet.alive = false;
+
+            for(String key:enemys.keySet()){
+                if(bullet.alive == false) break;
+                Enemy enemy = enemys.get(key);
+                if(bullet.getContour().intersects(enemy.getContour())){
+                    enemy.hp --;
+                    bullet.alive = false;
+                }
             }
             bullet.paint(graphicsContext);
         }
         for(EnemyBullet bullet:enemybullets){
             if(bullet.getContour().intersects(selfPlayer.getContour())){
                 selfPlayer.hp --;
-                String tmpString = "hp|0|" + selfPlayer.hp;
+                String tmpString = "hp|"+ ips[0] +"|" + selfPlayer.hp;
                 send.sendData(tmpString);
                 bullet.alive = false;
             }
@@ -137,6 +156,12 @@ public class GameScene {
     }
 
     public void init(Stage stage){
+        for(int i = 1;i < numOfPlayer ;++i){
+            Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],0,0,this);
+            enemys.put(ips[i],tmpenemy);
+        }
+
+
         new Thread(send).start();
         new Thread(receive).start();
         AnchorPane root = new AnchorPane(canvas);
@@ -159,7 +184,7 @@ public class GameScene {
         @Override
         public void handle(long l) {//每一帧的刷新会调用paint
             if(running){
-                String tmpString = "loc|0|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
+                String tmpString = "loc|"+ ips[0]+ "|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + selfPlayer.height + "|" + selfPlayer.width + "|" + selfPlayer.imageMap.get("weapon") + "|";
                 send.sendData(tmpString);
                 paint();
@@ -192,7 +217,7 @@ public class GameScene {
             selfPlayer.direct(sx,sy);
             if(mouseEvent.getEventType() == mouseEvent.MOUSE_CLICKED){
                 selfPlayer.clicked();
-                String tmpString = "atk|0|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
+                String tmpString = "atk|"+ ips[0] +"|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + "5" + "|";
                 send.sendData(tmpString);
             }
