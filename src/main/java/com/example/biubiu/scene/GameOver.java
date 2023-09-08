@@ -13,7 +13,7 @@ public class GameOver {
             FXMLLoader fxmlLoader = new FXMLLoader(Index.class.getResource("/com/example/biubiu/fxml/gameover-view.fxml"));
             Parent root = fxmlLoader.load();
             GameOverController overController = fxmlLoader.getController();
-//            if(success) overController.flagSuccess();
+            if(success) overController.flagSuccess();
             stage.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

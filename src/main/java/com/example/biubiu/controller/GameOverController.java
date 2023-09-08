@@ -21,7 +21,7 @@ public class GameOverController {
     @FXML
     void mouseClickedToIndex(MouseEvent event) {
 //        SoundEffect.play("/sound/done.wav");
-        Director.getInstance().toIndex();
+        Director.getInstance().waitingRoomStart();
 
     }
 
