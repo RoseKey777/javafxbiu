@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.Flow;
@@ -114,17 +115,18 @@ public class IndexController implements Initializable {
 
     @FXML
     void mouseClikedPlayChoose(MouseEvent event) {
-
+        Stage stage = Director.getInstance().getStage();
+        Director.getInstance().Tobag(stage);
     }
 
     @FXML
     void mouseEnteredPlayChoose(MouseEvent event) {
-
+        playchoose.setOpacity(0.8);
     }
 
     @FXML
     void mouseExitedPlayChoose(MouseEvent event) {
-
+        playchoose.setOpacity(1);
     }
 
     @FXML

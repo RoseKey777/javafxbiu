@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class Player extends Role{
 
+    public int mapChoose;
     public boolean realDie;
 
     public String username;
@@ -30,7 +31,9 @@ public class Player extends Role{
     private int countDie = 0;
     private int MOD = 7;
     public double hp;
-    private int [][]block={
+    private int [][][]block={
+            //0号地图
+            {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 10, 10, 10, 10, 0, 0, 0, 10},
@@ -63,6 +66,7 @@ public class Player extends Role{
             {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}
+            }
     };
 
     private static Image[] images = new Image[] {
@@ -128,12 +132,13 @@ public class Player extends Role{
         imageMap.put("weapon",new Image(Player.class.getResource(weaURL[weaID]).toExternalForm()));
     }
 
-    public Player(double x, double y,int chaID,int weaID, double dir, double weaponDir, GameScene gameScene) {
+    public Player(double x, double y,int chaID,int weaID, double dir, double weaponDir, int mapchoose, GameScene gameScene) {
         super(x, y, 32, 32, dir, gameScene);
         this.weaponDir = weaponDir;
         characterid = chaID;
         weaponid = weaID;
         numOfbullet = numbullet[weaID];
+        mapChoose = mapchoose;
 
         realDie = false;
         dressup(chaID,weaID);
@@ -246,16 +251,16 @@ public class Player extends Role{
         int realXXXX = (int)Math.floor((xx+24)/32.0);
         int realYYYY = (int)Math.floor((yy+10)/32.0);
 
-        if(block[realY][realX] == 10){//左上
+        if(block[mapChoose][realY][realX] == 10){//左上
             return false;
         }
-        if(block[realYY][realXX] == 10){//右下
+        if(block[mapChoose][realYY][realXX] == 10){//右下
             return false;
         }
-        if(block[realYYY][realXXX] == 10){//左下
+        if(block[mapChoose][realYYY][realXXX] == 10){//左下
             return false;
         }
-        if(block[realYYYY][realXXXX] == 10){//右上
+        if(block[mapChoose][realYYYY][realXXXX] == 10){//右上
             return false;
         }
         return true;

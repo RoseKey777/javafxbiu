@@ -43,6 +43,8 @@ public class GameScene {
 
     public int gamePort;//本局游戏使用的端口
 
+    public int mapChoose;//本局游戏选择地图
+
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -85,7 +87,7 @@ public class GameScene {
     }
 
     private void paint(){
-        background.paint(graphicsContext);
+        background.paint(graphicsContext,mapChoose);
         state.hp = selfPlayer.hp;
         state.numOfbullet = selfPlayer.numOfbullet;
         state.speed = selfPlayer.speed;
@@ -166,7 +168,7 @@ public class GameScene {
         }
     }
 
-    public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[]){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
+    public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[],int mapchoose){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
         //拾取物绘制
         Drop drop1 = new Drop("/com/example/biubiu/image/hp.png",200,300,0,0);
         Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
@@ -183,7 +185,7 @@ public class GameScene {
         socketFlag = true;
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer
-            Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
+            Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0, mapchoose,this);
             tmpenemy.alive = true;
             tmpenemy.username = username[i];
             enemys.put(ips[i],tmpenemy);
@@ -191,10 +193,9 @@ public class GameScene {
             new Thread(send[i]).start();
         }
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
-                0.0,this);
+                0.0,mapchoose,this);
         selfPlayer.username = username[roomchair];
         selfIP = ips[roomchair];
-//        new Thread(send).start();
         receive = new TalkReceive(gamePort ,"老师",this);
         new Thread(receive).start();
         AnchorPane root = new AnchorPane(canvas);
@@ -203,10 +204,7 @@ public class GameScene {
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseProcess);
         stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyProcess);
         stage.getScene().addEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
-//        stage.getScene().setOnKeyReleased(keyProcess);
-//        stage.getScene().setOnKeyPressed(keyProcess);
-//        stage.getScene().setOnMouseClicked(mouseProcess);
-//        stage.getScene().setOnMouseMoved(mouseProcess);
+
         running=true;
         refresh.start();
     }
@@ -384,7 +382,7 @@ public class GameScene {
         public void run() {
 
             while (socketFlag){
-                System.out.println(socketFlag);
+//                System.out.println(socketFlag);
                 try {
                     byte[] bytes = new byte[1024];
                     DatagramPacket datagramPacket = new DatagramPacket(bytes, 0, bytes.length);
@@ -423,7 +421,7 @@ public class GameScene {
                 double by = tmpy + 24;
                 EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
                 enemybullets.add(bullet);
-                System.out.println(999999);
+//                System.out.println(999999);
             }else if("hp".equals(dataList[0])){
                 double tmpx = Double.parseDouble(dataList[2]);
                 String tmpip = dataList[1];

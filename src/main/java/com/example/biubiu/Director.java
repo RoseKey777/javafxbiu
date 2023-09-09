@@ -71,6 +71,20 @@ public class Director {
         stage.show();
     }
 
+    public void Tobag(Stage stage){
+        Pane root = new Pane();
+        Scene scene = new Scene(root, WIDTH,HEIGHT);
+        stage.setTitle("biubiu");
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
+        this.stage = stage;
+        toBag();
+        stage.show();
+    }
+
 
     public Stage getStage(){
         return stage;
@@ -80,6 +94,9 @@ public class Director {
     }
     public void toLogin(){
         Login.load(stage);
+    }
+    public void toBag(){
+        Bag.load(stage);
     }
 
     public void gameOver(boolean success){
@@ -111,7 +128,7 @@ public class Director {
             tmp++;
         }
         // 房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
-        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips);
+        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,0);//todo 选择地图
     }
 
     public void gamehallStart(){

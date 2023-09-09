@@ -40,5 +40,4 @@ public abstract class Sprite {
     }//碰撞检测
 
     public void destory(){}
-
 }
