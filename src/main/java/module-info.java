@@ -14,6 +14,7 @@ module com.example.biubiu {
     exports com.example.biubiu;
     exports com.example.biubiu.controller;
     exports com.example.biubiu.domain;
+    exports com.example.biubiu.net.tcp;
     opens com.example.biubiu.domain to fastjson;
     opens com.example.biubiu.controller to javafx.fxml;
 }
