@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -63,6 +64,8 @@ public class GameScene {
     private State state = new State();
     private Player selfPlayer;
 
+    String []mpURL = {"/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png"};
+
 //    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
 
     public List<Bullet> bullets = new ArrayList<>();
@@ -87,7 +90,7 @@ public class GameScene {
     }
 
     private void paint(){
-        background.paint(graphicsContext,mapChoose);
+        background.paint(graphicsContext);
         state.hp = selfPlayer.hp;
         state.numOfbullet = selfPlayer.numOfbullet;
         state.speed = selfPlayer.speed;
@@ -183,6 +186,7 @@ public class GameScene {
         enemynum = numOfPlayer - 1;
         selfNum = roomchair;
         socketFlag = true;
+        background.image = new Image(Background.class.getResource(mpURL[mapchoose]).toExternalForm());
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0, mapchoose,this);
