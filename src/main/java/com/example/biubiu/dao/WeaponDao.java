@@ -56,4 +56,29 @@ public class WeaponDao {
         }
         return null;
     }
+
+    public List<Weapon> getPlayerAllWeapon(String username){
+        Connection cn = null;
+        try {
+            cn = DButil.getconnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        QueryRunner queryRunner = new QueryRunner();
+        String sql = "SELECT weapon.id,weaponname,damage,weapon.bulletspeed,price,filepath " +
+                "FROM weapon,playercharacter " +
+                "WHERE playercharacter.username = ? " +
+                "AND playercharacter.weaponid = weapon.id";
+        try {
+            List<Weapon> p = queryRunner.query(cn,sql, new BeanListHandler<>(Weapon.class), username);
+            if(p!=null) {
+                return p;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }
