@@ -33,6 +33,9 @@ public class TCPServer extends JFrame{
     //房间列表
     Room[] rooms = new Room[8];
 
+    //可用端口列表
+    ArrayList<Integer> portList = new ArrayList<>();
+
     // 存放客户端之间私聊的信息
     private Map<String,PrintWriter> storeInfo;
 
@@ -41,6 +44,9 @@ public class TCPServer extends JFrame{
         for(int i = 0; i < 8; i++){
             rooms[i] = new Room();
             rooms[i].id = i + 1;
+        }
+        for(int i = 0; i < 4000; i++){
+            portList.add(8888 + i * 5);
         }
         Container c=getContentPane();
         c.add(new JScrollPane(m_display),BorderLayout.CENTER);
@@ -233,7 +239,7 @@ public class TCPServer extends JFrame{
                             //向房间中的其他人发送信息
                             for (int i = 0; i < rooms[currentRoom].num; i++) {
                                 if(i != inRoomNum)
-                                    sendToSomeone(rooms[currentRoom].userClients.get(i).ip, "游戏开始");
+                                    sendToSomeone(rooms[currentRoom].userClients.get(i).ip, JSON.toJSONString(rooms[roomid]));
                             }
                         }
                         else
@@ -255,10 +261,29 @@ public class TCPServer extends JFrame{
                     }
                     //开始游戏
                     else if("gameStart".equals(type)){
-                        for (int i = 0; i < rooms[currentRoom].num - 1; i++) {
-                            if(i != inRoomNum)
-                                sendToSomeone(rooms[currentRoom].userClients.get(i).ip, "游戏开始");
+                        int gamePort = portList.remove(0);//这局游戏使用的端口
+                        m_display.append("房间" + currentRoom + "开始游戏, " + "使用的端口为" + gamePort + '\n');
+                        for (int i = 0; i < rooms[currentRoom].num; i++) {
+                            if(i != inRoomNum){
+                                System.out.println(rooms[currentRoom].userClients.get(i).ip);
+                                sendToSomeone(rooms[currentRoom].userClients.get(i).ip, "游戏开始|" + gamePort);
+                            }
                         }
+                        pw.println(gamePort);
+                    }
+                    //退出房间
+                    else if("leaveRoom".equals(type)){
+                        rooms[currentRoom].userClients.remove(inRoomNum);
+                        rooms[currentRoom].num--;
+                        for (int i = 0; i < rooms[currentRoom].num; i++) {
+                            System.out.println(rooms[currentRoom].userClients.get(i).ip);
+                            sendToSomeone(rooms[currentRoom].userClients.get(i).ip, JSON.toJSONString(rooms[currentRoom]));
+                        }
+                        pw.println("退出");
+                    }
+                    //获取玩家的背包
+                    else if("getuserbag".equals(type)){
+                        requestHandler.getuserbag(data);
                     }
 //                    // 检验是否为私聊（格式：@昵称：内容）
 //                    if(msgString.startsWith("@")) {

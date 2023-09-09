@@ -24,7 +24,7 @@ public class RequestHandler {
         System.out.println(user);
         if(userDao.getUserByUsernameAndPassword(username, password) != null) {
             output.println("登录成功");
-            return new User(username, password);
+            return userDao.getUserByUsernameAndPassword(username, password);
         }
         else{
             output.println("登录失败");
@@ -52,18 +52,13 @@ public class RequestHandler {
         output.println(JSON.toJSONString(user));
     }
 
+    //获取玩家背包
+    public void getuserbag(Map<String, Object> data){
+
+    }
+
     //创建房间
     public void createroom(Map<String, Object> data){
-
-    }
-
-    //进入房间
-    public void enterroom(Map<String, Object> data){
-
-    }
-
-    //开始游戏
-    public void startgame(Map<String, Object> data){
 
     }
 }
