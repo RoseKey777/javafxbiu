@@ -81,6 +81,9 @@ WaitingController implements Initializable {
     private void refreshRoom(){
         ArrayList<UserClient> userClients = room.userClients;
         int size = userClients.size();
+        for(int i = 0; i < 4; i++){
+            nameList.get(i).setText("");
+        }
         for(int i = 0; i < size; i++){
             String username = userClients.get(i).user.getUsername();
             nameList.get(i).setText(username);
