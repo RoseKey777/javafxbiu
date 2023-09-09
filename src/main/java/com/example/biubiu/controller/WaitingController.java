@@ -80,8 +80,9 @@ WaitingController implements Initializable {
     private void startClick(){
         //if(startBtn.getText().equals("开始"))
         Request request1 = new Request("gameStart", null);
-        HelloApplication.sendRequest(request1);
-        Director.getInstance().gameStart(room,myNumber);
+        String msg = HelloApplication.sendRequest(request1);
+        int gamePort = Integer.parseInt(msg);
+        Director.getInstance().gameStart(room,myNumber, gamePort);
     }
 
     private void refreshRoom(){
@@ -231,11 +232,13 @@ WaitingController implements Initializable {
                 try {
                     if ((msgString = reader.readLine())!= null) {   //接收到数据后进行的操作
                         System.out.println("收到服务器的消息：" + msgString);
-                        if(msgString.equals("游戏开始")){
+                        String[] strList = msgString.split("\\|");
+                        if(strList[0].equals("游戏开始")){
+                            int gamePort = Integer.parseInt(strList[1]);
                             Request request = new Request("getPlayerNum", null);
                             String str = HelloApplication.sendRequest(request);
                             int number = Integer.parseInt(str);
-                            Director.getInstance().gameStart(room,number);
+                            Director.getInstance().gameStart(room, number, gamePort);
                         }
                         else
                             room = toRoom(msgString);
