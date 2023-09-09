@@ -8,11 +8,16 @@ import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.Room;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.net.tcp.UserClient;
+import com.example.biubiu.scene.Login;
+import com.example.biubiu.scene.WaitingRoom;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 import java.io.*;
 import java.net.Socket;
@@ -26,8 +31,12 @@ public class
 WaitingController implements Initializable {
 
     private Room room = new Room();
+    private int myNumber;
 
     private Listener listener;
+
+    @FXML
+    private Label roomidLb;
 
     @FXML
     private Button startBtn;
@@ -70,23 +79,47 @@ WaitingController implements Initializable {
     @FXML
     private void startClick(){
         //if(startBtn.getText().equals("开始"))
-        Request request = new Request("getPlayerNum", null);
-        String str = HelloApplication.sendRequest(request);
-        int number = Integer.parseInt(str);
         Request request1 = new Request("gameStart", null);
         HelloApplication.sendRequest(request1);
-        Director.getInstance().gameStart(room,number);
+        Director.getInstance().gameStart(room,myNumber);
     }
 
     private void refreshRoom(){
+
+        //显示房间
+        roomidLb.setText("当前房间：房间" + room.id);
+
         ArrayList<UserClient> userClients = room.userClients;
         int size = userClients.size();
+
+        //显示名字
         for(int i = 0; i < 4; i++){
             nameList.get(i).setText("");
         }
         for(int i = 0; i < size; i++){
             String username = userClients.get(i).user.getUsername();
             nameList.get(i).setText(username);
+        }
+
+        //显示头像
+        for(int i = 0; i < 4; i++){
+            playerList.get(i).setText("");
+            playerList.get(i).setGraphic(null);
+        }
+        for(int i = 0; i < size; i++){
+            String avatar = userClients.get(i).user.getAvatar();
+            Image image = new Image(WaitingRoom.class.getResource(avatar).toExternalForm(),100,100,false,true);
+            playerList.get(i).setText("");
+            playerList.get(i).setGraphic(new ImageView(image));
+        }
+
+        //显示开始游戏按钮
+        if(myNumber == 0){
+            startBtn.setVisible(true);
+            startBtn.setDisable(false);
+        }else{
+            startBtn.setVisible(false);
+            startBtn.setDisable(true);
         }
     }
 
@@ -161,6 +194,11 @@ WaitingController implements Initializable {
         Request request1 = new Request("refreshRoom", map);
         String str1 = HelloApplication.sendRequest(request1);
         room = toRoom(str1);
+
+        Request request2 = new Request("getPlayerNum", null);
+        String str2 = HelloApplication.sendRequest(request2);
+        myNumber = Integer.parseInt(str2);
+
         refreshRoom();
 
         try {
