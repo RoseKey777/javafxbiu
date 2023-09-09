@@ -285,6 +285,12 @@ public class TCPServer extends JFrame{
                     else if("getuserbag".equals(type)){
                         requestHandler.getuserbag(data);
                     }
+                    //获取所有武器信息
+                    else if("getAllWeapon".equals(type)){
+                        requestHandler.getAllWeapon(data);
+                    }
+                    //更新武器状态
+//                    else if("")
 //                    // 检验是否为私聊（格式：@昵称：内容）
 //                    if(msgString.startsWith("@")) {
 //                        int index = msgString.indexOf("：");
