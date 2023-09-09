@@ -89,9 +89,10 @@ public class Director {
         gameScene = null;
     }
 
-    public void gameStart(Room room, int Roomchair){
+    public void gameStart(Room room, int Roomchair, int gamePort){
         gameScene = new GameScene();
         gameScene.roomid = room.id;
+        gameScene.gamePort = gamePort;
         int total = room.num;
         ArrayList<UserClient> userClients = room.userClients;
         int []ChaID = new int[4];
