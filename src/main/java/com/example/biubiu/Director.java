@@ -93,6 +93,9 @@ public class Director {
         gameScene = new GameScene();
         gameScene.roomid = room.id;
         gameScene.gamePort = gamePort;
+        for(int i = 0; i < room.userClients.size(); ++i){
+            gameScene.username[i] = room.userClients.get(i).user.getUsername();
+        }
         int total = room.num;
         ArrayList<UserClient> userClients = room.userClients;
         int []ChaID = new int[4];

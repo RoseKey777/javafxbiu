@@ -28,6 +28,7 @@ import java.util.Map;
 public class GameScene {
 
 //    public String[] ips = new String[4];
+    public String[] username = new String[4];
     public int numOfPlayer;
 
     public int enemynum;
@@ -184,13 +185,14 @@ public class GameScene {
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
             tmpenemy.alive = true;
+            tmpenemy.username = username[i];
             enemys.put(ips[i],tmpenemy);
             send[i] = new TalkSend(gamePort + i + 1, ips[i], gamePort);
             new Thread(send[i]).start();
         }
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
                 0.0,this);
-        System.out.println();
+        selfPlayer.username = username[roomchair];
         selfIP = ips[roomchair];
 //        new Thread(send).start();
         receive = new TalkReceive(gamePort ,"老师",this);
@@ -210,7 +212,6 @@ public class GameScene {
     }
 
     public void clear(Stage stage) {
-        System.out.println(1294381209);
         stage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, keyProcess);
         stage.getScene().removeEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
         stage.getScene().removeEventHandler(MouseEvent.MOUSE_CLICKED,mouseProcess);
