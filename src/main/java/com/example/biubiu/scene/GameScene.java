@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameScene {
 
@@ -68,11 +69,11 @@ public class GameScene {
 
 //    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
 
-    public List<Bullet> bullets = new ArrayList<>();
+    public List<Bullet> bullets = new CopyOnWriteArrayList<>();
 
     public Map<String,Enemy> enemys = new HashMap<>();
 
-    public List<EnemyBullet> enemybullets = new ArrayList<>();
+    public List<EnemyBullet> enemybullets = new CopyOnWriteArrayList<>();
 
     public List<Drop> drops = new ArrayList<>();
 
@@ -152,7 +153,7 @@ public class GameScene {
             bullet.paint(graphicsContext);
         }
         for(EnemyBullet bullet:enemybullets){
-            if(bullet.getContour().intersects(selfPlayer.getContour())){
+            if(selfPlayer!=null && bullet.getContour().intersects(selfPlayer.getContour())){
                 if(selfPlayer.alive == false){
                     continue;
                 }
@@ -169,7 +170,7 @@ public class GameScene {
                 if(enemynum == 1 && !selfPlayer.alive){
                     Director.getInstance().gameOver(false);
                 }
-                if(selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
+                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
                     selfPlayer.x += 5 * Math.cos(bullet.dir);
                     selfPlayer.y -= 5 * Math.sin(bullet.dir);
                 }
@@ -433,8 +434,8 @@ public class GameScene {
                 double tmpy = Double.parseDouble(dataList[3]);
                 double tmpdir = Double.parseDouble(dataList[4]);
                 SoundEffect.play("/com/example/biubiu/mp3/gun.mp3");
-                double bx = tmpx + 24;
-                double by = tmpy + 24;
+                double bx = tmpx + 16;
+                double by = tmpy + 16;
                 EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
                 enemybullets.add(bullet);
 //                System.out.println(999999);
