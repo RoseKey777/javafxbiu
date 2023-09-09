@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="451.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.WaitingController">
    <children>
-      <Label layoutX="37.0" layoutY="42.0" prefHeight="32.0" prefWidth="311.0" text="当前房间：">
+      <Label fx:id="roomidLb" layoutX="37.0" layoutY="42.0" prefHeight="32.0" prefWidth="311.0" text="当前房间：">
          <font>
             <Font size="21.0" />
          </font>
