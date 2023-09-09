@@ -124,7 +124,6 @@ public class TCPServer extends JFrame{
         private UserClient userClient;
         private RequestHandler requestHandler = new RequestHandler();//请求处理器
         private int currentRoom;    //当前房间号
-        private int inRoomNum;  //当前玩家在房间中的序号
 
         public ListenrClient(Socket socket) {
             this.socket = socket;
@@ -232,13 +231,13 @@ public class TCPServer extends JFrame{
                         int roomid = ((int)(data.get("roomid"))) - 1;
                         if(rooms[roomid].num <= 3){
                             rooms[roomid].userClients.add(userClient);
-                            inRoomNum = rooms[roomid].num;
+                            System.out.println(rooms[roomid].num);
                             rooms[roomid].num++;
                             currentRoom = roomid;
                             pw.println("加入成功");
                             //向房间中的其他人发送信息
                             for (int i = 0; i < rooms[currentRoom].num; i++) {
-                                if(i != inRoomNum)
+                                if(i != rooms[currentRoom].num - 1)
                                     sendToSomeone(rooms[currentRoom].userClients.get(i).ip, JSON.toJSONString(rooms[roomid]));
                             }
                         }
@@ -257,14 +256,16 @@ public class TCPServer extends JFrame{
                     }
                     //获取玩家在房间中的序号
                     else if("getPlayerNum".equals(type)){
-                        pw.println(inRoomNum);
+                        for(int i = 0; i < rooms[currentRoom].num; i++)
+                            if(rooms[currentRoom].userClients.get(i).ip.equals(name))
+                                pw.println(i);
                     }
                     //开始游戏
                     else if("gameStart".equals(type)){
                         int gamePort = portList.remove(0);//这局游戏使用的端口
                         m_display.append("房间" + currentRoom + "开始游戏, " + "使用的端口为" + gamePort + '\n');
                         for (int i = 0; i < rooms[currentRoom].num; i++) {
-                            if(i != inRoomNum){
+                            if(!rooms[currentRoom].userClients.get(i).ip.equals(name)){
                                 System.out.println(rooms[currentRoom].userClients.get(i).ip);
                                 sendToSomeone(rooms[currentRoom].userClients.get(i).ip, "游戏开始|" + gamePort);
                             }
@@ -273,7 +274,12 @@ public class TCPServer extends JFrame{
                     }
                     //退出房间
                     else if("leaveRoom".equals(type)){
-                        rooms[currentRoom].userClients.remove(inRoomNum);
+                        System.out.println(rooms[currentRoom].num);
+                        for(int i = 0; i < rooms[currentRoom].num; i++)
+                            if(rooms[currentRoom].userClients.get(i).ip.equals(name)){
+                                rooms[currentRoom].userClients.remove(i);
+                                break;
+                            }
                         rooms[currentRoom].num--;
                         for (int i = 0; i < rooms[currentRoom].num; i++) {
                             System.out.println(rooms[currentRoom].userClients.get(i).ip);

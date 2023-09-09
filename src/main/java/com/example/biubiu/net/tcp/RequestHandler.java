@@ -60,7 +60,6 @@ public class RequestHandler {
         String username = (String)(data.get("username"));
         ArrayList<String> bagList = playercharacterDao.getUserBag(username);
         System.out.println(bagList);
-        System.out.println(bagList.get(0));
         output.println(bagList);
     }
 
