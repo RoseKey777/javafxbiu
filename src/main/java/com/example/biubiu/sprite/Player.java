@@ -20,6 +20,8 @@ public class Player extends Role{
 
     public int characterid = 0;
 
+    public int numOfbullet;
+
     public int weaponid = 0;
     private int countDie = 0;
     private int MOD = 7;
@@ -110,9 +112,11 @@ public class Player extends Role{
     private String[] weaURL = {"/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
             "/com/example/biubiu/image/Kar98k.png"};
 
+    private int []numbullet = {50, 40, 50};
+
     private double spd[] = {2, 4, 1.5};
     private double hps[] = {10, 8, 14};
-    private double bulletspeed[] = {5,7,8};
+    private double bulletspeed[] = {5, 7, 8};
     public void dressup(int chaID,int weaID){
         speed = spd[chaID];
         hp = hps[chaID];
@@ -125,6 +129,7 @@ public class Player extends Role{
         this.weaponDir = weaponDir;
         characterid = chaID;
         weaponid = weaID;
+        numOfbullet = numbullet[weaID];
 
         realDie = false;
         dressup(chaID,weaID);
@@ -255,6 +260,8 @@ public class Player extends Role{
             if(drop.alive && getContour().intersects(drop.getContour())){
                 if(drop.type == 0){
                     hp ++;
+                }else if(drop.type == 1){
+                    numOfbullet += 10;
                 }
                 drop.alive = false;
 //                gameScene.drops.remove(drop);
@@ -408,6 +415,9 @@ public class Player extends Role{
     }
 
     public void clicked() {
-        if(alive) openFire();
+        if(alive && numOfbullet > 0) {
+            numOfbullet--;
+            openFire();
+        }
     }
 }
