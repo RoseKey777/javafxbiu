@@ -131,7 +131,11 @@ public class GameScene {
                     continue;
                 }
                 if(bullet.getContour().intersects(enemy.getContour())){
-                    enemy.hp --;
+                    if(enemy.numOfwudi > 0){
+                        enemy.numOfwudi --;
+                    }else {
+                        enemy.hp --;
+                    }
                     if(enemy.hp == 0){
                         enemy.alive = false;
                         enemynum --;
@@ -153,7 +157,11 @@ public class GameScene {
                     continue;
                 }
                 if(selfPlayer.hp>0) {
-                    selfPlayer.hp --;
+                    if(selfPlayer.numOfwudi > 0){
+                        selfPlayer.numOfwudi --;
+                    }else {
+                        selfPlayer.hp --;
+                    }
                 }
                 if(selfPlayer.hp == 0){
                     selfPlayer.alive = false;
@@ -177,10 +185,14 @@ public class GameScene {
         Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
         Drop drop3 = new Drop("/com/example/biubiu/image/加号.png",800,600,1,2);
         Drop drop4 = new Drop("/com/example/biubiu/image/加号.png",700,300,1,3);
+        Drop drop5 = new Drop("/com/example/biubiu/image/die6.png",300,600,2,4);
+        Drop drop6 = new Drop("/com/example/biubiu/image/die6.png",520,110,2,5);
         drops.add(drop1);
         drops.add(drop2);
         drops.add(drop3);
         drops.add(drop4);
+        drops.add(drop5);
+        drops.add(drop6);
 
         numOfPlayer = total;
         enemynum = numOfPlayer - 1;
@@ -242,7 +254,7 @@ public class GameScene {
                 }
 
                 String tmpString = "loc|"+ selfIP+ "|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
-                        "|" + selfPlayer.height + "|" + selfPlayer.width + "|" + selfPlayer.imageMap.get("weapon") + "|";
+                        "|" + selfPlayer.height + "|" + selfPlayer.width + "|" + selfPlayer.imageMap.get("weapon") + "|" + selfPlayer.numOfwudi + "|";
                 sendToAll(tmpString);
 //                send.sendData(tmpString);
                 String tmpString1 = "hp|"+ selfIP +"|" + selfPlayer.hp;
@@ -415,7 +427,7 @@ public class GameScene {
                 enemys.get(tmpip).x = Double.parseDouble(dataList[2]);
                 enemys.get(tmpip).y = Double.parseDouble(dataList[3]);
                 enemys.get(tmpip).weaponDir = Double.parseDouble(dataList[4]);
-
+                enemys.get(tmpip).numOfwudi = Integer.parseInt(dataList[8]);
             }else if("atk".equals(dataList[0])){   //开枪数据包
                 double tmpx = Double.parseDouble(dataList[2]);
                 double tmpy = Double.parseDouble(dataList[3]);

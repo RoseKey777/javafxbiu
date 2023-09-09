@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class Player extends Role{
 
+    public int numOfwudi;
     public int mapChoose;
     public boolean realDie;
 
@@ -139,6 +140,7 @@ public class Player extends Role{
         weaponid = weaID;
         numOfbullet = numbullet[weaID];
         mapChoose = mapchoose;
+        numOfwudi = 0;
 
         realDie = false;
         dressup(chaID,weaID);
@@ -273,6 +275,8 @@ public class Player extends Role{
                     hp ++;
                 }else if(drop.type == 1){
                     numOfbullet += 10;
+                }else if(drop.type == 2){
+                    numOfwudi += 3;
                 }
                 drop.alive = false;
 //                gameScene.drops.remove(drop);
@@ -393,6 +397,10 @@ public class Player extends Role{
         paintHP(graphicsContext);
 //        if(weaponDir == -Math.PI/2)
         if(alive){
+            if(numOfwudi > 0){
+                Image image1 = new Image(Player.class.getResource("/com/example/biubiu/image/shield.png").toExternalForm());
+                graphicsContext.drawImage(image1,x,y,32,32);
+            }
             graphicsContext.save();
             graphicsContext.translate(x+16,y+16);
             graphicsContext.rotate(Math.toDegrees(-weaponDir));

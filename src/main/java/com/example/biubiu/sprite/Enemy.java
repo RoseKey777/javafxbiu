@@ -14,6 +14,7 @@ public class Enemy extends Role{
     public int mapChoose;
     public String username;
     public boolean realDie;
+    public int numOfwudi;
     Image weaponImage;
     private int count = 0;
 
@@ -373,6 +374,10 @@ public class Enemy extends Role{
         super.paint(graphicsContext);
         paintHP(graphicsContext);
         if(alive){
+            if(numOfwudi > 0){
+                Image image1 = new Image(Player.class.getResource("/com/example/biubiu/image/shield.png").toExternalForm());
+                graphicsContext.drawImage(image1,x,y,32,32);
+            }
             graphicsContext.save();
             graphicsContext.translate(x+16,y+16);
             graphicsContext.rotate(Math.toDegrees(-weaponDir));
