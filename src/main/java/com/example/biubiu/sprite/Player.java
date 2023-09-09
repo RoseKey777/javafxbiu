@@ -6,6 +6,8 @@ import com.example.biubiu.util.SoundEffect;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Scale;
 
 import java.sql.Struct;
@@ -277,9 +279,6 @@ public class Player extends Role{
 
     @Override
     public void move() {
-
-//        System.out.println("x = " + x);
-//        System.out.println("y = " + y);
         if(dir == 1.0){
             if(illegal(x+speed,y)){
                 x += speed;
@@ -393,10 +392,8 @@ public class Player extends Role{
             graphicsContext.translate(x+16,y+16);
             graphicsContext.rotate(Math.toDegrees(-weaponDir));
             Image image1 = weaponImage;
-            System.out.println(weaponDir);
 
             if((weaponDir) > Math.PI/2 && (weaponDir) < Math.PI * 1.5){
-                System.out.println(1111);
 //                Scale horizontalScale = new Scale(-1, 1);
                 // 创建一个WritableImage，大小与原始图片相同
                 WritableImage mirroredImage = new WritableImage((int) weaponImage.getWidth(), (int) weaponImage.getHeight());
@@ -423,9 +420,12 @@ public class Player extends Role{
             }
 
             graphicsContext.drawImage(image1,-16,-16,32,32);
-//        graphicsContext.drawImage(image,-24,-12.5,width,height);
             graphicsContext.restore();
-//        graphicsContext.drawImage(weaponImage,x+5,y+5,32,32);
+
+            graphicsContext.setFill(Color.GRAY);
+            graphicsContext.setFont(javafx.scene.text.Font.font("幼圆", FontWeight.BOLD,16));
+            graphicsContext.fillText(this.username, x, y + 50);
+
             move();
         }
     }
