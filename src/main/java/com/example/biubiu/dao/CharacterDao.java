@@ -20,7 +20,7 @@ public class CharacterDao {
             e.printStackTrace();
         }
         QueryRunner queryRunner = new QueryRunner();
-        String sql = "select * from character where id=?";
+        String sql = "select * from `character` where id=?";
         ResultSetHandler<Character> h = new BeanHandler<Character>(Character.class);
         try {
             Character p = queryRunner.query(cn,sql, h, id);
