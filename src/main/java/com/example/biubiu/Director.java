@@ -83,9 +83,9 @@ public class Director {
     }
 
     public void gameOver(boolean success){
-//        gameScene.clear(stage);
-        GameOver.load(stage,success);
         gameScene.clear(stage);
+        GameOver.load(stage,success);
+//        gameScene.clear(stage);
         gameScene = null;
     }
 

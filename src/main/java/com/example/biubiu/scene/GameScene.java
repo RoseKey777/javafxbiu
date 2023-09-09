@@ -1,8 +1,6 @@
 package com.example.biubiu.scene;
 
 import com.example.biubiu.Director;
-import com.example.biubiu.net.udp.TalkReceive;
-import com.example.biubiu.net.udp.TalkSend;
 import com.example.biubiu.sprite.*;
 import com.example.biubiu.util.SoundEffect;
 import javafx.animation.AnimationTimer;
@@ -15,9 +13,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +51,8 @@ public class GameScene {
 
     private boolean running  = false;//为false则停止刷新，为true则启动刷新
 
+    private boolean socketFlag;
+
     private Background background = new Background();
     private Player selfPlayer;
 
@@ -61,74 +64,9 @@ public class GameScene {
 
     public List<EnemyBullet> enemybullets = new ArrayList<>();
 
-    class TalkReceive implements Runnable{
-        DatagramSocket datagramSocket =null;
-
-        private int formPort;
-        private String user;
-        private GameScene gs;
-
-        public TalkReceive(int formPort,String user, GameScene gs){
-            this.formPort = formPort;
-            this.user = user;
-            this.gs = gs;
-            try {
-                datagramSocket=new DatagramSocket(this.formPort);
-            } catch (SocketException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        @Override
-        public void run() {
-
-            while (true){
-                try {
-                    byte[] bytes = new byte[1024];
-                    DatagramPacket datagramPacket = new DatagramPacket(bytes, 0, bytes.length);
-                    datagramSocket.receive(datagramPacket);
-                    byte[] data = datagramPacket.getData();
-                    String s = new String(data, 0, datagramPacket.getLength());
-                    handleData(s.trim());
-                    if (s.contains("bye")){
-                        break;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            datagramSocket.close();
-        }
-
-        public void handleData(String data){
-            String[] dataList = data.split("\\|");
-//            System.out.println(data);
-            if("loc".equals(dataList[0])){  //位置信息数据包
-                String tmpip = dataList[1];
-                enemys.get(tmpip).x = Double.parseDouble(dataList[2]);
-                enemys.get(tmpip).y = Double.parseDouble(dataList[3]);
-                enemys.get(tmpip).weaponDir = Double.parseDouble(dataList[4]);
-
-            }else if("atk".equals(dataList[0])){   //开枪数据包
-                double tmpx = Double.parseDouble(dataList[2]);
-                double tmpy = Double.parseDouble(dataList[3]);
-                double tmpdir = Double.parseDouble(dataList[4]);
-                SoundEffect.play("/com/example/biubiu/mp3/gun.mp3");
-                double bx = tmpx + 24;
-                double by = tmpy + 24;
-                EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
-                enemybullets.add(bullet);
-            }else if("hp".equals(dataList[0])){
-                double tmpx = Double.parseDouble(dataList[2]);
-                String tmpip = dataList[1];
-                enemys.get(tmpip).hp = tmpx;
-            }
-        }
-    }
-
     //网络类
     TalkSend[] send = new TalkSend[4];
-    TalkReceive receive = new TalkReceive(8888 + roomid,"老师",this);
+    TalkReceive receive = new TalkReceive(8888 ,"老师",this);
 
     private void sendToAll(String data){
         for(int i = 0;i < numOfPlayer;++i){
@@ -210,12 +148,13 @@ public class GameScene {
         numOfPlayer = total;
         enemynum = numOfPlayer - 1;
         selfNum = roomchair;
+        socketFlag = true;
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
             tmpenemy.alive = true;
             enemys.put(ips[i],tmpenemy);
-            send[i] = new TalkSend(6666 + 6 * roomid + i, ips[i],8888 + roomid);
+            send[i] = new TalkSend(6666 + 6 * roomid + i, ips[i],8888 );
             new Thread(send[i]).start();
         }
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
@@ -226,25 +165,31 @@ public class GameScene {
         new Thread(receive).start();
         AnchorPane root = new AnchorPane(canvas);
         stage.getScene().setRoot(root);
-        stage.getScene().setOnKeyReleased(keyProcess);
-        stage.getScene().setOnKeyPressed(keyProcess);
-        stage.getScene().setOnMouseClicked(mouseProcess);
-        stage.getScene().setOnMouseMoved(mouseProcess);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseProcess);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseProcess);
+        stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, keyProcess);
+        stage.getScene().addEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
+//        stage.getScene().setOnKeyReleased(keyProcess);
+//        stage.getScene().setOnKeyPressed(keyProcess);
+//        stage.getScene().setOnMouseClicked(mouseProcess);
+//        stage.getScene().setOnMouseMoved(mouseProcess);
         running=true;
         refresh.start();
     }
 
     public void clear(Stage stage) {
+        System.out.println(1294381209);
         stage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, keyProcess);
         stage.getScene().removeEventHandler(KeyEvent.KEY_RELEASED, keyProcess);
         stage.getScene().removeEventHandler(MouseEvent.MOUSE_CLICKED,mouseProcess);
         stage.getScene().removeEventHandler(MouseEvent.MOUSE_MOVED,mouseProcess);
+//        selfPlayer.clicked();
         refresh.stop();
-//        selfPlayer = null;\
-        for(TalkSend send1:send){
-            send1.datagramSocket.close();//todo
-        }
-        receive.datagramSocket.close();
+        selfPlayer = null;
+        socketFlag = false;
+//        for(TalkSend send1:send){
+//            send1.datagramSocket.close();//todo
+//        }
         bullets.clear();
         enemybullets.clear();
         enemys.clear();
@@ -307,4 +252,142 @@ public class GameScene {
         }
     }
 
+    //发送信息
+    public class TalkSend implements Runnable {
+
+        public DatagramSocket datagramSocket =null;
+        BufferedReader bufferedReader =null;
+        DatagramPacket datagramPacket = null;
+
+        private int fromPort;
+        private String toIP;
+        private int toPort;
+
+
+        public TalkSend(int fromPort,String toIP,int toPort){
+            this.fromPort=fromPort;
+            this.toIP=toIP;
+            this.toPort=toPort;
+
+            try {
+                System.out.println("绑定端口："+fromPort);
+                datagramSocket = new DatagramSocket(this.fromPort);
+                bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        public void run() {
+            try {
+                //控制台读取数据
+                while (true){
+                    String data = bufferedReader.readLine();
+                    sendData(data);
+                    if(!socketFlag){
+                        datagramSocket.close();
+                        System.out.println("结束23213");
+                        return;
+                    }
+                }
+
+            } catch (SocketException e) {
+                throw new RuntimeException("发送错误");
+            } catch (IOException e) {
+                throw new RuntimeException("信息读取错误");
+            }finally{
+                if(!socketFlag){
+                    datagramSocket.close();
+                    System.out.println("结束23213");
+                    return;
+                }
+            }
+
+        }
+
+        //发送数据
+        public void sendData(String data){
+            try {
+                byte[] bytes = data.getBytes();
+                datagramPacket = new DatagramPacket(bytes,0,bytes.length,new InetSocketAddress(this.toIP,this.toPort));
+                datagramSocket.send(datagramPacket);
+            }catch (SocketException e) {
+                throw new RuntimeException("发送错误");
+            } catch (IOException e) {
+                throw new RuntimeException("信息读取错误");
+            }
+
+        }
+    }
+
+    class TalkReceive implements Runnable{
+        DatagramSocket datagramSocket =null;
+
+        private int formPort;
+        private String user;
+        private GameScene gs;
+
+        public TalkReceive(int formPort,String user, GameScene gs){
+            this.formPort = formPort;
+            this.user = user;
+            this.gs = gs;
+            try {
+                datagramSocket=new DatagramSocket(this.formPort);
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        public void run() {
+
+            while (socketFlag){
+                System.out.println(socketFlag);
+                try {
+                    byte[] bytes = new byte[1024];
+                    DatagramPacket datagramPacket = new DatagramPacket(bytes, 0, bytes.length);
+                    datagramSocket.receive(datagramPacket);
+                    byte[] data = datagramPacket.getData();
+                    String s = new String(data, 0, datagramPacket.getLength());
+                    handleData(s.trim());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    if(socketFlag == false){
+                        System.out.println("结束");
+                        datagramSocket.close();
+                    }
+                }
+            }
+            System.out.println("结束");
+            datagramSocket.close();
+        }
+
+        public void handleData(String data){
+            String[] dataList = data.split("\\|");
+//            System.out.println(data);
+            if("loc".equals(dataList[0])){  //位置信息数据包
+                String tmpip = dataList[1];
+                enemys.get(tmpip).x = Double.parseDouble(dataList[2]);
+                enemys.get(tmpip).y = Double.parseDouble(dataList[3]);
+                enemys.get(tmpip).weaponDir = Double.parseDouble(dataList[4]);
+
+            }else if("atk".equals(dataList[0])){   //开枪数据包
+                double tmpx = Double.parseDouble(dataList[2]);
+                double tmpy = Double.parseDouble(dataList[3]);
+                double tmpdir = Double.parseDouble(dataList[4]);
+                SoundEffect.play("/com/example/biubiu/mp3/gun.mp3");
+                double bx = tmpx + 24;
+                double by = tmpy + 24;
+                EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
+                enemybullets.add(bullet);
+                System.out.println(999999);
+            }else if("hp".equals(dataList[0])){
+                double tmpx = Double.parseDouble(dataList[2]);
+                String tmpip = dataList[1];
+                enemys.get(tmpip).hp = tmpx;
+            }
+        }
+    }
 }
