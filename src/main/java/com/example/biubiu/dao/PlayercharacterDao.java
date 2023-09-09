@@ -50,9 +50,10 @@ public class PlayercharacterDao {
             Map<String, Object> map = new HashMap<>();
             Playercharacter playercharacter = playercharacterList.get(i);
             Weapon weapon = weaponDao.getWeaponById(playercharacter.getWeaponid());
+            Character character = characterDao.getChatacterById(playercharacter.getCharacterid());
+
             String weaponPath = weapon.getFilepath();
             int weapon_state = playercharacter.getWeapon_state();
-            Character character = characterDao.getChatacterById(playercharacter.getCharacterid());
             String characterPath = character.getFilepath();
             int character_state = playercharacter.getCharacter_state();
             map.put("weapon", weaponPath);
@@ -63,4 +64,6 @@ public class PlayercharacterDao {
         }
         return resultList;
     }
+
+
 }
