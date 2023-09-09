@@ -69,7 +69,8 @@ public class PlayercharacterDao {
     }
 
     @SneakyThrows
-    public boolean updateWeapon(String username, int weaponid){
+    public boolean updateWeapon(String username, String weaponname){
+        int weaponid = weaponDao.findIdByWeaponName(weaponname);
         try (Connection conn = DButil.getconnection()) {
             QueryRunner queryRunner = new QueryRunner();
             String insertQuery = "UPDATE playercharacter " +
@@ -84,7 +85,8 @@ public class PlayercharacterDao {
     }
 
     @SneakyThrows
-    public boolean updateCharacter(String username, int characterid){
+    public boolean updateCharacter(String username, String charactername){
+        int characterid = characterDao.findIdByCharacterName(charactername);
         try (Connection conn = DButil.getconnection()) {
             QueryRunner queryRunner = new QueryRunner();
             String insertQuery = "UPDATE playercharacter " +

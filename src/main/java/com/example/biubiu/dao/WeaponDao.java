@@ -2,6 +2,7 @@ package com.example.biubiu.dao;
 
 import com.example.biubiu.domain.Weapon;
 import com.example.biubiu.util.DButil;
+import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -80,5 +81,18 @@ public class WeaponDao {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @SneakyThrows
+    public int findIdByWeaponName(String weaponname){
+        try (Connection conn = DButil.getconnection()) {
+            QueryRunner queryRunner = new QueryRunner();
+            String sql = "SELECT id FROM weapon WHERE weaponname = ?";
+            Weapon weapon = queryRunner.query(conn, sql, new BeanHandler<>(Weapon.class), weaponname);
+            return weapon.getId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }
