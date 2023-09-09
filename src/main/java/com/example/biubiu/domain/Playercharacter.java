@@ -8,4 +8,6 @@ public class Playercharacter {
     private int userid;
     private int characterid;
     private double speed;
+    private int weaponid;
+    private double bulletspeed;
 }
