@@ -40,7 +40,7 @@ public class GameScene {
 
     public int roomid;//房间号
 
-    public int gamePort = 8888;//本局游戏使用的端口
+    public int gamePort;//本局游戏使用的端口
 
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
@@ -70,7 +70,7 @@ public class GameScene {
 
     //网络类
     TalkSend[] send = new TalkSend[4];
-    TalkReceive receive = new TalkReceive( gamePort ,"老师",this);
+    TalkReceive receive;
 
     private void sendToAll(String data){
         for(int i = 0;i < numOfPlayer;++i){
@@ -181,6 +181,7 @@ public class GameScene {
         System.out.println();
         selfIP = ips[roomchair];
 //        new Thread(send).start();
+        receive = new TalkReceive(gamePort ,"老师",this);
         new Thread(receive).start();
         AnchorPane root = new AnchorPane(canvas);
         stage.getScene().setRoot(root);

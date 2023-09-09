@@ -8,4 +8,5 @@ public class Weapon {
     private String weaponname;
     private double damage;
     private double bulletspeed;
+    private String filepath;
 }

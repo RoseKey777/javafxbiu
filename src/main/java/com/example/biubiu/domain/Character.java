@@ -10,4 +10,5 @@ public class Character {
     private String charactername;
     private double price;
     private double hp;
+    private String filepath;
 }
