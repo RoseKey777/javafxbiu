@@ -8,6 +8,7 @@ import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.Room;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.net.tcp.UserClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -197,7 +198,14 @@ WaitingController implements Initializable {
                         }
                         else
                             room = toRoom(msgString);
-                            refreshRoom();
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                //更新JavaFX的主线程的代码放在此处
+                                refreshRoom();
+                            }
+                        });
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

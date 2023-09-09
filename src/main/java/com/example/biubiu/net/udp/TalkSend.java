@@ -10,7 +10,7 @@ import java.net.SocketException;
 
 public class TalkSend implements Runnable {
 
-    DatagramSocket datagramSocket =null;
+    public DatagramSocket datagramSocket =null;
     BufferedReader bufferedReader =null;
     DatagramPacket datagramPacket = null;
 

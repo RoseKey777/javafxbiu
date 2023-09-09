@@ -37,6 +37,8 @@ public class GameScene {
 
     public int selfNum;//自己的位置
 
+    public int roomid;//房间号
+
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -126,7 +128,7 @@ public class GameScene {
 
     //网络类
     TalkSend[] send = new TalkSend[4];
-    TalkReceive receive = new TalkReceive(8888,"老师",this);
+    TalkReceive receive = new TalkReceive(8888 + roomid,"老师",this);
 
     private void sendToAll(String data){
         for(int i = 0;i < numOfPlayer;++i){
@@ -213,11 +215,12 @@ public class GameScene {
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
             tmpenemy.alive = true;
             enemys.put(ips[i],tmpenemy);
-            send[i] = new TalkSend(6666 + i,ips[i],8888);
+            send[i] = new TalkSend(6666 + 6 * roomid + i, ips[i],8888 + roomid);
             new Thread(send[i]).start();
         }
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
                 0.0,this);
+        System.out.println();
         selfIP = ips[roomchair];
 //        new Thread(send).start();
         new Thread(receive).start();
@@ -237,7 +240,11 @@ public class GameScene {
         stage.getScene().removeEventHandler(MouseEvent.MOUSE_CLICKED,mouseProcess);
         stage.getScene().removeEventHandler(MouseEvent.MOUSE_MOVED,mouseProcess);
         refresh.stop();
-        selfPlayer = null;
+//        selfPlayer = null;\
+        for(TalkSend send1:send){
+            send1.datagramSocket.close();//todo
+        }
+        receive.datagramSocket.close();
         bullets.clear();
         enemybullets.clear();
         enemys.clear();

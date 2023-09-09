@@ -18,7 +18,7 @@ public class Director {
     private static Director instance = new Director();
 
     private Stage stage;
-    private GameScene gameScene = new GameScene();
+    private GameScene gameScene;
     private Gamehall gamehall = new Gamehall();
 
     private WaitingRoom waitingRoom = new WaitingRoom();
@@ -83,11 +83,15 @@ public class Director {
     }
 
     public void gameOver(boolean success){
-        gameScene.clear(stage);
+//        gameScene.clear(stage);
         GameOver.load(stage,success);
+        gameScene.clear(stage);
+        gameScene = null;
     }
 
     public void gameStart(Room room, int Roomchair){
+        gameScene = new GameScene();
+        gameScene.roomid = room.id;
         int total = room.num;
         ArrayList<UserClient> userClients = room.userClients;
         int []ChaID = new int[4];
