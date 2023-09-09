@@ -4,11 +4,13 @@ import com.example.biubiu.Director;
 import com.example.biubiu.scene.GameScene;
 import com.example.biubiu.util.SoundEffect;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
+import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.transform.Scale;
 
 import java.sql.Struct;
 import java.util.List;
+import java.util.Map;
 
 public class Player extends Role{
 
@@ -154,11 +156,13 @@ public class Player extends Role{
     }
 
     private double calc(){
-        double tmp = Math.atan((sceneY - y - 16)/(sceneX - x - 16));
+//        double tmp = Math.atan((sceneY - y - 16)/(sceneX - x - 16));
+        double tmp = Math.atan((sceneY - y )/(sceneX - x ));
         if(sceneX < x){
             return Math.PI - tmp;
         }else {
-            double tmp1 = Math.atan((y - sceneY + 16)/(sceneX - x - 16));
+//            double tmp1 = Math.atan((y - sceneY + 16)/(sceneX - x - 16));
+            double tmp1 = Math.atan((y - sceneY )/(sceneX - x ));
             return tmp1;
         }
 //        return Math.atan((sceneY - y)/(sceneX - x));
@@ -385,11 +389,42 @@ public class Player extends Role{
         weaponImage = imageMap.get("weapon");
         super.paint(graphicsContext);
         paintHP(graphicsContext);
+//        if(weaponDir == -Math.PI/2)
         if(alive){
             graphicsContext.save();
             graphicsContext.translate(x+16,y+16);
             graphicsContext.rotate(Math.toDegrees(-weaponDir));
-            graphicsContext.drawImage(weaponImage,-16,-16,32,32);
+            Image image1 = weaponImage;
+            System.out.println(weaponDir);
+
+            if((weaponDir) > Math.PI/2 && (weaponDir) < Math.PI * 1.5){
+                System.out.println(1111);
+//                Scale horizontalScale = new Scale(-1, 1);
+                // 创建一个WritableImage，大小与原始图片相同
+                WritableImage mirroredImage = new WritableImage((int) weaponImage.getWidth(), (int) weaponImage.getHeight());
+
+                // 获取PixelReader和PixelWriter
+                PixelReader pixelReader = weaponImage.getPixelReader();
+                PixelWriter pixelWriter = mirroredImage.getPixelWriter();
+
+                // 镜像原始图片的像素并写入新的WritableImage
+                int width = (int) weaponImage.getWidth();
+                int height = (int) weaponImage.getHeight();
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        int sourceX = width - x - 1; // 水平镜像
+                        int color = pixelReader.getArgb(sourceX, y);
+                        pixelWriter.setArgb(x, y, color);
+                    }
+                }
+
+                // 创建一个ImageView来显示镜像后的图片
+                ImageView imageView = new ImageView(mirroredImage);
+                image1 = imageView.getImage();
+                graphicsContext.rotate(Math.toDegrees(Math.PI));
+            }
+
+            graphicsContext.drawImage(image1,-16,-16,32,32);
 //        graphicsContext.drawImage(image,-24,-12.5,width,height);
             graphicsContext.restore();
 //        graphicsContext.drawImage(weaponImage,x+5,y+5,32,32);

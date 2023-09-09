@@ -2,6 +2,7 @@ package com.example.biubiu.sprite;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class State extends Sprite{
 
@@ -41,7 +42,7 @@ public class State extends Sprite{
         graphicsContext.drawImage(imageB,x + 8,y + 8,64,64);
         graphicsContext.drawImage(imageC,x + 8,y + 80,64,64);
 
-        graphicsContext.setFill(javafx.scene.paint.Color.BLACK);
+        graphicsContext.setFill(Color.WHITE);
         graphicsContext.setFont(javafx.scene.text.Font.font("Arial", 16));
         graphicsContext.fillText("速度: " + speed, x + 100, y + 96);
         graphicsContext.fillText("弹药: " + numOfbullet, x + 200, y + 96);
