@@ -5,10 +5,12 @@ import com.example.biubiu.domain.Character;
 import com.example.biubiu.domain.Playercharacter;
 import com.example.biubiu.domain.Weapon;
 import com.example.biubiu.util.DButil;
+import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -66,5 +68,33 @@ public class PlayercharacterDao {
         return resultList;
     }
 
+    @SneakyThrows
+    public boolean updateWeapon(String username, int weaponid){
+        try (Connection conn = DButil.getconnection()) {
+            QueryRunner queryRunner = new QueryRunner();
+            String insertQuery = "UPDATE playercharacter " +
+                    "SET weapon_state = (weapon_state + 1) % 2 " +
+                    "WHERE username = ? AND weaponid = ?";
+            int rowsInserted = queryRunner.update(conn, insertQuery, username, weaponid);
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    @SneakyThrows
+    public boolean updateCharacter(String username, int characterid){
+        try (Connection conn = DButil.getconnection()) {
+            QueryRunner queryRunner = new QueryRunner();
+            String insertQuery = "UPDATE playercharacter " +
+                    "SET character_state = (character_state + 1) % 2 " +
+                    "WHERE username = ? AND characterid = ?";
+            int rowsInserted = queryRunner.update(conn, insertQuery, username, characterid);
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
