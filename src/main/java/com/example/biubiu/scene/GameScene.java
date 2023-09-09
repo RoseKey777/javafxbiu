@@ -40,6 +40,8 @@ public class GameScene {
 
     public int roomid;//房间号
 
+    public int gamePort = 8888;//本局游戏使用的端口
+
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -64,9 +66,11 @@ public class GameScene {
 
     public List<EnemyBullet> enemybullets = new ArrayList<>();
 
+    public List<Drop> drops = new ArrayList<>();
+
     //网络类
     TalkSend[] send = new TalkSend[4];
-    TalkReceive receive = new TalkReceive(8888 ,"老师",this);
+    TalkReceive receive = new TalkReceive( gamePort ,"老师",this);
 
     private void sendToAll(String data){
         for(int i = 0;i < numOfPlayer;++i){
@@ -80,9 +84,18 @@ public class GameScene {
     private void paint(){
         background.paint(graphicsContext);
 
+        for(int i = 0;i < drops.size(); ++i){
+            Drop drop = drops.get(i);
+            if(drop.alive){
+                drop.paint(graphicsContext);
+            }
+        }
+
         if(selfPlayer.alive && !selfPlayer.realDie){
             selfPlayer.paint(graphicsContext);
+            selfPlayer.impact(drops);
         }
+
 //        if(!selfPlayer.alive){
 //            selfPlayer
 //        }
@@ -145,6 +158,12 @@ public class GameScene {
     }
 
     public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[]){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
+        //拾取物绘制
+        Drop drop1 = new Drop("/com/example/biubiu/image/hp.png",200,300,0,0);
+        Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
+        drops.add(drop1);
+        drops.add(drop2);
+
         numOfPlayer = total;
         enemynum = numOfPlayer - 1;
         selfNum = roomchair;
@@ -154,7 +173,7 @@ public class GameScene {
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0,this);
             tmpenemy.alive = true;
             enemys.put(ips[i],tmpenemy);
-            send[i] = new TalkSend(6666 + 6 * roomid + i, ips[i],8888 );
+            send[i] = new TalkSend(gamePort + i + 1, ips[i], gamePort);
             new Thread(send[i]).start();
         }
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
@@ -193,6 +212,7 @@ public class GameScene {
         bullets.clear();
         enemybullets.clear();
         enemys.clear();
+        drops.clear();
     }
 
     private class Refresh extends AnimationTimer{
@@ -200,6 +220,11 @@ public class GameScene {
         @Override
         public void handle(long l) {//每一帧的刷新会调用paint
             if(running){
+                String tmpDropString = "drop|" + selfIP + "|";
+                for(Drop drop:drops){
+                    if(!drop.alive) tmpDropString = tmpDropString + drop.id + "|";
+                }
+
                 String tmpString = "loc|"+ selfIP+ "|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
                         "|" + selfPlayer.height + "|" + selfPlayer.width + "|" + selfPlayer.imageMap.get("weapon") + "|";
                 sendToAll(tmpString);
@@ -207,6 +232,8 @@ public class GameScene {
                 String tmpString1 = "hp|"+ selfIP +"|" + selfPlayer.hp;
                 sendToAll(tmpString1);
 //                send.sendData(tmpString);
+                sendToAll(tmpDropString);
+
                 paint();
             }
         }
@@ -387,6 +414,11 @@ public class GameScene {
                 double tmpx = Double.parseDouble(dataList[2]);
                 String tmpip = dataList[1];
                 enemys.get(tmpip).hp = tmpx;
+            }else if("drop".equals(dataList[0])){
+                for(int i = 2; i < dataList.length;++i){
+                    int dropid = Integer.parseInt(dataList[i]);
+                    drops.get(dropid).alive = false;
+                }
             }
         }
     }

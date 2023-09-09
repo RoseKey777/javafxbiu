@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
 import java.sql.Struct;
+import java.util.List;
 
 public class Player extends Role{
 
@@ -247,6 +248,20 @@ public class Player extends Role{
             return false;
         }
         return true;
+    }
+
+    public int impact(List<Drop> drops){
+        for(Drop drop:drops){
+            if(drop.alive && getContour().intersects(drop.getContour())){
+                if(drop.type == 0){
+                    hp ++;
+                }
+                drop.alive = false;
+//                gameScene.drops.remove(drop);
+                return drop.type;
+            }
+        }
+        return -1;
     }
 
     @Override
