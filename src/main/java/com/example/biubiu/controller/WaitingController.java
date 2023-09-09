@@ -103,7 +103,7 @@ WaitingController implements Initializable {
 
         //显示头像
         for(int i = 0; i < 4; i++){
-            playerList.get(i).setText("");
+            playerList.get(i).setText("无");
             playerList.get(i).setGraphic(null);
         }
         for(int i = 0; i < size; i++){
