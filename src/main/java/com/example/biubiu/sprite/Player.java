@@ -367,9 +367,7 @@ public class Player extends Role{
                 imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
             }
         }
-        if(dir != 0){
-            weaponDir = dir;//todo: 目前是武器和人物一个方向，需要修改武器360度转向
-        }
+        weaponDir = calc();//todo: 目前是武器和人物一个方向，需要修改武器360度转向
         if(x < 0) x = 0;
         if(y < 0) y = 0;
         if(x > Director.WIDTH - width) x = Director.WIDTH - width;
