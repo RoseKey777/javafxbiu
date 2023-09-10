@@ -105,6 +105,23 @@ public class RequestHandler {
         output.println(playercharacterDao.updateCharacter(username, charactername));
     }
 
+    //获取登录玩家使用的的武器和角色id
+    public String getUserState(User user){
+        return playercharacterDao.getUserState(user.getUsername());
+    }
+
+    //获取所有玩家信息
+    public void getAllUser(){
+        output.println(JSON.toJSONString(userDao.getAllUser()));
+    }
+
+    //更新头像
+    public void updateAvatar(Map<String, Object> data){
+        String username = (String)(data.get("username"));
+        String avatar = (String)(data.get("avatar"));
+        userDao.updateAvatar(username, avatar);
+    }
+
     //创建房间
     public void createroom(Map<String, Object> data){
 

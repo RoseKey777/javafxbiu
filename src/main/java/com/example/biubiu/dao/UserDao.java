@@ -1,5 +1,6 @@
 package com.example.biubiu.dao;
 
+import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.util.DButil;
 import lombok.SneakyThrows;
@@ -8,10 +9,47 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserDao {
+
+    public List<Map<String, Object>> getAllUser(){
+        try {
+            List<Map<String, Object>> users = new ArrayList<>();
+            Statement statement = DButil.getconnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user ");
+            while(resultSet.next()){
+                Map<String, Object> map = new HashMap<>();
+                map.put("username", resultSet.getString("username"));
+                map.put("score", resultSet.getDouble("score"));
+                users.add(map);
+            }
+            return users;
+        } catch (ClassNotFoundException e){
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void updateAvatar(String username, String avatar){
+        try{
+            String sql = "UPDATE user SET avatar = ? WHERE username = ?";
+            PreparedStatement preparedStatement = DButil.getconnection().prepareStatement(sql);
+            preparedStatement.setString(1, avatar);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public User getUserByUsernameAndPassword(String username,String password) {
         Connection cn = null;

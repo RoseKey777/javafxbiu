@@ -121,4 +121,32 @@ public class PlayercharacterDao {
             return 0;
         }
     }
+
+
+    //获取登陆玩家的状态
+    public String getUserState(String username) {
+
+        try (Connection conn = DButil.getconnection()) {
+            String sql1 = "SELECT characterid FROM playercharacter WHERE username = ? AND character_state = 1 ";
+            PreparedStatement preparedStatement1 = DButil.getconnection().prepareStatement(sql1);
+            preparedStatement1.setString(1, username);
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            resultSet1.next();
+            int character_id = resultSet1.getInt(1);
+            String sql2 = "SELECT weaponid FROM playercharacter WHERE username = ? AND weapon_state = 1 ";
+            PreparedStatement preparedStatement2 = DButil.getconnection().prepareStatement(sql2);
+            preparedStatement1.setString(1, username);
+            ResultSet resultSet2 = preparedStatement1.executeQuery();
+            resultSet2.next();
+            int weapon_id = resultSet2.getInt(1);
+
+            return character_id + "," + weapon_id;
+        }
+        catch (SQLException e) {
+                e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

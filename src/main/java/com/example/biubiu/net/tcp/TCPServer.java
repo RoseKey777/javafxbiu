@@ -209,6 +209,9 @@ public class TCPServer extends JFrame{
                         User user = requestHandler.login(data);
                         if (user != null) {
                             userClient = new UserClient(user, name);
+                            String[] state = requestHandler.getUserState(user).split(",");
+                            userClient.characterid = Integer.parseInt(state[0]);
+                            userClient.weapenid = Integer.parseInt(state[1]);
                             System.out.println(userClient);
                             userClients.put(name, userClient);
                         }
@@ -307,6 +310,18 @@ public class TCPServer extends JFrame{
                     //更新角色状态
                     else if("updateCharacter".equals(type)){
                         requestHandler.updateCharacter(data);
+                    }
+                    //获取玩家登录状态信息
+                    else if("getUserClient".equals(type)){
+                        pw.println(JSON.toJSONString(userClient));
+                    }
+                    //获取所有玩家信息
+                    else if("getalluser".equals(type)){
+                        requestHandler.getAllUser();
+                    }
+                    //更新头像
+                    else if("updateavatar".equals(type)){
+                        requestHandler.updateAvatar(data);
                     }
 //                    else if("")
 //                    // 检验是否为私聊（格式：@昵称：内容）
