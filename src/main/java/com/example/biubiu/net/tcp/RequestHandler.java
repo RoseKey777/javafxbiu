@@ -120,6 +120,7 @@ public class RequestHandler {
         String username = (String)(data.get("username"));
         String avatar = (String)(data.get("avatar"));
         userDao.updateAvatar(username, avatar);
+        output.println("更新成功");
     }
 
     //创建房间
