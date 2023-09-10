@@ -135,8 +135,8 @@ public class PlayercharacterDao {
             int character_id = resultSet1.getInt(1);
             String sql2 = "SELECT weaponid FROM playercharacter WHERE username = ? AND weapon_state = 1 ";
             PreparedStatement preparedStatement2 = DButil.getconnection().prepareStatement(sql2);
-            preparedStatement1.setString(1, username);
-            ResultSet resultSet2 = preparedStatement1.executeQuery();
+            preparedStatement2.setString(1, username);
+            ResultSet resultSet2 = preparedStatement2.executeQuery();
             resultSet2.next();
             int weapon_id = resultSet2.getInt(1);
 

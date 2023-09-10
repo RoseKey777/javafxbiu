@@ -313,12 +313,21 @@ public class TCPServer extends JFrame{
                     else if("updateWeapon".equals(type)){
                         requestHandler.updateWeapon(data);
                     }
+                    //获取玩家已拥有的武器信息
+                    else if("getPlayerAllWeapon".equals(type)){
+                        requestHandler.getPlayerAllWeapon(data);
+                    }
                     //更新角色状态
                     else if("updateCharacter".equals(type)){
                         requestHandler.updateCharacter(data);
                     }
                     //获取玩家登录状态信息
                     else if("getUserClient".equals(type)){
+                        String[] state = requestHandler.getUserState(userClient.user).split(",");
+                        userClient.characterid = Integer.parseInt(state[0]);
+                        userClient.weapenid = Integer.parseInt(state[1]);
+                        System.out.println(userClient.characterid);
+                        System.out.println(userClient.weapenid);
                         pw.println(JSON.toJSONString(userClient));
                     }
                     //获取所有玩家信息
