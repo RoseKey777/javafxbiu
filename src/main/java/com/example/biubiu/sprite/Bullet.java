@@ -1,12 +1,24 @@
 package com.example.biubiu.sprite;
 
 import com.example.biubiu.Director;
+import com.example.biubiu.scene.ComputerGameScene;
 import com.example.biubiu.scene.GameScene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Bullet extends Role{
+
+    public int NPCflag;
+
+    public int idd;//用于人机对战判定
+
     public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, GameScene gameScene) {
+        super(x, y, width, height, dir, gameScene);
+        speed = weaponspeed;
+        image = new Image(Bullet.class.getResource("/com/example/biubiu/image/missile.png").toExternalForm());
+    }
+
+    public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, ComputerGameScene gameScene) {
         super(x, y, width, height, dir, gameScene);
         speed = weaponspeed;
         image = new Image(Bullet.class.getResource("/com/example/biubiu/image/missile.png").toExternalForm());
@@ -111,9 +123,10 @@ public class Bullet extends Role{
         graphicsContext.drawImage(image,-24,-12.5,width,height);
         graphicsContext.restore();
         move();
-        if(!alive){
+        if(!alive && NPCflag == 0){
             gameScene.bullets.remove(this);
-            return;
+        }else if(!alive && NPCflag != 0){
+            computerGameScene.bullets.remove(this);
         }
     }
 

@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class GameOverController {
+
+    public int npcflag;
     @FXML
     private ImageView flag;
 
@@ -21,7 +23,11 @@ public class GameOverController {
     @FXML
     void mouseClickedToIndex(MouseEvent event) {
 //        SoundEffect.play("/sound/done.wav");
-        Director.getInstance().waitingRoomStart();
+        if(npcflag == 0){
+            Director.getInstance().waitingRoomStart();
+        }else {
+            Director.getInstance().toIndex();
+        }
 
     }
 

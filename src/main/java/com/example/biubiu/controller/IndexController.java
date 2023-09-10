@@ -32,6 +32,8 @@ import java.util.concurrent.Flow;
 
 public class IndexController implements Initializable {
     @FXML
+    public Button toPVE;
+    @FXML
     private Label welcomeText;
 
     @FXML
@@ -146,6 +148,7 @@ public class IndexController implements Initializable {
         this.playchoose.setFont(spiderFont);
         this.store.setFont(spiderFont);
         this.help.setFont(spiderFont);
+        this.toPVE.setFont(spiderFont);
 
         Image image = new Image(Login.class.getResource("/com/example/biubiu/image/gold.png").toExternalForm(),46,46,false,true);
         coin_icon.setGraphic(new ImageView(image));
@@ -234,6 +237,19 @@ public class IndexController implements Initializable {
 
     public void mouseEnteredAvatar(MouseEvent mouseEvent) {
         avatar.setCursor(Cursor.HAND);
+    }
+
+    public void toPVEMouseClicked(MouseEvent mouseEvent) {
+        Stage stage = Director.getInstance().getStage();
+        Director.getInstance().ToPVE(stage);
+    }
+
+    public void toPVEMouseEntered(MouseEvent mouseEvent) {
+        toPVE.setOpacity(0.8);
+    }
+
+    public void toPVEMouseExited(MouseEvent mouseEvent) {
+        toPVE.setOpacity(1);
     }
 }
 

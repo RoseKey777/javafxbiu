@@ -6,6 +6,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class EnemyBullet extends Role{
+
+    public int NPCflag;
+
     public EnemyBullet(double x, double y, double width, double height, double dir, GameScene gameScene) {
         super(x, y, width, height, dir, gameScene);
         speed = 5;
@@ -111,9 +114,10 @@ public class EnemyBullet extends Role{
         graphicsContext.drawImage(image,-24,-12.5,width,height);
         graphicsContext.restore();
         move();
-        if(!alive){
-            gameScene.enemybullets.remove(this);
-            return;
+        if(!alive && NPCflag == 0){
+            gameScene.bullets.remove(this);
+        }else if(!alive && NPCflag != 0){
+            computerGameScene.bullets.remove(this);
         }
     }
 

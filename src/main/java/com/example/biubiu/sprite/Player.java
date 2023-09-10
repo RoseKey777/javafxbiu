@@ -1,6 +1,7 @@
 package com.example.biubiu.sprite;
 
 import com.example.biubiu.Director;
+import com.example.biubiu.scene.ComputerGameScene;
 import com.example.biubiu.scene.GameScene;
 import com.example.biubiu.util.SoundEffect;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class Player extends Role{
 
+    public int NPCflag;//人机flag 为0则这把游戏是人机
     public int numOfwudi;
     public int mapChoose;
     public boolean realDie;
@@ -70,22 +72,22 @@ public class Player extends Role{
             }
     };
 
-    private static Image[] images = new Image[] {
+    private static Image[][] images = new Image[][] {
+            {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-3.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-3.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-4.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-4.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-5.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-5.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
 
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
-
-            new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
-
+                    new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
+            }
     };
 
     private static Image[] dieImages = new Image[] {
@@ -141,6 +143,21 @@ public class Player extends Role{
         numOfbullet = numbullet[weaID];
         mapChoose = mapchoose;
         numOfwudi = 0;
+        NPCflag = 0;
+
+        realDie = false;
+        dressup(chaID,weaID);
+    }
+
+    public Player(double x, double y,int chaID,int weaID, double dir, double weaponDir, int mapchoose, ComputerGameScene gameScene) {
+        super(x, y, 32, 32, dir, gameScene);
+        this.weaponDir = weaponDir;
+        characterid = chaID;
+        weaponid = weaID;
+        numOfbullet = numbullet[weaID];
+        mapChoose = mapchoose;
+        numOfwudi = 0;
+        NPCflag = 1;
 
         realDie = false;
         dressup(chaID,weaID);
@@ -236,7 +253,7 @@ public class Player extends Role{
         }
     }
     public void wakeChange(){
-        imageMap.put("walk",images[count]);//video 7 diffrent
+        imageMap.put("walk",images[characterid][count]);//video 7 diffrent
     }
 
     public void dieChange(){
@@ -291,7 +308,7 @@ public class Player extends Role{
         if(dir == 1.0){
             if(illegal(x+speed,y)){
                 x += speed;
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if(MOD== 0){
                     wakeChange();
@@ -301,7 +318,7 @@ public class Player extends Role{
             if(illegal(x+speed/Math.sqrt(2), y-speed/Math.sqrt(2))){
                 x += speed/Math.sqrt(2);
                 y -= speed/Math.sqrt(2);
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if(MOD== 0){
                     wakeChange();
@@ -310,7 +327,7 @@ public class Player extends Role{
         }else if(dir == 3.0){
             if(illegal(x, y-speed)) {
                 y -= speed;
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
                     wakeChange();
@@ -320,7 +337,7 @@ public class Player extends Role{
             if(illegal(x-speed/Math.sqrt(2), y-speed/Math.sqrt(2))) {
                 y -= speed / Math.sqrt(2);
                 x -= speed / Math.sqrt(2);
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
                     wakeChange();
@@ -329,7 +346,7 @@ public class Player extends Role{
         }else if(dir == 5.0){
             if(illegal(x-speed, y)) {
                 x -= speed;
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
                     wakeChange();
@@ -339,7 +356,7 @@ public class Player extends Role{
             if(illegal(x-speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
                 y += speed / Math.sqrt(2);
                 x -= speed / Math.sqrt(2);
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
                     wakeChange();
@@ -348,7 +365,7 @@ public class Player extends Role{
         }else if(dir == 7.0){
             if(illegal(x, y+speed)) {
                 y += speed;
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
                     wakeChange();
@@ -358,7 +375,7 @@ public class Player extends Role{
             if(illegal(x+speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
                 x += speed / Math.sqrt(2);
                 y += speed / Math.sqrt(2);
-                count = (count + 1) % images.length;
+                count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
                     wakeChange();
@@ -372,7 +389,7 @@ public class Player extends Role{
                 if(countDie == 7) realDie = true;
             }
             if(alive) {
-                imageMap.put("walk",new Image(Player.class.getResource("/com/example/biubiu/image/moverole1-0.gif").toExternalForm()));//video 7 diffrent
+                imageMap.put("walk",new Image(Player.class.getResource(chaURL[characterid]).toExternalForm()));//video 7 diffrent
             }
         }
         weaponDir = calc();//todo: 目前是武器和人物一个方向，需要修改武器360度转向
@@ -444,7 +461,15 @@ public class Player extends Role{
     }
     public void speedchange(double bx,double by,int weaponid){
         Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,gameScene);
+        bullet.NPCflag = 0;
         gameScene.bullets.add(bullet);
+    }
+
+    public void newspeedchange(double bx,double by,int weaponid){
+        Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,computerGameScene);
+        bullet.NPCflag = 1;
+        bullet.idd = 0;
+        computerGameScene.bullets.add(bullet);
     }
 
     public void openFire(){
@@ -452,7 +477,11 @@ public class Player extends Role{
         double bx = x + width/2;
         double by = y + height/2;
         weaponDir = calc();
-        speedchange(bx, by, weaponid);
+        if(NPCflag == 0){
+            speedchange(bx, by, weaponid);
+        }else {
+            newspeedchange(bx, by, weaponid);
+        }
     }
 
     @Override

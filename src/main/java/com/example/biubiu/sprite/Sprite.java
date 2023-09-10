@@ -1,5 +1,6 @@
 package com.example.biubiu.sprite;
 
+import com.example.biubiu.scene.ComputerGameScene;
 import com.example.biubiu.scene.GameScene;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,6 +15,8 @@ public abstract class Sprite {
     public double height;
     GameScene gameScene;
 
+    ComputerGameScene computerGameScene;
+
     public Sprite(Image image, double x, double y, double width, double height, GameScene gameScene) {
         this.image = image;
         this.x = x;
@@ -21,6 +24,15 @@ public abstract class Sprite {
         this.width = width;
         this.height = height;
         this.gameScene = gameScene;
+    }
+
+    public Sprite(Image image, double x, double y, double width, double height, ComputerGameScene computerGameScene) {
+        this.image = image;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.computerGameScene = computerGameScene;
     }
 
     public Sprite(Image image, double x, double y, double width, double height) {

@@ -67,8 +67,6 @@ public class GameScene {
 
     String []mpURL = {"/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png"};
 
-//    private Enemy enemy = new Enemy(400,500,0, 0.0,this);
-
     public List<Bullet> bullets = new CopyOnWriteArrayList<>();
 
     public Map<String,Enemy> enemys = new HashMap<>();
@@ -141,10 +139,10 @@ public class GameScene {
                         enemy.alive = false;
                         enemynum --;
                         if(enemynum == 0){
-                            Director.getInstance().gameOver(true);
+                            Director.getInstance().gameOver(true,0);
                         }
                         if(enemynum == 1 && !selfPlayer.alive){
-                            Director.getInstance().gameOver(false);
+                            Director.getInstance().gameOver(false,0);
                         }
                     }
                     bullet.alive = false;
@@ -168,7 +166,7 @@ public class GameScene {
                     selfPlayer.alive = false;
                 }
                 if(enemynum == 1 && !selfPlayer.alive){
-                    Director.getInstance().gameOver(false);
+                    Director.getInstance().gameOver(false,0);
                 }
                 if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
                     selfPlayer.x += 5 * Math.cos(bullet.dir);
@@ -200,18 +198,24 @@ public class GameScene {
         selfNum = roomchair;
         socketFlag = true;
         background.image = new Image(Background.class.getResource(mpURL[mapchoose]).toExternalForm());
+
+        selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
+                0.0,mapchoose,this);
+        selfPlayer.username = username[roomchair];
+        selfPlayer.alive = true;
+        selfPlayer.NPCflag = 0;
+
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer
             Enemy tmpenemy = new Enemy(positionPlayer[i][0],positionPlayer[i][1],ChaID[i],WeaID[i],0,0, mapchoose,this);
             tmpenemy.alive = true;
             tmpenemy.username = username[i];
+            tmpenemy.NPCflag = 0;
             enemys.put(ips[i],tmpenemy);
             send[i] = new TalkSend(gamePort + i + 1, ips[i], gamePort);
             new Thread(send[i]).start();
         }
-        selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
-                0.0,mapchoose,this);
-        selfPlayer.username = username[roomchair];
+
         selfIP = ips[roomchair];
         receive = new TalkReceive(gamePort ,"老师",this);
         new Thread(receive).start();

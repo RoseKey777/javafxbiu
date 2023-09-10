@@ -19,6 +19,8 @@ public class Director {
 
     private Stage stage;
     private GameScene gameScene;
+
+    private ComputerGameScene computerGameScene;
     private Gamehall gamehall = new Gamehall();
 
     private WaitingRoom waitingRoom = new WaitingRoom();
@@ -85,6 +87,20 @@ public class Director {
         stage.show();
     }
 
+    public void ToPVE(Stage stage){
+        Pane root = new Pane();
+        Scene scene = new Scene(root, WIDTH,HEIGHT);
+        stage.setTitle("biubiu");
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
+        this.stage = stage;
+        toPVE();
+        stage.show();
+    }
+
 
     public Stage getStage(){
         return stage;
@@ -98,12 +114,22 @@ public class Director {
     public void toBag(){
         Bag.load(stage);
     }
+    public void toPVE(){
+        Pve.load(stage);
+    }
 
-    public void gameOver(boolean success){
-        gameScene.clear(stage);
-        GameOver.load(stage,success);
+    public void gameOver(boolean success,int npcflag){
+        GameOver gameOver = new GameOver();
+        if(npcflag == 0){
+            gameScene.clear(stage);
+            gameOver.load(stage,success,npcflag);
 //        gameScene.clear(stage);
-        gameScene = null;
+            gameScene = null;
+        }else {
+            computerGameScene.clear(stage);
+            gameOver.load(stage,success,npcflag);
+            computerGameScene = null;
+        }
     }
 
     public void gameStart(Room room, int Roomchair, int gamePort){
@@ -128,7 +154,13 @@ public class Director {
             tmp++;
         }
         // 房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
-        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,0);//todo 选择地图
+        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,0);
+    }
+
+    public void NPCgamestart(String username,int chaid,int weaid,int mode){
+        computerGameScene = new ComputerGameScene();
+        computerGameScene.init(stage,mode,username,mode,chaid,weaid);
+        //Stage stage,String playername int mode, int mapchoose, int chaID,int weaID
     }
 
     public void gamehallStart(){

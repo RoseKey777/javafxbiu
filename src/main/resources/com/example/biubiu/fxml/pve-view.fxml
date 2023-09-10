@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.pveController">
+   <children>
+      <Button fx:id="easy" layoutX="259.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#easyMouseClicked" onMouseEntered="#easyMouseEntered" onMouseExited="#easyMouseExited" text="简单" />
+      <Button fx:id="medium" layoutX="200.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#mediumMouseClicked" onMouseEntered="#mediumMouseEntered" onMouseExited="#mediumMouseExited" prefHeight="50.0" prefWidth="200.0" text="中等" />
+      <Button fx:id="difficult" layoutX="200.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#difficultMouseClicked" onMouseEntered="#difficultMouseEntered" onMouseExited="#difficultMouseExited" prefHeight="50.0" prefWidth="200.0" text="困难" />
+      <Label layoutX="230.0" layoutY="42.0" prefHeight="69.0" prefWidth="188.0" text="欢迎来到人机模式" />
+   </children>
+</AnchorPane>
