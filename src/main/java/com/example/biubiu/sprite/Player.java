@@ -126,7 +126,7 @@ public class Player extends Role{
     private int []numbullet = {50, 40, 50};
 
     private double spd[] = {2, 4, 1.5};
-    private double hps[] = {10, 8, 14};
+    private double hps[] = {10, 8, 12};
     private double bulletspeed[] = {5, 7, 8};
     public void dressup(int chaID,int weaID){
         speed = spd[chaID];

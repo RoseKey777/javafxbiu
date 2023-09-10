@@ -22,6 +22,8 @@ public class Enemy extends Role{
     Image weaponImage;
     private int count = 0;
 
+    private int cnt = 0;
+
     private int countDie = 0;
     private int MOD = 7;
 
@@ -129,7 +131,7 @@ public class Enemy extends Role{
             "/com/example/biubiu/image/Kar98k.png"};
 
     private double spd[] = {2, 4, 1.5};
-    private double hps[] = {10, 8, 14};
+    private double hps[] = {10, 8, 12};
     private double bulletspeed[] = {5,7,8};
 
     public void dressup(int chaID,int weaID){
@@ -164,7 +166,10 @@ public class Enemy extends Role{
         playerY = playery;
 
         realDie = false;
-        dressup(chaID,weaID);
+        speed = spd[chaID];
+        hp = hps[chaID] - 6;
+        imageMap.put("walk",new Image(Player.class.getResource(chaURL[chaID]).toExternalForm()));
+        imageMap.put("weapon",new Image(Player.class.getResource(weaURL[weaID]).toExternalForm()));
     }
 
 //    public void pressed(KeyCode keyCode){
@@ -398,6 +403,14 @@ public class Enemy extends Role{
         if(y > Director.HEIGHT - height) y = Director.HEIGHT - height;
     }
 
+    public int randomdir(int dd){
+        Random random = new Random();
+        while (true){
+            int tmp = random.nextInt(9);
+            if(tmp != dd) return tmp;
+        }
+    }
+
     public void NPCmove() {
         Random random = new Random();
         int dirr =random.nextInt(60) ;
@@ -423,8 +436,8 @@ public class Enemy extends Role{
             }
         }
 
-        double spd = speed * 5;
-        if(dirr == 1){
+        double spd = speed;
+        if(dir == 1){
             if(illegal(x+spd,y)){
                 x += spd;
                 count = (count + 1) % images[characterid].length;
@@ -432,8 +445,10 @@ public class Enemy extends Role{
                 if(MOD== 0){
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(1);
             }
-        }else if(dirr == 2){
+        }else if(dir == 2){
             if(illegal(x+spd/Math.sqrt(2), y-spd/Math.sqrt(2))){
                 x += spd/Math.sqrt(2);
                 y -= spd/Math.sqrt(2);
@@ -442,8 +457,10 @@ public class Enemy extends Role{
                 if(MOD== 0){
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(2);
             }
-        }else if(dirr == 3){
+        }else if(dir == 3){
             if(illegal(x, y-spd)) {
                 y -= spd;
                 count = (count + 1) % images[characterid].length;
@@ -451,8 +468,10 @@ public class Enemy extends Role{
                 if (MOD == 0) {
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(3);
             }
-        }else if(dirr == 4){
+        }else if(dir == 4){
             if(illegal(x-spd/Math.sqrt(2), y-spd/Math.sqrt(2))) {
                 y -= spd / Math.sqrt(2);
                 x -= spd / Math.sqrt(2);
@@ -461,8 +480,10 @@ public class Enemy extends Role{
                 if (MOD == 0) {
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(4);
             }
-        }else if(dirr == 5){
+        }else if(dir == 5){
             if(illegal(x-spd, y)) {
                 x -= spd;
                 count = (count + 1) % images[characterid].length;
@@ -470,8 +491,10 @@ public class Enemy extends Role{
                 if (MOD == 0) {
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(5);
             }
-        }else if(dirr == 6){
+        }else if(dir == 6){
             if(illegal(x-spd/Math.sqrt(2), y+spd/Math.sqrt(2))) {
                 y += spd / Math.sqrt(2);
                 x -= spd / Math.sqrt(2);
@@ -480,8 +503,10 @@ public class Enemy extends Role{
                 if (MOD == 0) {
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(6);
             }
-        }else if(dirr == 7){
+        }else if(dir == 7){
             if(illegal(x, y+spd)) {
                 y += spd;
                 count = (count + 1) % images[characterid].length;
@@ -489,8 +514,10 @@ public class Enemy extends Role{
                 if (MOD == 0) {
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(7);
             }
-        }else if(dirr == 8){
+        }else if(dir == 8){
             if(illegal(x+spd/Math.sqrt(2), y+spd/Math.sqrt(2))) {
                 x += spd / Math.sqrt(2);
                 y += spd / Math.sqrt(2);
@@ -499,6 +526,8 @@ public class Enemy extends Role{
                 if (MOD == 0) {
                     wakeChange();
                 }
+            }else{
+                dir = randomdir(8);
             }
         }else{
             count = 0;
@@ -509,6 +538,11 @@ public class Enemy extends Role{
             }
             if(alive) {
                 imageMap.put("walk",new Image(Player.class.getResource(chaURL[characterid]).toExternalForm()));//video 7 diffrent
+                cnt++;
+                if(cnt == 12){
+                    cnt = 0;
+                    dir = randomdir(0);
+                }
             }
         }
 
