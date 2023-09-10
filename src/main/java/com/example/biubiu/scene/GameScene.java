@@ -45,7 +45,7 @@ public class GameScene {
 
     public int gamePort;//本局游戏使用的端口
 
-    public int mapChoose;//本局游戏选择地图
+    public int Mapchoose;//本局游戏选择地图
 
     public double mouseX,mouseY;
     private Canvas canvas = new Canvas(1024,1024);
@@ -197,6 +197,7 @@ public class GameScene {
         enemynum = numOfPlayer - 1;
         selfNum = roomchair;
         socketFlag = true;
+        Mapchoose = mapchoose;
         background.image = new Image(Background.class.getResource(mpURL[mapchoose]).toExternalForm());
 
         selfPlayer = new Player(positionPlayer[roomchair][0],positionPlayer[roomchair][1],ChaID[roomchair], WeaID[roomchair],0,
@@ -440,7 +441,7 @@ public class GameScene {
                 SoundEffect.play("/com/example/biubiu/mp3/gun.mp3");
                 double bx = tmpx + 16;
                 double by = tmpy + 16;
-                EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,this.gs);
+                EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,Mapchoose,this.gs);
                 enemybullets.add(bullet);
 //                System.out.println(999999);
             }else if("hp".equals(dataList[0])){

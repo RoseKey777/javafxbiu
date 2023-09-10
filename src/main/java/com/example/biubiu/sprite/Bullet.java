@@ -8,23 +8,28 @@ import javafx.scene.image.Image;
 
 public class Bullet extends Role{
 
+    public int Mapchoose;
     public int NPCflag;
 
     public int idd;//用于人机对战判定
 
-    public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, GameScene gameScene) {
+    public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, int mapchoose,GameScene gameScene) {
         super(x, y, width, height, dir, gameScene);
         speed = weaponspeed;
+        Mapchoose = mapchoose;
         image = new Image(Bullet.class.getResource("/com/example/biubiu/image/missile.png").toExternalForm());
     }
 
-    public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, ComputerGameScene gameScene) {
+    public Bullet(double x, double y, double weaponspeed, double width, double height, double dir, int mapchoose,ComputerGameScene gameScene) {
         super(x, y, width, height, dir, gameScene);
         speed = weaponspeed;
+        Mapchoose = mapchoose;
         image = new Image(Bullet.class.getResource("/com/example/biubiu/image/missile.png").toExternalForm());
     }
 
-    private   int [][]block={
+    private   int [][][]block={
+            {},
+            {
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 10, 10, 10, 10, 0, 0, 0, 10},
@@ -57,6 +62,7 @@ public class Bullet extends Role{
             {10, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10},
             {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}
+            }
     };
 
     public boolean illegal(double xx,double yy){
@@ -75,16 +81,16 @@ public class Bullet extends Role{
 //        int realXXXX = (int)Math.floor((xx+40)/32.0);
 //        int realYYYY = (int)Math.floor((yy+5)/32.0);
 
-        if(block[realY][realX] == 10){//左上
+        if(block[Mapchoose][realY][realX] == 10){//左上
             return false;
         }
-        if(block[realYY][realXX] == 10){//右下
+        if(block[Mapchoose][realYY][realXX] == 10){//右下
             return false;
         }
-        if(block[realYYY][realXXX] == 10){//左下
+        if(block[Mapchoose][realYYY][realXXX] == 10){//左下
             return false;
         }
-        if(block[realYYYY][realXXXX] == 10){//右上
+        if(block[Mapchoose][realYYYY][realXXXX] == 10){//右上
             return false;
         }
         return true;

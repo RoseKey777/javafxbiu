@@ -16,17 +16,17 @@ public class State extends Sprite{
         super(new Image(State.class.getResource("/com/example/biubiu/image/tmpstate.png").toExternalForm()),262, 872 ,500 ,152);
     }
 
-    private String[] chaURL = {"/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
+    private String[] chaURL = {"","/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
             "/com/example/biubiu/image/moverole1-0.gif"};
 
-    private String[] weaURL = {"/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
+    private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
             "/com/example/biubiu/image/Kar98k.png"};
 
-    private int []numbullet = {50, 40, 50};
+    private int []numbullet = {0, 50, 40, 50};
 
-    private double spd[] = {2, 4, 1.5};
+    private double spd[] = {0, 2, 4, 1.5};
 
-    private double bulletspeed[] = {5, 7, 8};
+    private double bulletspeed[] = {0, 5, 7, 8};
     @Override
     public void paint(GraphicsContext graphicsContext){
         super.paint(graphicsContext);

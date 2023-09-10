@@ -40,6 +40,7 @@ public class Enemy extends Role{
     public double playerY;
 
     private int [][][]block={
+            {},
             //0号地图
             {
                     {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
@@ -78,6 +79,7 @@ public class Enemy extends Role{
     };
 
     private static Image[][] images = new Image[][] {
+            {},
             {
 
                     new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
@@ -124,15 +126,15 @@ public class Enemy extends Role{
 
     double sceneX,sceneY;
 
-    private String[] chaURL = {"/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
+    private String[] chaURL = {"","/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
             "/com/example/biubiu/image/moverole1-0.gif"};
 
-    private String[] weaURL = {"/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
+    private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
             "/com/example/biubiu/image/Kar98k.png"};
 
-    private double spd[] = {2, 4, 1.5};
-    private double hps[] = {10, 8, 12};
-    private double bulletspeed[] = {5,7,8};
+    private double spd[] = {0, 2, 4, 1.5};
+    private double hps[] = {0, 10, 8, 12};
+    private double bulletspeed[] = {0,5,7,8};
 
     public void dressup(int chaID,int weaID){
         speed = spd[chaID];
@@ -201,8 +203,10 @@ public class Enemy extends Role{
     }
 
     public double calcNPC(){
+        playerX = computerGameScene.selfPlayer.x;
+        playerY = computerGameScene.selfPlayer.y;
         double tmp = Math.atan((playerY - y - 16)/(playerX - x - 16));
-        if(sceneX < x){
+        if(playerX < x){
             return Math.PI - tmp;
         }else {
             double tmp1 = Math.atan((y - playerY + 16)/(playerX - x - 16));
@@ -616,13 +620,13 @@ public class Enemy extends Role{
         }
     }
     public void speedchange(double bx,double by,int weaponid){
-        Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,gameScene);
+        Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,mapChoose,gameScene);
         bullet.NPCflag = 0;
         gameScene.bullets.add(bullet);
     }
 
     public void newspeedchange(double bx,double by,int weaponid){
-        Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,computerGameScene);
+        Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,mapChoose,computerGameScene);
         bullet.NPCflag = idd;
         bullet.idd = idd;
         computerGameScene.bullets.add(bullet);

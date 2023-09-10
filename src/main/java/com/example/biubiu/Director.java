@@ -179,12 +179,12 @@ public class Director {
             tmp++;
         }
         // 房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
-        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,0);
+        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,1);
     }
 
     public void NPCgamestart(String username,int chaid,int weaid,int mode){
         computerGameScene = new ComputerGameScene();
-        computerGameScene.init(stage,mode,username,mode,chaid,weaid);
+        computerGameScene.init(stage,mode,username,mode + 1,chaid,weaid);
         //Stage stage,String playername int mode, int mapchoose, int chaID,int weaID
     }
 

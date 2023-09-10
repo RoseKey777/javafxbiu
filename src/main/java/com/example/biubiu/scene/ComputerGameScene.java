@@ -35,7 +35,7 @@ public class ComputerGameScene {
     private Background background = new Background();
 
     private State state = new State();
-    private Player selfPlayer;
+    public Player selfPlayer;
 
     private int gamemode;
     String []mpURL = {"/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png"};
@@ -84,14 +84,14 @@ public class ComputerGameScene {
 
         for(int i = 0; i < enemynum; ++i){
             if(mode == 0){
-                ChaID[i + 1] = 0;
-                WeaID[i + 1] = 0;
-            }else if(mode == 1){
                 ChaID[i + 1] = 1;
                 WeaID[i + 1] = 1;
-            }else {
+            }else if(mode == 1){
                 ChaID[i + 1] = 2;
                 WeaID[i + 1] = 2;
+            }else {
+                ChaID[i + 1] = 3;
+                WeaID[i + 1] = 3;
             }
         }
         selfPlayer = new Player(positionPlayer[0][0],positionPlayer[0][1],ChaID[0], WeaID[0],0,
@@ -184,7 +184,7 @@ public class ComputerGameScene {
                 if(!enemy.alive){
                     continue;
                 }
-                if(bullet.getContour().intersects(enemy.getContour()) && bullet.idd != enemy.idd){
+                if(bullet.getContour().intersects(enemy.getContour()) && bullet.idd != enemy.idd && bullet.idd == 0){
                     if(enemy.numOfwudi > 0){
                         enemy.numOfwudi --;
                     }else {
