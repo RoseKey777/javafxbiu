@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Date;
@@ -88,5 +89,8 @@ public class pveController  implements Initializable {
         this.difficult.setFont(spiderFont);
     }
 
-
+    public void exitToIndex(MouseEvent mouseEvent) {
+        Stage stage = Director.getInstance().getStage();
+        Director.getInstance().Toindex(stage);
+    }
 }

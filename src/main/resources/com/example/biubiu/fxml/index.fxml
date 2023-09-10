@@ -28,5 +28,11 @@
       <Label fx:id="store" layoutX="930.0" layoutY="29.0" onMouseClicked="#storeMouseClicked" onMouseEntered="#storeMouseEntered" prefHeight="48.0" prefWidth="48.0" />
       <Label fx:id="avatar" layoutX="24.0" layoutY="20.0" onMouseClicked="#mouseClikedAvatar" onMouseEntered="#mouseEnteredAvatar" prefHeight="60.0" prefWidth="60.0" />
       <Button fx:id="toPVE" layoutX="350.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#toPVEMouseClicked" onMouseEntered="#toPVEMouseEntered" onMouseExited="#toPVEMouseExited" prefHeight="75.0" prefWidth="400.0" text="人机模式" />
+      <ListView fx:id="List" layoutX="65.0" layoutY="374.0" prefHeight="444.0" prefWidth="105.0" />
+      <Label layoutX="122.0" layoutY="326.0" prefHeight="48.0" prefWidth="145.0" text="排行榜">
+         <font>
+            <Font size="33.0" />
+         </font></Label>
+      <ListView fx:id="list_scores" layoutX="169.0" layoutY="374.0" prefHeight="444.0" prefWidth="103.0" />
    </children>
 </Pane>

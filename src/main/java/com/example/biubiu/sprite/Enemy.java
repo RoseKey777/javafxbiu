@@ -400,25 +400,33 @@ public class Enemy extends Role{
 
     public void NPCmove() {
         Random random = new Random();
-        int dirr =random.nextInt(8) + 1;
+        int dirr =random.nextInt(60) ;
         double weadir = random.nextDouble(Math.PI*2);
-        if(NPCmode == 0 || NPCmode == 1){
-            weaponDir = weadir;
-        }else {
-            weaponDir = calcNPC();
-        }
 
         if(NPCmode == 0){
-            if(dirr == 1) openFire();
+            if(dirr == 1)
+            {
+                weaponDir = weadir;
+                openFire();
+            }
         }else if(NPCmode == 1){
-            if(dirr == 1 || dirr == 2) openFire();
+            if(dirr == 1 || dirr == 2)
+            {
+                weaponDir = weadir;
+                openFire();
+            }
         }else  {
-            if(dirr == 1 || dirr == 2 || dirr == 3) openFire();
+            if(dirr == 1 || dirr == 2 || dirr == 3)
+            {
+                weaponDir = calcNPC();
+                openFire();
+            }
         }
 
+        double spd = speed * 5;
         if(dirr == 1){
-            if(illegal(x+speed,y)){
-                x += speed;
+            if(illegal(x+spd,y)){
+                x += spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if(MOD== 0){
@@ -426,9 +434,9 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 2){
-            if(illegal(x+speed/Math.sqrt(2), y-speed/Math.sqrt(2))){
-                x += speed/Math.sqrt(2);
-                y -= speed/Math.sqrt(2);
+            if(illegal(x+spd/Math.sqrt(2), y-spd/Math.sqrt(2))){
+                x += spd/Math.sqrt(2);
+                y -= spd/Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if(MOD== 0){
@@ -436,8 +444,8 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 3){
-            if(illegal(x, y-speed)) {
-                y -= speed;
+            if(illegal(x, y-spd)) {
+                y -= spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
@@ -445,9 +453,9 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 4){
-            if(illegal(x-speed/Math.sqrt(2), y-speed/Math.sqrt(2))) {
-                y -= speed / Math.sqrt(2);
-                x -= speed / Math.sqrt(2);
+            if(illegal(x-spd/Math.sqrt(2), y-spd/Math.sqrt(2))) {
+                y -= spd / Math.sqrt(2);
+                x -= spd / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
@@ -455,8 +463,8 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 5){
-            if(illegal(x-speed, y)) {
-                x -= speed;
+            if(illegal(x-spd, y)) {
+                x -= spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
@@ -464,9 +472,9 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 6){
-            if(illegal(x-speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
-                y += speed / Math.sqrt(2);
-                x -= speed / Math.sqrt(2);
+            if(illegal(x-spd/Math.sqrt(2), y+spd/Math.sqrt(2))) {
+                y += spd / Math.sqrt(2);
+                x -= spd / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
@@ -474,8 +482,8 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 7){
-            if(illegal(x, y+speed)) {
-                y += speed;
+            if(illegal(x, y+spd)) {
+                y += spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
@@ -483,9 +491,9 @@ public class Enemy extends Role{
                 }
             }
         }else if(dirr == 8){
-            if(illegal(x+speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
-                x += speed / Math.sqrt(2);
-                y += speed / Math.sqrt(2);
+            if(illegal(x+spd/Math.sqrt(2), y+spd/Math.sqrt(2))) {
+                x += spd / Math.sqrt(2);
+                y += spd / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {

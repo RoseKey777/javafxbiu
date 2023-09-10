@@ -1,11 +1,14 @@
 package com.example.biubiu.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.example.biubiu.Director;
 import com.example.biubiu.HelloApplication;
 import com.example.biubiu.domain.Request;
 import com.example.biubiu.scene.Index;
 import com.example.biubiu.scene.Login;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +16,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
@@ -24,7 +29,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,6 +40,8 @@ import java.util.concurrent.Flow;
 public class IndexController implements Initializable {
     @FXML
     public Button toPVE;
+    public ListView<String> List;
+    public ListView<String> list_scores;
     @FXML
     private Label welcomeText;
 
@@ -68,6 +77,7 @@ public class IndexController implements Initializable {
     @FXML
     private Label avatar;
 
+    private String _username;
 
     @FXML
     void mouseClikedGameHall(MouseEvent event) {
@@ -162,10 +172,10 @@ public class IndexController implements Initializable {
         store.setGraphic(new ImageView(image));
 
 
-
         Request request1 = new Request("getuserinfo", null);
         String str = HelloApplication.sendRequest(request1);
         Map<String, Object> user =  JSON.parseObject(str);
+        _username =(String) user.get("username");
         this.username.setText((String) user.get("username"));
         this.scores.setText(String.valueOf(user.get("score")));
         this.coins.setText(String.valueOf(user.get("coins")));
@@ -173,6 +183,25 @@ public class IndexController implements Initializable {
         System.out.println(avatar);
         image = new Image(Login.class.getResource(avatar).toExternalForm(),60,60,false,true);
         this.avatar.setGraphic(new ImageView(image));
+
+        // 创建一个可观察的列表，用于存储ListView中的数据
+        ObservableList<String> item = FXCollections.observableArrayList();
+        ObservableList<String> item1 = FXCollections.observableArrayList();
+        Request request2 = new Request("getalluser", null);
+        str= HelloApplication.sendRequest(request2);
+        System.out.println(str);
+        JSONArray array = JSON.parseArray(str);
+        for(int i = 0; i < array.size(); i++){
+            Map<String, Object> map = JSON.parseObject(array.get(i).toString());
+            String username = (String)map.get("username");
+            BigDecimal score = (BigDecimal) map.get("score");
+            item.add(username);
+            item1.add("得分："+String.valueOf(score));
+            List.setItems(item);
+            list_scores.setItems(item1);
+        }
+        List.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        list_scores.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     public void mouseClikedusername(MouseEvent mouseEvent) {
@@ -190,6 +219,11 @@ public class IndexController implements Initializable {
             System.out.println(replace);
             Image image = new Image(Index.class.getResource(replace).toExternalForm(),60,60,false,true);
             avatar.setGraphic(new ImageView(image));
+            Map<String,Object> map =new HashMap<>();
+            map.put("username",_username);
+            map.put("avatar",replace);
+            Request request1 = new Request("updateavatar", map);
+            HelloApplication.sendRequest(request1);
         }
 
     }

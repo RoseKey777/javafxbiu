@@ -84,15 +84,16 @@ public class BagController implements Initializable {
         System.out.println(str);
         JSONArray array = JSON.parseArray(str);
 
-        for (int i = 1; i <= array.size(); i++) {
-            Map<String, Object> item = JSON.parseObject(array.get(0).toString());
+        for (int i = 0; i < array.size(); i++) {
+            Map<String, Object> item = JSON.parseObject(array.get(i).toString());
             String weapon = String.valueOf(item.get("weapon"));
-            int state= (int) item.get("weapon_state");
             Font font = new Font(0);
 //            image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
 //            arr[i].setGraphic(new ImageView(image));
             if(weapon!=null){
-                if(i==1){
+                int state= (int) item.get("weapon_state");
+
+                if(i==0){
                     image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
                     weapon1.setGraphic(new ImageView(image));
                     weapon1.setText(weapon);
@@ -103,7 +104,7 @@ public class BagController implements Initializable {
                         weapon_Button1.setText("使用");
                     }
                 }
-                if(i==2){
+                if(i==1){
                     image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
                     weapon2.setGraphic(new ImageView(image));
                     weapon2.setText(weapon);
@@ -114,7 +115,7 @@ public class BagController implements Initializable {
                         weapon_Button2.setText("使用");
                     }
                 }
-                if(i==3){
+                if(i==2){
                     image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
                     weapon3.setGraphic(new ImageView(image));
                     weapon3.setText(weapon);
@@ -127,9 +128,12 @@ public class BagController implements Initializable {
                 }
 
             }
+
             String character = String.valueOf(item.get("character"));
+
             if(character!=null){
-                if(i==1){
+                int state= (int) item.get("character_state");
+                if(i==0){
                     image = new Image(Login.class.getResource(character).toExternalForm(),40,40,false,true);
                     character1.setGraphic(new ImageView(image));
                     character1.setText(character);
@@ -140,7 +144,7 @@ public class BagController implements Initializable {
                         character1_Button1.setText("使用");
                     }
                 }
-                if(i==2){
+                if(i==1){
                     image = new Image(Login.class.getResource(character).toExternalForm(),40,40,false,true);
                     character2.setGraphic(new ImageView(image));
                     character2.setText(character);
@@ -151,7 +155,7 @@ public class BagController implements Initializable {
                         character1_Button2.setText("使用");
                     }
                 }
-                if(i==3){
+                if(i==2){
                     image = new Image(Login.class.getResource(character).toExternalForm(),40,40,false,true);
                     character3.setGraphic(new ImageView(image));
                     character3.setText(character);
@@ -197,11 +201,8 @@ public class BagController implements Initializable {
                     map.put("weapon",text);
                     Request request = new Request("updateWeapon",map);
                     String s = HelloApplication.sendRequest(request);
-                    if(s.equals("1")){
-                        buttonList.get(i).setText("正在使用");
-                    }else{
-                        buttonList.get(i).setText("使用");
-                    }
+                    Stage stage = Director.getInstance().getStage();
+                    Director.getInstance().Tobag(stage);
                 }
             }
 
@@ -229,11 +230,8 @@ public class BagController implements Initializable {
                     map.put("character",text);
                     Request request = new Request("updateCharacter",map);
                     String s = HelloApplication.sendRequest(request);
-                    if(s.equals("1")){
-                        buttonList.get(i).setText("正在使用");
-                    }else{
-                        buttonList.get(i).setText("使用");
-                    }
+                    Stage stage = Director.getInstance().getStage();
+                    Director.getInstance().Tobag(stage);
                 }
             }
 
