@@ -101,7 +101,10 @@ public class TCPServer extends JFrame{
 
                 // 获取客户端的ip地址
                 InetAddress address = socket.getInetAddress();
-                m_display.append("客户端：“" + address.getHostAddress() + "”连接成功！ ");
+                String ip = address.getHostAddress();
+                if(ip.equals("127.0.0.1"))
+                    ip = "192.168.43.168";
+                m_display.append("客户端：“" + ip + "”连接成功！ ");
                 /*
                  * 启动一个线程，由线程来处理客户端的请求，这样可以再次监听
                  * 下一个客户端的连接
@@ -171,6 +174,8 @@ public class TCPServer extends JFrame{
                  * 将客户昵称和其所说的内容存入共享集合HashMap中
                  */
                 name = socket.getInetAddress().getHostAddress();
+                if(name.equals("127.0.0.1"))
+                    name = "192.168.43.168";
                 requestHandler.output = pw;//输出流
                 putIn(name, pw);
                 Thread.sleep(100);
@@ -296,6 +301,13 @@ public class TCPServer extends JFrame{
                         requestHandler.getAllWeapon(data);
                     }
                     //更新武器状态
+                    else if("updateWeapon".equals(type)){
+                        requestHandler.updateWeapon(data);
+                    }
+                    //更新角色状态
+                    else if("updateCharacter".equals(type)){
+                        requestHandler.updateCharacter(data);
+                    }
 //                    else if("")
 //                    // 检验是否为私聊（格式：@昵称：内容）
 //                    if(msgString.startsWith("@")) {

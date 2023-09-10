@@ -13,6 +13,8 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,34 +71,54 @@ public class PlayercharacterDao {
     }
 
     @SneakyThrows
-    public boolean updateWeapon(String username, String weaponname){
-        int weaponid = weaponDao.findIdByWeaponName(weaponname);
+    public int updateWeapon(String username, String weaponname){
         try (Connection conn = DButil.getconnection()) {
             QueryRunner queryRunner = new QueryRunner();
-            String insertQuery = "UPDATE playercharacter " +
-                    "SET weapon_state = (weapon_state + 1) % 2 " +
-                    "WHERE username = ? AND weaponid = ?";
-            int rowsInserted = queryRunner.update(conn, insertQuery, username, weaponid);
-            return rowsInserted > 0;
+            String insertQuery = "UPDATE playercharacter "
+                    + "SET weapon_state = (weapon_state + 1) % 2 "
+                    + "WHERE username = ? AND weaponid IN "
+                    + "(SELECT weaponid FROM weapon WHERE filepath = ?)";
+            int rowsInserted = queryRunner.update(conn, insertQuery, username, weaponname);
+            String selectQuery = "SELECT weapon_state "
+                    + "FROM playercharacter "
+                    + "WHERE username = ? AND weaponid IN "
+                    + "(SELECT weaponid FROM weapon WHERE filepath = ?)";
+            PreparedStatement preparedStatement = DButil.getconnection().prepareStatement(selectQuery);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, weaponname);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int weapon_state = resultSet.getInt(1);
+            return weapon_state;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 
     @SneakyThrows
-    public boolean updateCharacter(String username, String charactername){
-        int characterid = characterDao.findIdByCharacterName(charactername);
+    public int updateCharacter(String username, String charactername){
         try (Connection conn = DButil.getconnection()) {
             QueryRunner queryRunner = new QueryRunner();
-            String insertQuery = "UPDATE playercharacter " +
-                    "SET character_state = (character_state + 1) % 2 " +
-                    "WHERE username = ? AND characterid = ?";
-            int rowsInserted = queryRunner.update(conn, insertQuery, username, characterid);
-            return rowsInserted > 0;
+            String insertQuery = "UPDATE playercharacter "
+                    + "SET character_state = (character_state + 1) % 2 "
+                    + "WHERE username = ? AND characterid IN "
+                    + "(SELECT characterid FROM `character` WHERE filepath = ?)";
+            int rowsInserted = queryRunner.update(conn, insertQuery, username, charactername);
+            String selectQuery = "SELECT character_state "
+                    + "FROM playercharacter "
+                    + "WHERE username = ? AND characterid IN "
+                    + "(SELECT characterid FROM `character` WHERE filepath = ?)";
+            PreparedStatement preparedStatement = DButil.getconnection().prepareStatement(selectQuery);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, charactername);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int character_state = resultSet.getInt(1);
+            return character_state;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 }

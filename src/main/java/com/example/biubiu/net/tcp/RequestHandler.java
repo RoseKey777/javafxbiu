@@ -4,16 +4,20 @@ package com.example.biubiu.net.tcp;
 import com.alibaba.fastjson.JSON;
 import com.example.biubiu.dao.PlayercharacterDao;
 import com.example.biubiu.dao.UserDao;
+import com.example.biubiu.dao.WeaponDao;
 import com.example.biubiu.domain.User;
+import com.example.biubiu.domain.Weapon;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 //用于处理客户端的请求
 public class RequestHandler {
     private UserDao userDao = new UserDao();
     private PlayercharacterDao playercharacterDao = new PlayercharacterDao();
+    private WeaponDao weaponDao = new WeaponDao();
     public PrintWriter output;//客户端
 
     //登录请求
@@ -63,9 +67,42 @@ public class RequestHandler {
         output.println(bagList);
     }
 
-    //获取商店信息
+    //获取所有武器
     public void getAllWeapon(Map<String, Object> data){
+        List<Weapon> tmp = weaponDao.getAllWeapon();
+        ArrayList<String> weaponList = new ArrayList<>();
+        for(int i = 0; i < tmp.size(); i++){
+            System.out.println(tmp.get(i));
+            weaponList.add(JSON.toJSONString(tmp.get(i)));
+        }
+        output.println(weaponList);
+    }
 
+    //获取玩家已拥有的武器
+    public void getPlayerAllWeapon(Map<String, Object> data){
+        String username = (String)(data.get("username"));
+        List<Weapon> tmp = weaponDao.getAllWeapon();
+        List<Weapon> weaponList = weaponDao.getPlayerAllWeapon(username);
+        List<Integer> weaponIdList = new ArrayList<>();//玩家已拥有的武器id列表
+        for(int i = 1; i <= tmp.size(); i++){
+            if(weaponList.indexOf(tmp.get(i - 1)) != -1)
+                weaponIdList.add(i);
+        }
+        output.println(weaponIdList);
+    }
+
+    //更新武器状态
+    public void updateWeapon(Map<String, Object> data){
+        String username = (String)(data.get("username"));
+        String weaponname = (String)(data.get("weapon"));
+        output.println(playercharacterDao.updateWeapon(username, weaponname));
+    }
+
+    //更新角色状态
+    public void updateCharacter(Map<String, Object> data){
+        String username = (String)(data.get("username"));
+        String charactername = (String)(data.get("character"));
+        output.println(playercharacterDao.updateCharacter(username, charactername));
     }
 
     //创建房间
