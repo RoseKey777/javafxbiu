@@ -10,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Director {
 
@@ -120,16 +122,39 @@ public class Director {
 
     public void gameOver(boolean success,int npcflag){
         GameOver gameOver = new GameOver();
+        Map<String, Object> data = new HashMap<>();
+        double coins;
+        int score;
+
         if(npcflag == 0){
             gameScene.clear(stage);
             gameOver.load(stage,success,npcflag);
 //        gameScene.clear(stage);
             gameScene = null;
+            if(success){
+                coins = 20;
+                score = 20;
+            }else{
+                coins = 10;
+                score = 0;
+            }
         }else {
             computerGameScene.clear(stage);
             gameOver.load(stage,success,npcflag);
             computerGameScene = null;
+            if(success){
+                coins = 5;
+                score = 5;
+            }else {
+                coins = 3;
+                score = 0;
+            }
         }
+
+        data.put("coins", coins);
+        data.put("score", score);
+        Request request = new Request("addcoinsandscore", data);
+        HelloApplication.sendRequest(request);
     }
 
     public void gameStart(Room room, int Roomchair, int gamePort){

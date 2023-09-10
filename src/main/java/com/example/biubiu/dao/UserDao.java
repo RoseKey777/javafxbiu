@@ -2,6 +2,7 @@ package com.example.biubiu.dao;
 
 import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.User;
+import com.example.biubiu.domain.Weapon;
 import com.example.biubiu.util.DButil;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
@@ -21,7 +22,7 @@ public class UserDao {
         try {
             List<Map<String, Object>> users = new ArrayList<>();
             Statement statement = DButil.getconnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user ");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user ORDER BY score DESC");
             while(resultSet.next()){
                 Map<String, Object> map = new HashMap<>();
                 map.put("username", resultSet.getString("username"));
@@ -118,6 +119,19 @@ public class UserDao {
             }
         } catch (SQLException e) {
             // 处理数据库异常
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @SneakyThrows
+    public boolean addCoinsAndScore(String username, double coins, int score){
+        try (Connection conn = DButil.getconnection()) {
+            QueryRunner queryRunner = new QueryRunner();
+            String sql = "UPDATE user SET coins = coins + ?, score = score + ? WHERE username = ?";
+            int n = queryRunner.update(conn, sql, coins, score, username);
+            return n > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }

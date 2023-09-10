@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GamehallController implements Initializable {
-    @FXML
-    private Button joinBtn;
 
     @FXML
     private Label waitMsg;

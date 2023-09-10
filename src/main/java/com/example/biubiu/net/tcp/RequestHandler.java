@@ -9,6 +9,7 @@ import com.example.biubiu.domain.User;
 import com.example.biubiu.domain.Weapon;
 
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -126,5 +127,13 @@ public class RequestHandler {
     //创建房间
     public void createroom(Map<String, Object> data){
 
+    }
+
+    //更新金钱和积分
+    public void addCoinsAndScore(Map<String, Object> data, String username){
+        double coins = Double.valueOf(data.get("coins").toString());
+        int score = (int) data.get("score");
+        userDao.addCoinsAndScore(username, coins, score);
+        output.println("1");
     }
 }

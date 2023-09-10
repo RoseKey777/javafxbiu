@@ -9,4 +9,5 @@ public class Weapon {
     private double damage;
     private double bulletspeed;
     private String filepath;
+    private double price;
 }

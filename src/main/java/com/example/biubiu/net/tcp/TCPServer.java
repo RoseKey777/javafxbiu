@@ -85,6 +85,7 @@ public class TCPServer extends JFrame{
 
     // 将给定的消息转发给指定客户端
     private synchronized void sendToSomeone(String ip,String message) {
+        System.out.println("To:" + ip + ": " + message);
         PrintWriter pw = storeInfo.get(ip); //获取对应输出流
         if(pw != null) pw.println(message);
     }
@@ -103,7 +104,7 @@ public class TCPServer extends JFrame{
                 InetAddress address = socket.getInetAddress();
                 String ip = address.getHostAddress();
                 if(ip.equals("127.0.0.1"))
-                    ip = "192.168.43.168";
+                    ip = "192.168.43.144";
                 m_display.append("客户端：“" + ip + "”连接成功！ ");
                 /*
                  * 启动一个线程，由线程来处理客户端的请求，这样可以再次监听
@@ -123,7 +124,7 @@ public class TCPServer extends JFrame{
     class ListenrClient implements Runnable {
 
         private Socket socket;
-        private String name;
+        private String name;//ip
         private UserClient userClient;
         private RequestHandler requestHandler = new RequestHandler();//请求处理器
         private int currentRoom;    //当前房间号
@@ -175,7 +176,7 @@ public class TCPServer extends JFrame{
                  */
                 name = socket.getInetAddress().getHostAddress();
                 if(name.equals("127.0.0.1"))
-                    name = "192.168.43.168";
+                    name = "192.168.43.144";
                 requestHandler.output = pw;//输出流
                 putIn(name, pw);
                 Thread.sleep(100);
@@ -243,8 +244,10 @@ public class TCPServer extends JFrame{
                             rooms[roomid].num++;
                             currentRoom = roomid;
                             pw.println("加入成功");
+                            System.out.println(123123);
                             //向房间中的其他人发送信息
                             for (int i = 0; i < rooms[currentRoom].num; i++) {
+                                System.out.println(rooms[currentRoom].userClients.get(i).ip);
                                 if(i != rooms[currentRoom].num - 1)
                                     sendToSomeone(rooms[currentRoom].userClients.get(i).ip, JSON.toJSONString(rooms[roomid]));
                             }
@@ -265,8 +268,11 @@ public class TCPServer extends JFrame{
                     //获取玩家在房间中的序号
                     else if("getPlayerNum".equals(type)){
                         for(int i = 0; i < rooms[currentRoom].num; i++)
-                            if(rooms[currentRoom].userClients.get(i).ip.equals(name))
+                            if(rooms[currentRoom].userClients.get(i).ip.equals(name)){
                                 pw.println(i);
+                                System.out.println("num is " + i);
+                            }
+
                     }
                     //开始游戏
                     else if("gameStart".equals(type)){
@@ -322,6 +328,14 @@ public class TCPServer extends JFrame{
                     //更新头像
                     else if("updateavatar".equals(type)){
                         requestHandler.updateAvatar(data);
+                    }
+                    //增加金钱和积分
+                    else if("addcoinsandscore".equals(type)){
+                        String username = userClient.user.getUsername();
+                        requestHandler.addCoinsAndScore(data, username);
+                    }
+                    else if("getPlayerAllWeapon".equals(type)){
+                        requestHandler.getPlayerAllWeapon(data);
                     }
 //                    else if("")
 //                    // 检验是否为私聊（格式：@昵称：内容）
