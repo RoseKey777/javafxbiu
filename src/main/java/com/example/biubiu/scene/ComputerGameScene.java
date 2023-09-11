@@ -52,7 +52,9 @@ public class ComputerGameScene {
 
     private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
 
-    private int [][]positionEnemy = {{32,500},{850,32},{32,600},{850,500},{32,450},{850,64},{32,430},{640,200}};
+    private int [][]positionEnemy = {{32,500},{850,32},{32,400},{850,500},{32,450},{850,64},{32,430},{640,200}};
+
+    private int bulletdamage[] = {0,1,3,2};
 
     public int ChaID[] = new int[9];
 
@@ -153,6 +155,13 @@ public class ComputerGameScene {
         state.ChaID = selfPlayer.characterid;
         state.WeaID = selfPlayer.weaponid;
         state.paint(graphicsContext);
+        if(selfPlayer.alive && !selfPlayer.openfireflag && selfPlayer.timer < selfPlayer.weaponCD[selfPlayer.weaponid]){
+            selfPlayer.timer ++;
+            if(selfPlayer.timer == selfPlayer.weaponCD[selfPlayer.weaponid]){
+                selfPlayer.openfireflag = true;
+                selfPlayer.timer = 0;
+            }
+        }
 
         for(int i = 0;i < drops.size(); ++i){
             Drop drop = drops.get(i);
@@ -174,6 +183,13 @@ public class ComputerGameScene {
         for(Enemy enemy:enemys){
             if(enemy.alive){
                 enemy.paint(graphicsContext);
+                if(!enemy.openfireflag && enemy.timer < enemy.weaponCD[enemy.weaponid]){
+                    enemy.timer ++;
+                    if(enemy.timer == enemy.weaponCD[enemy.weaponid]){
+                        enemy.openfireflag = true;
+                        enemy.timer = 0;
+                    }
+                }
             }
         }
 
@@ -185,20 +201,29 @@ public class ComputerGameScene {
                     continue;
                 }
                 if(bullet.getContour().intersects(enemy.getContour()) && bullet.idd != enemy.idd && bullet.idd == 0){
-                    if(enemy.numOfwudi > 0){
-                        enemy.numOfwudi --;
-                    }else {
-                        enemy.hp --;
+                    int dmg = bulletdamage[selfPlayer.weaponid];
+                    if(enemy.numOfwudi >= dmg){
+                        enemy.numOfwudi -= dmg;
+                    }else if(enemy.numOfwudi > 0 && enemy.numOfwudi < dmg){
+                        enemy.hp -= (dmg - enemy.numOfwudi);
+                        enemy.numOfwudi = 0;
+                    } else {
+                        enemy.hp -= dmg;
                     }
-                    if(enemy.hp == 0){
+                    if(enemy.hp <= 0){
                         enemy.alive = false;
                         enemynum --;
                         if(enemynum == 0){
                             Director.getInstance().gameOver(true,gamemode + 1);
                         }
-                        if(enemynum == 1 && !selfPlayer.alive){
+                        if(!selfPlayer.alive){
                             Director.getInstance().gameOver(false,gamemode + 1);
                         }
+                    }
+                    if(enemy.alive && enemy.illegal(enemy.x + 5 * dmg * Math.cos(bullet.dir),
+                            enemy.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
+                        enemy.x += 5 * dmg * Math.cos(bullet.dir);
+                        enemy.y -= 5 * dmg * Math.sin(bullet.dir);
                     }
                     bullet.alive = false;
                 }
@@ -207,22 +232,30 @@ public class ComputerGameScene {
                 if(selfPlayer.alive == false){
                     continue;
                 }
+                int dmg = bulletdamage[bullet.bullettype];
+
                 if(selfPlayer.hp>0) {
-                    if(selfPlayer.numOfwudi > 0){
-                        selfPlayer.numOfwudi --;
-                    }else {
-                        selfPlayer.hp --;
+
+                    if(selfPlayer.numOfwudi >= dmg){
+                        selfPlayer.numOfwudi -= dmg;
+                    }else if(selfPlayer.numOfwudi > 0 && selfPlayer.numOfwudi < dmg){
+                        selfPlayer.hp -= (dmg - selfPlayer.numOfwudi);
+                        selfPlayer.numOfwudi = 0;
+                    } else {
+                        selfPlayer.hp -= dmg;
                     }
                 }
-                if(selfPlayer.hp == 0){
+
+                if(selfPlayer.hp <= 0){
                     selfPlayer.alive = false;
                 }
                 if(!selfPlayer.alive){
                     Director.getInstance().gameOver(false,gamemode + 1);
                 }
-                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
-                    selfPlayer.x += 5 * Math.cos(bullet.dir);
-                    selfPlayer.y -= 5 * Math.sin(bullet.dir);
+                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * dmg * Math.cos(bullet.dir),
+                        selfPlayer.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
+                    selfPlayer.x += 5 * dmg * Math.cos(bullet.dir);
+                    selfPlayer.y -= 5 * dmg * Math.sin(bullet.dir);
                 }
                 bullet.alive = false;
             }
@@ -233,22 +266,31 @@ public class ComputerGameScene {
                 if(selfPlayer.alive == false){
                     continue;
                 }
+
+                int dmg = bulletdamage[bullet.bullettype];
+
                 if(selfPlayer.hp>0) {
-                    if(selfPlayer.numOfwudi > 0){
-                        selfPlayer.numOfwudi --;
-                    }else {
-                        selfPlayer.hp --;
+
+                    if(selfPlayer.numOfwudi >= dmg){
+                        selfPlayer.numOfwudi -= dmg;
+                    }else if(selfPlayer.numOfwudi > 0 && selfPlayer.numOfwudi < dmg){
+                        selfPlayer.hp -= (dmg - selfPlayer.numOfwudi);
+                        selfPlayer.numOfwudi = 0;
+                    } else {
+                        selfPlayer.hp -= dmg;
                     }
                 }
-                if(selfPlayer.hp == 0){
+
+                if(selfPlayer.hp <= 0){
                     selfPlayer.alive = false;
                 }
-                if(enemynum == 1 && !selfPlayer.alive){
+                if(!selfPlayer.alive){
                     Director.getInstance().gameOver(false,gamemode + 1);
                 }
-                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
-                    selfPlayer.x += 5 * Math.cos(bullet.dir);
-                    selfPlayer.y -= 5 * Math.sin(bullet.dir);
+                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * dmg * Math.cos(bullet.dir),
+                        selfPlayer.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
+                    selfPlayer.x += 5 * dmg * Math.cos(bullet.dir);
+                    selfPlayer.y -= 5 * dmg * Math.sin(bullet.dir);
                 }
                 bullet.alive = false;
             }

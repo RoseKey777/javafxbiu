@@ -10,6 +10,7 @@ public class Bullet extends Role{
 
     public int Mapchoose;
     public int NPCflag;
+    public int bullettype;
 
     public int idd;//用于人机对战判定
 

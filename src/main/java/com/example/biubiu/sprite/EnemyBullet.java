@@ -10,6 +10,8 @@ public class EnemyBullet extends Role{
     public int Mapchoose;
     public int NPCflag;
 
+    public int bullettype;
+
     public EnemyBullet(double x, double y, double width, double height, double dir,int mapchoose, GameScene gameScene) {
         super(x, y, width, height, dir, gameScene);
         speed = 5;

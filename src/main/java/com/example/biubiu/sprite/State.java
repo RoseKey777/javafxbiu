@@ -16,8 +16,8 @@ public class State extends Sprite{
         super(new Image(State.class.getResource("/com/example/biubiu/image/state.png").toExternalForm()),224, 480 ,500 ,152);
     }
 
-    private String[] chaURL = {"","/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
-            "/com/example/biubiu/image/moverole1-0.gif"};
+    private String[] chaURL = {"","/com/example/biubiu/image/run/Run1_0.gif","/com/example/biubiu/image/run/Run2_0.gif",
+            "/com/example/biubiu/image/run/Run3_0.gif"};
 
     private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
             "/com/example/biubiu/image/Kar98k.png"};
@@ -27,6 +27,8 @@ public class State extends Sprite{
     private double spd[] = {0, 2, 4, 1.5};
 
     private double bulletspeed[] = {0, 5, 7, 8};
+
+    private int bulletdamage[] = {0,1,3,2};
     @Override
     public void paint(GraphicsContext graphicsContext){
         super.paint(graphicsContext);
@@ -39,14 +41,17 @@ public class State extends Sprite{
 
         double tmpbulletspeed = bulletspeed[WeaID];
 
+        int tmpbulletdamage = bulletdamage[WeaID];
+
         graphicsContext.drawImage(imageB,x + 38,y + 8,64,64);
         graphicsContext.drawImage(imageC,x + 38,y + 80,64,64);
 
         graphicsContext.setFill(Color.WHITE);
         graphicsContext.setFont(javafx.scene.text.Font.font("Arial", 16));
-        graphicsContext.fillText("速度: " + speed, x + 130, y + 96);
-        graphicsContext.fillText("弹药: " + numOfbullet, x + 230, y + 96);
-        graphicsContext.fillText("子弹速度: " + tmpbulletspeed, x + 330, y + 96);
+        graphicsContext.fillText("速度: " + speed, x + 150, y + 80);
+        graphicsContext.fillText("弹药: " + numOfbullet, x + 150, y + 112);
+        graphicsContext.fillText("子弹速度: " + tmpbulletspeed, x + 300, y + 80);
+        graphicsContext.fillText("子弹伤害: " + tmpbulletdamage, x + 300, y + 112);
     }
 
 }

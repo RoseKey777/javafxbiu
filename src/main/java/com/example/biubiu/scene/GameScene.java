@@ -36,6 +36,7 @@ public class GameScene {
     public int enemynum;
 
     private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
+    private int bulletdamage[] = {0,1,3,2};
 
     public String selfIP;//自己的IP
 
@@ -97,6 +98,15 @@ public class GameScene {
         state.WeaID = selfPlayer.weaponid;
         state.paint(graphicsContext);
 
+        if(selfPlayer.alive && !selfPlayer.openfireflag && selfPlayer.timer < selfPlayer.weaponCD[selfPlayer.weaponid]){
+            selfPlayer.timer ++;
+            if(selfPlayer.timer == selfPlayer.weaponCD[selfPlayer.weaponid]){
+                selfPlayer.openfireflag = true;
+                selfPlayer.timer = 0;
+            }
+        }
+
+
         for(int i = 0;i < drops.size(); ++i){
             Drop drop = drops.get(i);
             if(drop.alive){
@@ -118,6 +128,13 @@ public class GameScene {
             Enemy enemy = enemys.get(key);
             if(enemy.alive){
                 enemy.paint(graphicsContext);
+                if(!enemy.openfireflag && enemy.timer < enemy.weaponCD[enemy.weaponid]){
+                    enemy.timer ++;
+                    if(enemy.timer == enemy.weaponCD[enemy.weaponid]){
+                        enemy.openfireflag = true;
+                        enemy.timer = 0;
+                    }
+                }
             }
         }
 
@@ -130,12 +147,16 @@ public class GameScene {
                     continue;
                 }
                 if(bullet.getContour().intersects(enemy.getContour())){
-                    if(enemy.numOfwudi > 0){
-                        enemy.numOfwudi --;
-                    }else {
-                        enemy.hp --;
+                    if(enemy.numOfwudi >= bulletdamage[selfPlayer.weaponid]){
+                        enemy.numOfwudi -= bulletdamage[selfPlayer.weaponid];
+                    }else if(enemy.numOfwudi > 0 && enemy.numOfwudi < bulletdamage[selfPlayer.weaponid]){
+                        enemy.hp -= (bulletdamage[selfPlayer.weaponid] - enemy.numOfwudi);
+                        enemy.numOfwudi = 0;
+                    } else {
+                        enemy.hp -= bulletdamage[selfPlayer.weaponid];
                     }
-                    if(enemy.hp == 0){
+
+                    if(enemy.hp <= 0){
                         enemy.alive = false;
                         enemynum --;
                         if(enemynum == 0){
@@ -155,22 +176,29 @@ public class GameScene {
                 if(selfPlayer.alive == false){
                     continue;
                 }
+                int dmg = bulletdamage[bullet.bullettype];
                 if(selfPlayer.hp>0) {
-                    if(selfPlayer.numOfwudi > 0){
-                        selfPlayer.numOfwudi --;
-                    }else {
-                        selfPlayer.hp --;
+
+                    if(selfPlayer.numOfwudi >= dmg){
+                        selfPlayer.numOfwudi -= dmg;
+                    }else if(selfPlayer.numOfwudi > 0 && selfPlayer.numOfwudi < dmg){
+                        selfPlayer.hp -= (dmg - selfPlayer.numOfwudi);
+                        selfPlayer.numOfwudi = 0;
+                    } else {
+                        selfPlayer.hp -= dmg;
                     }
                 }
-                if(selfPlayer.hp == 0){
+
+                if(selfPlayer.hp <= 0){
                     selfPlayer.alive = false;
                 }
                 if(enemynum == 1 && !selfPlayer.alive){
                     Director.getInstance().gameOver(false,0);
                 }
-                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * Math.cos(bullet.dir),selfPlayer.y - 5 * Math.sin(bullet.dir))){//击退特效
-                    selfPlayer.x += 5 * Math.cos(bullet.dir);
-                    selfPlayer.y -= 5 * Math.sin(bullet.dir);
+                if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * dmg * Math.cos(bullet.dir),
+                        selfPlayer.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
+                    selfPlayer.x += 5 * dmg * Math.cos(bullet.dir);
+                    selfPlayer.y -= 5 * dmg * Math.sin(bullet.dir);
                 }
                 bullet.alive = false;
             }
@@ -320,7 +348,7 @@ public class GameScene {
             if(mouseEvent.getEventType() == mouseEvent.MOUSE_CLICKED){
                 selfPlayer.clicked();
                 String tmpString = "atk|"+ selfIP +"|" + selfPlayer.x + "|" + selfPlayer.y + "|" + selfPlayer.weaponDir +
-                        "|" + "5" + "|";
+                        "|" + selfPlayer.weaponid + "|";
                 sendToAll(tmpString);
             }
         }
@@ -463,6 +491,7 @@ public class GameScene {
                 double bx = tmpx + 16;
                 double by = tmpy + 16;
                 EnemyBullet bullet = new EnemyBullet(bx,by,48,25,tmpdir,Mapchoose,this.gs);
+                bullet.bullettype = Integer.parseInt(dataList[5]);
                 enemybullets.add(bullet);
 //                System.out.println(999999);
             }else if("hp".equals(dataList[0])){

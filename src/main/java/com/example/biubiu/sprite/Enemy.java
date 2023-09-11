@@ -14,6 +14,8 @@ import java.util.Random;
 
 public class Enemy extends Role{
 
+    public double lastdir;
+    public int timer;//用作开枪延迟
     public int idd;
     public int mapChoose;
     public String username;
@@ -112,22 +114,123 @@ public class Enemy extends Role{
     private static Image[][] images = new Image[][] {
             {},
             {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_0.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-1.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_1.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_2.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-3.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_3.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-4.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_4.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-5.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_5.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-2.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_6.gif").toExternalForm()),
 
-                    new Image(Enemy.class.getResource("/com/example/biubiu/image/moverole1-6.gif").toExternalForm()),
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_7.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run1_8.gif").toExternalForm()),
+            },
+            {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_0.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_1.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_2.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_3.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_4.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_5.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_6.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_7.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run2_8.gif").toExternalForm()),
+            },
+            {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_0.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_1.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_2.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_3.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_4.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_5.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_6.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_7.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/Run3_8.gif").toExternalForm()),
             }
+    };
 
+    private static Image[][] imagesMir = new Image[][] {
+            {},
+            {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_0.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_1.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_2.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_3.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_4.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_5.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_6.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_7.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror1_8.gif").toExternalForm()),
+            },
+            {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_0.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_1.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_2.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_3.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_4.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_5.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_6.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_7.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror2_8.gif").toExternalForm()),
+            },
+            {
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_0.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_1.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_2.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_3.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_4.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_5.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_6.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_7.gif").toExternalForm()),
+
+                    new Image(Player.class.getResource("/com/example/biubiu/image/run/RunMirror3_8.gif").toExternalForm()),
+            }
     };
 
     private static Image[] dieImages = new Image[] {
@@ -157,8 +260,6 @@ public class Enemy extends Role{
 
     double sceneX,sceneY;
 
-    private String[] chaURL = {"","/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
-            "/com/example/biubiu/image/moverole1-0.gif"};
 
     private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
             "/com/example/biubiu/image/Kar98k.png"};
@@ -167,10 +268,14 @@ public class Enemy extends Role{
     private double hps[] = {0, 10, 8, 12};
     private double bulletspeed[] = {0,5,7,8};
 
+    public int weaponCD[] = {0, 20, 40, 30};
+
+    public boolean openfireflag;
+
     public void dressup(int chaID,int weaID){
         speed = spd[chaID];
         hp = hps[chaID];
-        imageMap.put("walk",new Image(Player.class.getResource(chaURL[chaID]).toExternalForm()));
+        imageMap.put("walk",images[characterid][0]);
         imageMap.put("weapon",new Image(Player.class.getResource(weaURL[weaID]).toExternalForm()));
     }
 
@@ -181,6 +286,8 @@ public class Enemy extends Role{
         weaponid = weaID;
         mapChoose = mapchoose;
         NPCflag = 0;
+        timer = 0;
+        openfireflag = true;
 
         realDie = false;
         dressup(chaID,weaID);
@@ -197,11 +304,13 @@ public class Enemy extends Role{
         NPCmode = npcmode;
         playerX = playerx;
         playerY = playery;
+        timer = 0;
+        openfireflag = true;
 
         realDie = false;
         speed = spd[chaID];
         hp = hps[chaID] - 6;
-        imageMap.put("walk",new Image(Player.class.getResource(chaURL[chaID]).toExternalForm()));
+        imageMap.put("walk",images[characterid][0]);
         imageMap.put("weapon",new Image(Player.class.getResource(weaURL[weaID]).toExternalForm()));
     }
 
@@ -307,6 +416,10 @@ public class Enemy extends Role{
         imageMap.put("walk",images[characterid][count]);//video 7 diffrent
     }
 
+    public void MirwakeChange(){
+        imageMap.put("walk",imagesMir[characterid][count]);//video 7 diffrent
+    }
+
     public void dieChange(){
         imageMap.put("walk",dieImages[countDie]);
     }
@@ -344,6 +457,7 @@ public class Enemy extends Role{
 //        System.out.println("y = " + y);
         if(dir == 1.0){
             if(illegal(x+speed,y)){
+                lastdir = dir;
                 x += speed;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
@@ -353,6 +467,7 @@ public class Enemy extends Role{
             }
         }else if(dir == 2.0){
             if(illegal(x+speed/Math.sqrt(2), y-speed/Math.sqrt(2))){
+                lastdir = dir;
                 x += speed/Math.sqrt(2);
                 y -= speed/Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
@@ -363,6 +478,7 @@ public class Enemy extends Role{
             }
         }else if(dir == 3.0){
             if(illegal(x, y-speed)) {
+                lastdir = dir;
                 y -= speed;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
@@ -372,44 +488,49 @@ public class Enemy extends Role{
             }
         }else if(dir == 4.0){
             if(illegal(x-speed/Math.sqrt(2), y-speed/Math.sqrt(2))) {
+                lastdir = dir;
                 y -= speed / Math.sqrt(2);
                 x -= speed / Math.sqrt(2);
-                count = (count + 1) % images[characterid].length;
+                count = (count + 1) % imagesMir[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }
         }else if(dir == 5.0){
             if(illegal(x-speed, y)) {
+                lastdir = dir;
                 x -= speed;
-                count = (count + 1) % images[characterid].length;
+                count = (count + 1) % imagesMir[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }
         }else if(dir == 6.0){
             if(illegal(x-speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
+                lastdir = dir;
                 y += speed / Math.sqrt(2);
                 x -= speed / Math.sqrt(2);
-                count = (count + 1) % images[characterid].length;
+                count = (count + 1) % imagesMir[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }
         }else if(dir == 7.0){
             if(illegal(x, y+speed)) {
+                lastdir = dir;
                 y += speed;
-                count = (count + 1) % images[characterid].length;
+                count = (count + 1) % imagesMir[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }
         }else if(dir == 8.0){
             if(illegal(x+speed/Math.sqrt(2), y+speed/Math.sqrt(2))) {
+                lastdir = dir;
                 x += speed / Math.sqrt(2);
                 y += speed / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
@@ -426,7 +547,13 @@ public class Enemy extends Role{
                 if(countDie == 7) realDie = true;
             }
             if(alive) {
-                imageMap.put("walk",new Image(Player.class.getResource(chaURL[characterid]).toExternalForm()));//video 7 diffrent
+                if(lastdir == 1.0 || lastdir == 2.0 || lastdir == 3.0 || lastdir == 4.0) {
+                    imageMap.put("walk",images[characterid][0]);
+//                    imageMap.put("walk", new Image(Player.class.getResource(chaURL[characterid]).toExternalForm()));//video 7 diffrent
+                }else {
+                    imageMap.put("walk",imagesMir[characterid][count]);
+//                    imageMap.put("walk", new Image(Player.class.getResource(chaURL[characterid]).toExternalForm()));//video 7 diffrent
+                }
             }
         }
         if(dir != 0){
@@ -474,6 +601,7 @@ public class Enemy extends Role{
         double spd = speed;
         if(dir == 1){
             if(illegal(x+spd,y)){
+                lastdir = dir;
                 x += spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
@@ -485,6 +613,7 @@ public class Enemy extends Role{
             }
         }else if(dir == 2){
             if(illegal(x+spd/Math.sqrt(2), y-spd/Math.sqrt(2))){
+                lastdir = dir;
                 x += spd/Math.sqrt(2);
                 y -= spd/Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
@@ -497,6 +626,7 @@ public class Enemy extends Role{
             }
         }else if(dir == 3){
             if(illegal(x, y-spd)) {
+                lastdir = dir;
                 y -= spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
@@ -508,52 +638,57 @@ public class Enemy extends Role{
             }
         }else if(dir == 4){
             if(illegal(x-spd/Math.sqrt(2), y-spd/Math.sqrt(2))) {
+                lastdir = dir;
                 y -= spd / Math.sqrt(2);
                 x -= spd / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }else{
                 dir = randomdir(4);
             }
         }else if(dir == 5){
             if(illegal(x-spd, y)) {
+                lastdir = dir;
                 x -= spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }else{
                 dir = randomdir(5);
             }
         }else if(dir == 6){
             if(illegal(x-spd/Math.sqrt(2), y+spd/Math.sqrt(2))) {
+                lastdir = dir;
                 y += spd / Math.sqrt(2);
                 x -= spd / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }else{
                 dir = randomdir(6);
             }
         }else if(dir == 7){
             if(illegal(x, y+spd)) {
+                lastdir = dir;
                 y += spd;
                 count = (count + 1) % images[characterid].length;
                 MOD = (MOD + 1) % 6;
                 if (MOD == 0) {
-                    wakeChange();
+                    MirwakeChange();
                 }
             }else{
                 dir = randomdir(7);
             }
         }else if(dir == 8){
             if(illegal(x+spd/Math.sqrt(2), y+spd/Math.sqrt(2))) {
+                lastdir = dir;
                 x += spd / Math.sqrt(2);
                 y += spd / Math.sqrt(2);
                 count = (count + 1) % images[characterid].length;
@@ -572,7 +707,7 @@ public class Enemy extends Role{
                 if(countDie == 7) realDie = true;
             }
             if(alive) {
-                imageMap.put("walk",new Image(Player.class.getResource(chaURL[characterid]).toExternalForm()));//video 7 diffrent
+                imageMap.put("walk",images[characterid][0]);
                 cnt++;
                 if(cnt == 12){
                     cnt = 0;
@@ -653,6 +788,7 @@ public class Enemy extends Role{
     public void speedchange(double bx,double by,int weaponid){
         Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,mapChoose,gameScene);
         bullet.NPCflag = 0;
+        bullet.bullettype = weaponid;
         gameScene.bullets.add(bullet);
     }
 
@@ -660,6 +796,7 @@ public class Enemy extends Role{
         Bullet bullet = new Bullet(bx,by, bulletspeed[weaponid],48,25,weaponDir,mapChoose,computerGameScene);
         bullet.NPCflag = idd;
         bullet.idd = idd;
+        bullet.bullettype = weaponid;
         computerGameScene.bullets.add(bullet);
     }
 
@@ -667,10 +804,14 @@ public class Enemy extends Role{
         SoundEffect.play("/com/example/biubiu/mp3/gun.mp3");
         double bx = x + width/2;
         double by = y + height/2;
-        if(NPCflag == 0){
+        if(NPCflag == 0 && openfireflag){
             speedchange(bx, by, weaponid);
-        }else {
+            openfireflag = false;
+            timer = 0;
+        }else if(openfireflag){
             newspeedchange(bx, by,weaponid);
+            openfireflag = false;
+            timer = 0;
         }
 
     }
