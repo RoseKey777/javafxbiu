@@ -8,8 +8,5 @@ public class Playercharacter {
     private String username;
     private int characterid;
     private double speed;
-    private int weaponid;
-    private double bulletspeed;
-    private int weapon_state;
     private int character_state;
 }

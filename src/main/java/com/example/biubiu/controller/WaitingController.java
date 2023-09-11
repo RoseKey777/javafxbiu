@@ -8,7 +8,6 @@ import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.Room;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.net.tcp.UserClient;
-import com.example.biubiu.scene.Login;
 import com.example.biubiu.scene.WaitingRoom;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -17,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
 
 import java.io.*;
 import java.net.Socket;
@@ -40,6 +38,18 @@ WaitingController implements Initializable {
 
     @FXML
     private Button startBtn;
+
+    @FXML
+    private Button nextMapBtn;
+
+    @FXML
+    private Label mapNameLb;
+
+    @FXML
+    private Label mapImgLb;
+
+    private ArrayList<String> mapNameList = new ArrayList<>();
+    private ArrayList<String> mapImgList = new ArrayList<>();
 
     @FXML
     private Label name1;
@@ -114,13 +124,21 @@ WaitingController implements Initializable {
             playerList.get(i).setGraphic(new ImageView(image));
         }
 
-        //显示开始游戏按钮
+        //显示地图
+        int mapid = room.mapid;
+        mapNameLb.setText(mapNameList.get(mapid));
+
+        //显示开始游戏和切换地图按钮
         if(myNumber == 0){
             startBtn.setVisible(true);
             startBtn.setDisable(false);
+            nextMapBtn.setVisible(true);
+            nextMapBtn.setDisable(false);
         }else{
             startBtn.setVisible(false);
             startBtn.setDisable(true);
+            nextMapBtn.setVisible(false);
+            nextMapBtn.setDisable(true);
         }
     }
 
@@ -128,9 +146,9 @@ WaitingController implements Initializable {
         Room room = new Room();
 
         Map<String, Object> roomMap =  JSON.parseObject(str);
-        System.out.println("----------------------");
         room.id = (int) roomMap.get("id");
         room.num = (int) roomMap.get("num");
+        room.mapid = (int) roomMap.get("mapid");
         JSONArray userClients = JSON.parseArray(roomMap.get("userClients").toString());
 
         int index = 0;
@@ -170,6 +188,17 @@ WaitingController implements Initializable {
         return room;
     }
 
+    @FXML
+    public void nextMapClicked(){
+        int size = mapNameList.size();
+        room.mapid = (room.mapid + 1) % size;
+        Map<String, Object> data = new HashMap<>();
+        data.put("mapid", room.mapid);
+        Request request = new Request("nextmap", data);
+        HelloApplication.sendRequest(request);
+        refreshRoom();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameList.add(name1);
@@ -185,6 +214,10 @@ WaitingController implements Initializable {
         prepareList.add(prepare2);
         prepareList.add(prepare3);
         prepareList.add(prepare4);
+
+        mapNameList.add("地图1");
+        mapNameList.add("地图2");
+        mapNameList.add("地图3");
 
         Request request = new Request("getCurrentRoom", null);
         String str = HelloApplication.sendRequest(request);
@@ -203,7 +236,7 @@ WaitingController implements Initializable {
         refreshRoom();
 
         try {
-            listener = new Listener("192.168.43.168", 6666);
+            listener = new Listener("162.163.43.168", 6666);
             new Thread(listener).start();
         } catch (IOException e) {
             e.printStackTrace();

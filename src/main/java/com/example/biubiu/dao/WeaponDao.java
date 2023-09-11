@@ -69,9 +69,9 @@ public class WeaponDao {
         }
         QueryRunner queryRunner = new QueryRunner();
         String sql = "SELECT weapon.id,weaponname,damage,weapon.bulletspeed,price,filepath " +
-                "FROM weapon,playercharacter " +
-                "WHERE playercharacter.username = ? " +
-                "AND playercharacter.weaponid = weapon.id";
+                "FROM weapon,playerweapon " +
+                "WHERE playerweapon.username = ? " +
+                "AND playerweapon.weaponid = weapon.id";
         try {
             List<Weapon> p = queryRunner.query(cn,sql, new BeanListHandler<>(Weapon.class), username);
             if(p!=null) {
@@ -84,10 +84,10 @@ public class WeaponDao {
     }
 
     @SneakyThrows
-    public int findIdByWeaponName(String weaponname){
+    public int findIdByWeaponPath(String weaponname){
         try (Connection conn = DButil.getconnection()) {
             QueryRunner queryRunner = new QueryRunner();
-            String sql = "SELECT id FROM weapon WHERE weaponname = ?";
+            String sql = "SELECT id FROM weapon WHERE filepath = ?";
             Weapon weapon = queryRunner.query(conn, sql, new BeanHandler<>(Weapon.class), weaponname);
             return weapon.getId();
         } catch (SQLException e) {

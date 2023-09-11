@@ -2,9 +2,8 @@ package com.example.biubiu.net.tcp;
 
 
 import com.alibaba.fastjson.JSON;
-import com.example.biubiu.dao.PlayercharacterDao;
-import com.example.biubiu.dao.UserDao;
-import com.example.biubiu.dao.WeaponDao;
+import com.example.biubiu.dao.*;
+import com.example.biubiu.domain.Character;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.domain.Weapon;
 
@@ -18,7 +17,9 @@ import java.util.Map;
 public class RequestHandler {
     private UserDao userDao = new UserDao();
     private PlayercharacterDao playercharacterDao = new PlayercharacterDao();
+    private PlayerweaponDao playerweaponDao = new PlayerweaponDao();
     private WeaponDao weaponDao = new WeaponDao();
+    private CharacterDao characterDao = new CharacterDao();
     public PrintWriter output;//客户端
 
     //登录请求
@@ -63,7 +64,7 @@ public class RequestHandler {
     //获取玩家背包
     public void getuserbag(Map<String, Object> data){
         String username = (String)(data.get("username"));
-        ArrayList<String> bagList = playercharacterDao.getUserBag(username);
+        String bagList = playercharacterDao.getUserBag(username);
         System.out.println(bagList);
         output.println(bagList);
     }
@@ -96,7 +97,7 @@ public class RequestHandler {
     public void updateWeapon(Map<String, Object> data){
         String username = (String)(data.get("username"));
         String weaponname = (String)(data.get("weapon"));
-        output.println(playercharacterDao.updateWeapon(username, weaponname));
+        output.println(playerweaponDao.updateWeapon(username, weaponname));
     }
 
     //更新角色状态
@@ -135,5 +136,41 @@ public class RequestHandler {
         int score = (int) data.get("score");
         userDao.addCoinsAndScore(username, coins, score);
         output.println("1");
+    }
+
+    public void insertWeapon(Map<String, Object> data){
+        String username = (String) data.get("username");
+        int weaponid = (int) data.get("weaponid");
+        playerweaponDao.insertWeapon(username, weaponid);
+        output.println("1");
+    }
+
+    public void insertCharacter(Map<String, Object> data){
+        String username = (String) data.get("username");
+        int characterid = (int) data.get("characterid");
+        playercharacterDao.insertCharacter(username, characterid);
+        output.println("1");
+    }
+
+    //获取所有角色
+    public void getAllCharacter(){
+        List<Character> tmp = characterDao.getAllCharacter();
+        ArrayList<String> characterList = new ArrayList<>();
+        for(int i = 0; i < tmp.size(); i++){
+            characterList.add(JSON.toJSONString(tmp.get(i)));
+        }
+        output.println(characterList);
+    }
+
+    public void getPlayerAllCharacter(Map<String, Object> data){
+        String username = (String)(data.get("username"));
+        List<Character> tmp = characterDao.getAllCharacter();
+        List<Character> characterList = characterDao.getPlayerAllCharacter(username);
+        List<Integer> characterIdList = new ArrayList<>();//玩家已拥有的角色id列表
+        for(int i = 1; i <= tmp.size(); i++){
+            if(characterList.indexOf(tmp.get(i - 1)) != -1)
+                characterIdList.add(i);
+        }
+        output.println(characterIdList);
     }
 }

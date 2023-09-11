@@ -82,54 +82,61 @@ public class BagController implements Initializable {
         Request request2 = new Request("getuserbag", map);
         str = HelloApplication.sendRequest(request2);
         System.out.println(str);
-        JSONArray array = JSON.parseArray(str);
+        Map<String, Object> user1 =  JSON.parseObject(str);
+        String characterList = user1.get("characterList").toString();
+        JSONArray array1 = JSON.parseArray(characterList);
+        String weaponList = user1.get("weaponList").toString();
+        JSONArray array2 = JSON.parseArray(weaponList);
 
-        for (int i = 0; i < array.size(); i++) {
-            Map<String, Object> item = JSON.parseObject(array.get(i).toString());
+        for (int i = 0; i < array2.size(); i++) {
+            Map<String, Object> item = JSON.parseObject(array2.get(i).toString());
             String weapon = String.valueOf(item.get("weapon"));
             Font font = new Font(0);
 //            image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
 //            arr[i].setGraphic(new ImageView(image));
-            if(weapon!=null){
-                int state= (int) item.get("weapon_state");
+            if (weapon != null) {
+                int state = (int) item.get("weapon_state");
 
-                if(i==0){
-                    image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
+                if (i == 0) {
+                    image = new Image(Login.class.getResource(weapon).toExternalForm(), 40, 40, false, true);
                     weapon1.setGraphic(new ImageView(image));
                     weapon1.setText(weapon);
                     weapon1.setFont(font);
-                    if(state==1){
+                    if (state == 1) {
                         weapon_Button1.setText("正在使用");
-                    }else{
+                    } else {
                         weapon_Button1.setText("使用");
                     }
                 }
-                if(i==1){
-                    image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
+                if (i == 1) {
+                    image = new Image(Login.class.getResource(weapon).toExternalForm(), 40, 40, false, true);
                     weapon2.setGraphic(new ImageView(image));
                     weapon2.setText(weapon);
                     weapon2.setFont(font);
-                    if(state==1){
+                    if (state == 1) {
                         weapon_Button2.setText("正在使用");
-                    }else{
+                    } else {
                         weapon_Button2.setText("使用");
                     }
                 }
-                if(i==2){
-                    image = new Image(Login.class.getResource(weapon).toExternalForm(),40,40,false,true);
+                if (i == 2) {
+                    image = new Image(Login.class.getResource(weapon).toExternalForm(), 40, 40, false, true);
                     weapon3.setGraphic(new ImageView(image));
                     weapon3.setText(weapon);
                     weapon3.setFont(font);
-                    if(state==1){
+                    if (state == 1) {
                         weapon_Button3.setText("正在使用");
-                    }else{
+                    } else {
                         weapon_Button3.setText("使用");
                     }
                 }
 
             }
-
+        }
+        for (int i = 0; i < array1.size(); i++) {
+            Map<String, Object> item = JSON.parseObject(array1.get(i).toString());
             String character = String.valueOf(item.get("character"));
+            Font font = new Font(0);
 
             if(character!=null){
                 int state= (int) item.get("character_state");
@@ -203,6 +210,7 @@ public class BagController implements Initializable {
                     String s = HelloApplication.sendRequest(request);
                     Stage stage = Director.getInstance().getStage();
                     Director.getInstance().Tobag(stage);
+
                 }
             }
 

@@ -7,5 +7,6 @@ import java.util.ArrayList;
 public class Room {
     public int id;
     public int num = 0;    //房间人数
+    public int mapid = 0;
     public ArrayList<UserClient> userClients = new ArrayList<>();   //玩家列表
 }

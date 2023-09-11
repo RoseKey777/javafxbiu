@@ -286,6 +286,15 @@ public class TCPServer extends JFrame{
                         }
                         pw.println(gamePort);
                     }
+                    //切换地图
+                    else if("nextmap".equals(type)){
+                        rooms[currentRoom].mapid = (int) data.get("mapid");
+                        for(int i = 0; i < rooms[currentRoom].num; i++){
+                            if(!rooms[currentRoom].userClients.get(i).ip.equals(name))
+                                sendToSomeone(rooms[currentRoom].userClients.get(i).ip, JSON.toJSONString(rooms[currentRoom]));
+                        }
+                        pw.println("1");
+                    }
                     //退出房间
                     else if("leaveRoom".equals(type)){
                         System.out.println(rooms[currentRoom].num);
@@ -308,6 +317,10 @@ public class TCPServer extends JFrame{
                     //获取所有武器信息
                     else if("getAllWeapon".equals(type)){
                         requestHandler.getAllWeapon(data);
+                    }
+                    //获取所有角色信息
+                    else if("getAllCharacter".equals(type)){
+                        requestHandler.getAllCharacter();
                     }
                     //更新武器状态
                     else if("updateWeapon".equals(type)){
@@ -343,8 +356,21 @@ public class TCPServer extends JFrame{
                         String username = userClient.user.getUsername();
                         requestHandler.addCoinsAndScore(data, username);
                     }
+                    //获得玩家所有武器
                     else if("getPlayerAllWeapon".equals(type)){
                         requestHandler.getPlayerAllWeapon(data);
+                    }
+                    //获得玩家所有角色
+                    else if("getPlayerAllCharacter".equals(type)){
+                        requestHandler.getPlayerAllCharacter(data);
+                    }
+                    //购买武器
+                    else if("insertweapon".equals(type)){
+                        requestHandler.insertWeapon(data);
+                    }
+                    //购买角色
+                    else if("insertCharacter".equals(type)){
+                        requestHandler.insertCharacter(data);
                     }
 //                    else if("")
 //                    // 检验是否为私聊（格式：@昵称：内容）
