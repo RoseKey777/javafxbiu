@@ -191,7 +191,7 @@ public class Director {
             tmp++;
         }
         // 房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
-        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,room.mapid);
+        gameScene.init(stage, total, Roomchair, ChaID, WeaID, ips,room.mapid + 1);
     }
 
     public void NPCgamestart(String username,int chaid,int weaid,int mode){

@@ -119,7 +119,7 @@ public class GamehallController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),120,60,false,true);
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/start_button_01.gif").toExternalForm(),120,60,false,true);
         BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
         joinBtn.setBackground(new Background(backgroundImage));
 
