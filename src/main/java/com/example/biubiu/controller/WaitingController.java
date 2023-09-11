@@ -129,6 +129,10 @@ WaitingController implements Initializable {
         mapNameLb.setText(mapNameList.get(mapid));
 
         //显示开始游戏和切换地图按钮
+        Request request2 = new Request("getPlayerNum", null);
+        String str2 = HelloApplication.sendRequest(request2);
+        myNumber = Integer.parseInt(str2);
+
         if(myNumber == 0){
             startBtn.setVisible(true);
             startBtn.setDisable(false);

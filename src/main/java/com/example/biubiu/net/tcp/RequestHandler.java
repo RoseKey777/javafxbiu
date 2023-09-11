@@ -47,7 +47,9 @@ public class RequestHandler {
         String password = (String)(data.get("password"));
         System.out.println("注册的用户名为" + username);
         System.out.println("注册的密码为" + password);
-        if(userDao.register(username, password))
+        if(userDao.register(username, password)
+        && playercharacterDao.addNewPlayer(username)
+        && playerweaponDao.addNewPlayer(username))
             output.println("注册成功");
         else
             output.println("用户名已存在，请重新注册");

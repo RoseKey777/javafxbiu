@@ -27,6 +27,19 @@ public class PlayercharacterDao {
     WeaponDao weaponDao = new WeaponDao();
     PlayerweaponDao playerweaponDao = new PlayerweaponDao();
 
+    @SneakyThrows
+    public boolean addNewPlayer(String username){
+        try (Connection conn = DButil.getconnection()) {
+            QueryRunner queryRunner = new QueryRunner();
+            String sql = "INSERT INTO playercharacter (username) VALUES (?)";
+            int n = queryRunner.update(conn, sql, username);
+            return n > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public List<Playercharacter> getPlayercharacterByUsername(String username) {
         Connection cn = null;
         try {
