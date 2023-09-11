@@ -16,9 +16,9 @@ public class Index {
     public static void load(Stage stage){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/biubiu/fxml/index.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1024, 1024);
+            Scene scene = new Scene(fxmlLoader.load(), 960, 640);
 
-            Image image = new Image(Index.class.getResource("/com/example/biubiu/image/beijing.jpg").toExternalForm(),1024,1024,false,true);
+            Image image = new Image(Index.class.getResource("/com/example/biubiu/image/beijing.png").toExternalForm(),960,640,false,true);
             BackgroundImage backgroundImage =new BackgroundImage(image,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,

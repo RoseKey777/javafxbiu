@@ -138,7 +138,19 @@ public class Director {
                 coins = 10;
                 score = 0;
             }
-        }else {
+        }else if(npcflag == 888){
+            computerGameScene.clear(stage);
+            gameOver.load(stage,success,npcflag);
+            computerGameScene = null;
+            coins = 0;
+            score = 0;
+        } else if(npcflag == 889){
+            gameScene.clear(stage);
+            gameOver.load(stage,success,npcflag);
+            gameScene = null;
+            coins = 0;
+            score = 0;
+        }else{
             computerGameScene.clear(stage);
             gameOver.load(stage,success,npcflag);
             computerGameScene = null;

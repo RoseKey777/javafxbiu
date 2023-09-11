@@ -182,8 +182,8 @@ public class GameScene {
         //拾取物绘制
         Drop drop1 = new Drop("/com/example/biubiu/image/hp.png",200,300,0,0);
         Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
-        Drop drop3 = new Drop("/com/example/biubiu/image/加号.png",800,600,1,2);
-        Drop drop4 = new Drop("/com/example/biubiu/image/加号.png",700,300,1,3);
+        Drop drop3 = new Drop("/com/example/biubiu/image/danyao.png",800,600,1,2);
+        Drop drop4 = new Drop("/com/example/biubiu/image/danyao.png",700,300,1,3);
         Drop drop5 = new Drop("/com/example/biubiu/image/die6.png",300,600,2,4);
         Drop drop6 = new Drop("/com/example/biubiu/image/die6.png",520,110,2,5);
         drops.add(drop1);
@@ -273,14 +273,35 @@ public class GameScene {
         }
     }
 
+    public void gamepause(){
+        if(running){
+            running = false;
+        }
+        Image image = new Image(Player.class.getResource("/com/example/biubiu/image/gameescape.png").toExternalForm());
+        graphicsContext.drawImage(image,240,200,480,240);
+    }
+
+    public void gamecontinue(){
+        if(!running){
+            running = true;
+        }
+        graphicsContext.clearRect(240,200,480,240);
+    }
+
     private class KeyProcess implements EventHandler<KeyEvent>{
 
         @Override
         public void handle(KeyEvent keyEvent) {
             KeyCode keyCode = keyEvent.getCode();
-//            if(keyCode.equals(KeyCode.SPACE)){//按下空格键暂停
-//                pauseOrContinue();
-//            }
+            if(keyCode.equals(KeyCode.ESCAPE)){
+                gamepause();
+            }
+            if(keyCode.equals(KeyCode.N)){
+                gamecontinue();
+            }
+            if(keyCode.equals(KeyCode.Y)){
+                Director.getInstance().gameOver(false,889);
+            }
             if(keyEvent.getEventType() == KeyEvent.KEY_RELEASED){
                 selfPlayer.released(keyCode);
             }else if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED){

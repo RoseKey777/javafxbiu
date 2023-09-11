@@ -26,7 +26,7 @@ public class Player extends Role{
     Image weaponImage;
     private int count = 0;
 
-    public int characterid = 0;
+    public int characterid;
 
     public int numOfbullet;
 

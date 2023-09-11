@@ -13,7 +13,7 @@ public class State extends Sprite{
     public int WeaID;
     public State() {
 //        super(new Image(State.class.getResource("/com/example/biubiu/image/购物车.png").toExternalForm()),380, 600 ,200 ,40);
-        super(new Image(State.class.getResource("/com/example/biubiu/image/tmpstate.png").toExternalForm()),262, 872 ,500 ,152);
+        super(new Image(State.class.getResource("/com/example/biubiu/image/state.png").toExternalForm()),262, 872 ,500 ,152);
     }
 
     private String[] chaURL = {"","/com/example/biubiu/image/moverole1-0.gif","/com/example/biubiu/image/moverole1-0.gif",
