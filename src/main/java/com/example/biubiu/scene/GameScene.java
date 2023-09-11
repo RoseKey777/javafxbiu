@@ -35,7 +35,7 @@ public class GameScene {
 
     public int enemynum;
 
-    private int [][]positionPlayer = {{32,32},{950,32},{32,950},{950,950}};
+    private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
 
     public String selfIP;//自己的IP
 
@@ -48,7 +48,7 @@ public class GameScene {
     public int Mapchoose;//本局游戏选择地图
 
     public double mouseX,mouseY;
-    private Canvas canvas = new Canvas(1024,1024);
+    private Canvas canvas = new Canvas(960,640);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
     private KeyProcess keyProcess = new KeyProcess();
@@ -65,7 +65,7 @@ public class GameScene {
     private State state = new State();
     private Player selfPlayer;
 
-    String []mpURL = {"/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png"};
+    String []mpURL = {"","/com/example/biubiu/image/desert.png","/com/example/biubiu/image/ocean.png","/com/example/biubiu/image/forest.png"};
 
     public List<Bullet> bullets = new CopyOnWriteArrayList<>();
 

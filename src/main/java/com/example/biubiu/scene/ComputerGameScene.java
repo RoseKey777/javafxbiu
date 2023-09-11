@@ -22,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ComputerGameScene {
 
     public int enemynum;
-    private Canvas canvas = new Canvas(1024,1024);
+    private Canvas canvas = new Canvas(960,640);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
     private ComputerGameScene.KeyProcess keyProcess = new ComputerGameScene.KeyProcess();
@@ -38,7 +38,7 @@ public class ComputerGameScene {
     public Player selfPlayer;
 
     private int gamemode;
-    String []mpURL = {"/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png","/com/example/biubiu/image/test01.png"};
+    String []mpURL = {"","/com/example/biubiu/image/desert.png","/com/example/biubiu/image/ocean.png","/com/example/biubiu/image/forest.png"};
 
     public List<Bullet> bullets = new CopyOnWriteArrayList<>();
 
@@ -50,9 +50,9 @@ public class ComputerGameScene {
 
     public int[] enemynums = {4,6,8};
 
-    private int [][]positionPlayer = {{32,32},{950,32},{32,950},{950,950}};
+    private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
 
-    private int [][]positionEnemy = {{32,500},{950,32},{32,950},{950,950},{32,450},{950,64},{32,780},{640,950}};
+    private int [][]positionEnemy = {{32,500},{850,32},{32,600},{850,500},{32,450},{850,64},{32,430},{640,200}};
 
     public int ChaID[] = new int[9];
 

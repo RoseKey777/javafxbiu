@@ -21,7 +21,7 @@
       </ImageView>
       <ImageView fx:id="toIndex" fitHeight="71.0" fitWidth="293.0" layoutX="667.0" layoutY="429.0" onMouseClicked="#mouseClickedToIndex" onMouseEntered="#mouseEnteredToIndex" onMouseExited="#mouseExitedToIndex" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/returnToIndex.png" />
+            <Image url="@../image/return_button.gif" />
          </image>
       </ImageView>
    </children>
