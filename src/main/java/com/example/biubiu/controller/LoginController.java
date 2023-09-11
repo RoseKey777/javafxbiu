@@ -5,6 +5,7 @@ import com.example.biubiu.Director;
 import com.example.biubiu.HelloApplication;
 import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.User;
+import com.example.biubiu.scene.Login;
 import com.example.biubiu.util.DButil;
 import com.example.biubiu.util.SendMailUtil;
 import javafx.event.ActionEvent;
@@ -49,6 +50,15 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/login_button_01.gif").toExternalForm(),50,30,false,true);
+        BackgroundImage backgroundImage1 =new BackgroundImage(image1,null,null,null,null);
+        login.setBackground(new Background(backgroundImage1));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/register_button_01.gif").toExternalForm(),50,30,false,true);
+        backgroundImage1 =new BackgroundImage(image1,null,null,null,null);
+        register.setBackground(new Background(backgroundImage1));
+
 
         this.login.setOnAction(new EventHandler<ActionEvent>() {
             @Override

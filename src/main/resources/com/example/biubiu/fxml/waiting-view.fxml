@@ -14,42 +14,42 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Button fx:id="startBtn" layoutX="114.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#startClick" prefHeight="61.0" prefWidth="125.0" text="开始游戏" />
-      <Button fx:id="exitBtn" layoutX="371.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="61.0" prefWidth="125.0" text="退出" />
-      <VBox layoutX="123.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
+      <Button fx:id="startBtn" layoutX="184.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#startClick" prefHeight="62.0" prefWidth="125.0" />
+      <Button fx:id="exitBtn" layoutX="452.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="62.0" prefWidth="125.0" />
+      <VBox layoutX="68.0" layoutY="208.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name1" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player1" alignment="CENTER" prefHeight="108.0" prefWidth="100.0" text="无" />
             <Label alignment="CENTER" prefHeight="20.0" prefWidth="105.0" text="房主" />
          </children>
       </VBox>
-      <VBox layoutX="264.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
+      <VBox layoutX="209.0" layoutY="208.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name2" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player2" alignment="CENTER" prefHeight="117.0" prefWidth="100.0" text="无" />
             <Label fx:id="prepare2" alignment="CENTER" prefHeight="20.0" prefWidth="105.0" />
          </children>
       </VBox>
-      <VBox layoutX="397.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
+      <VBox layoutX="342.0" layoutY="208.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name3" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player3" alignment="CENTER" prefHeight="124.0" prefWidth="100.0" text="无" />
             <Label fx:id="prepare3" alignment="CENTER" prefHeight="11.0" prefWidth="100.0" />
          </children>
       </VBox>
-      <VBox layoutX="543.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
+      <VBox layoutX="488.0" layoutY="208.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name4" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player4" alignment="CENTER" prefHeight="125.0" prefWidth="100.0" text="无" />
             <Label fx:id="prepare4" alignment="CENTER" prefHeight="20.0" prefWidth="105.0" />
          </children>
       </VBox>
-      <VBox layoutX="688.0" layoutY="198.0" prefHeight="170.0" prefWidth="150.0">
+      <VBox layoutX="673.0" layoutY="142.0" prefHeight="250.0" prefWidth="230.0">
          <children>
-            <Label fx:id="mapNameLb" alignment="CENTER" prefHeight="20.0" prefWidth="150.0" />
-            <Label fx:id="mapImgLb" alignment="CENTER" prefHeight="150.0" prefWidth="150.0" />
+            <Label fx:id="mapNameLb" alignment="CENTER" prefHeight="20.0" prefWidth="230.0" />
+            <Label fx:id="mapImgLb" alignment="CENTER" prefHeight="230.0" prefWidth="230.0" />
          </children>
       </VBox>
-      <Button fx:id="nextMapBtn" layoutX="624.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#nextMapClicked" prefHeight="61.0" prefWidth="125.0" text="下一张" />
+      <Button fx:id="nextMapBtn" layoutX="726.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#nextMapClicked" prefHeight="62.0" prefWidth="125.0" />
    </children>
 </AnchorPane>

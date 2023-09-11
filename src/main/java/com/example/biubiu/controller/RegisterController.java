@@ -1,5 +1,6 @@
 package com.example.biubiu.controller;
 
+import com.example.biubiu.scene.Login;
 import com.example.biubiu.util.DButil;
 import com.example.biubiu.util.SendMailUtil;
 import javafx.fxml.FXML;
@@ -8,6 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -36,6 +40,14 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/register_button_01.gif").toExternalForm(),50,30,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        register.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/send_code_button_01.gif").toExternalForm(),50,30,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        email.setBackground(new Background(backgroundImage));
 
         Random random =new Random();
         int code = random.nextInt(1000, 9999);

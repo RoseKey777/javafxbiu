@@ -8,6 +8,7 @@ import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.Room;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.net.tcp.UserClient;
+import com.example.biubiu.scene.Login;
 import com.example.biubiu.scene.WaitingRoom;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 
 import java.io.*;
 import java.net.Socket;
@@ -38,9 +41,10 @@ WaitingController implements Initializable {
 
     @FXML
     private Button startBtn;
-
     @FXML
     private Button nextMapBtn;
+    @FXML
+    private Button exitBtn;
 
     @FXML
     private Label mapNameLb;
@@ -127,6 +131,9 @@ WaitingController implements Initializable {
         //显示地图
         int mapid = room.mapid;
         mapNameLb.setText(mapNameList.get(mapid));
+        Image image = new Image(WaitingRoom.class.getResource(mapImgList.get(mapid))
+                .toExternalForm(),230,230,false,true);
+        mapImgLb.setGraphic(new ImageView(image));
 
         //显示开始游戏和切换地图按钮
         Request request2 = new Request("getPlayerNum", null);
@@ -205,6 +212,20 @@ WaitingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/start_button_01.gif").toExternalForm(),125,62,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        startBtn.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),125,62,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        exitBtn.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/next_button_01.gif").toExternalForm(),125,62,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        nextMapBtn.setBackground(new Background(backgroundImage));
+
+
         nameList.add(name1);
         nameList.add(name2);
         nameList.add(name3);
@@ -219,9 +240,13 @@ WaitingController implements Initializable {
         prepareList.add(prepare3);
         prepareList.add(prepare4);
 
-        mapNameList.add("地图1");
-        mapNameList.add("地图2");
-        mapNameList.add("地图3");
+        mapNameList.add("砂石之谜");
+        mapNameList.add("深海秘境");
+        mapNameList.add("翠绿之径");
+
+        mapImgList.add("/com/example/biubiu/image/desert.png");
+        mapImgList.add("/com/example/biubiu/image/ocean.png");
+        mapImgList.add("/com/example/biubiu/image/forest.png");
 
         Request request = new Request("getCurrentRoom", null);
         String str = HelloApplication.sendRequest(request);

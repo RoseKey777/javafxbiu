@@ -6,11 +6,15 @@ import com.example.biubiu.HelloApplication;
 import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.net.tcp.RequestHandler;
+import com.example.biubiu.scene.Login;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -20,6 +24,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GamehallController implements Initializable {
+
+    @FXML
+    private Button joinBtn;
+    @FXML
+    private Button refreshBtn;
+    @FXML
+    private Button returnBtn;
 
     @FXML
     private Label waitMsg;
@@ -107,6 +118,19 @@ public class GamehallController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),120,60,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        joinBtn.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/refresh_button_01.gif").toExternalForm(),120,60,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        refreshBtn.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),120,60,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        returnBtn.setBackground(new Background(backgroundImage));
+
         labelList.add(label1);
         labelList.add(label2);
         labelList.add(label3);

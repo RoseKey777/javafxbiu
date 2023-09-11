@@ -21,8 +21,8 @@
         <TextField fx:id="t_email" promptText="请输入邮箱" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label text="验证码：" GridPane.rowIndex="4" />
         <TextField fx:id="t_code" promptText="请输入验证码" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <Button fx:id="email" text="发送验证码" GridPane.rowIndex="5" />
-        <Button fx:id="register" text="注册" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button fx:id="email" prefHeight="30.0" prefWidth="50.0" GridPane.rowIndex="5" />
+        <Button fx:id="register" prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
     </children>
     <columnConstraints>
@@ -36,5 +36,6 @@
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
 </GridPane>

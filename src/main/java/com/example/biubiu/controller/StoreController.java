@@ -18,6 +18,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
@@ -28,7 +30,7 @@ import java.util.*;
 public class StoreController implements Initializable {
 
     @FXML
-    private Button exitMenu;
+    private Button escape;
     @FXML
     private Label cargo1;
     @FXML
@@ -445,6 +447,11 @@ public class StoreController implements Initializable {
     //商店初始化
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        escape.setBackground(new Background(backgroundImage));
+
         for (Label label : Arrays.asList(
                 cargo1, cargo2, cargo3, cargo4, cargo5, cargo6)) {
             labelList.add(label);

@@ -16,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -42,6 +44,8 @@ public class BagController implements Initializable {
     private Label coin_icon;
     @FXML
     private Label add_coin;
+    @FXML
+    private Button escape;
 
     private String username;
     private ArrayList<Label> labelList = new ArrayList<>();
@@ -53,6 +57,11 @@ public class BagController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        escape.setBackground(new Background(backgroundImage));
+
+
         labelList.add(weapon1);
         labelList.add(weapon2);
         labelList.add(weapon3);
@@ -103,9 +112,15 @@ public class BagController implements Initializable {
                     weapon1.setText(weapon);
                     weapon1.setFont(font);
                     if (state == 1) {
-                        weapon_Button1.setText("正在使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        weapon_Button1.setBackground(new Background(backgroundImage));
+
                     } else {
-                        weapon_Button1.setText("使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        weapon_Button1.setBackground(new Background(backgroundImage));
+
                     }
                 }
                 if (i == 1) {
@@ -114,9 +129,13 @@ public class BagController implements Initializable {
                     weapon2.setText(weapon);
                     weapon2.setFont(font);
                     if (state == 1) {
-                        weapon_Button2.setText("正在使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        weapon_Button2.setBackground(new Background(backgroundImage));
                     } else {
-                        weapon_Button2.setText("使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        weapon_Button2.setBackground(new Background(backgroundImage));
                     }
                 }
                 if (i == 2) {
@@ -125,9 +144,13 @@ public class BagController implements Initializable {
                     weapon3.setText(weapon);
                     weapon3.setFont(font);
                     if (state == 1) {
-                        weapon_Button3.setText("正在使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        weapon_Button3.setBackground(new Background(backgroundImage));
                     } else {
-                        weapon_Button3.setText("使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        weapon_Button3.setBackground(new Background(backgroundImage));
                     }
                 }
 
@@ -146,9 +169,13 @@ public class BagController implements Initializable {
                     character1.setText(character);
                     character1.setFont(font);
                     if(state==1){
-                        character1_Button1.setText("正在使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        character1_Button1.setBackground(new Background(backgroundImage));
                     }else{
-                        character1_Button1.setText("使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        character1_Button1.setBackground(new Background(backgroundImage));
                     }
                 }
                 if(i==1){
@@ -157,9 +184,13 @@ public class BagController implements Initializable {
                     character2.setText(character);
                     character2.setFont(font);
                     if(state==1){
-                        character1_Button2.setText("正在使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        character1_Button2.setBackground(new Background(backgroundImage));
                     }else{
-                        character1_Button2.setText("使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        character1_Button2.setBackground(new Background(backgroundImage));
                     }
                 }
                 if(i==2){
@@ -168,9 +199,14 @@ public class BagController implements Initializable {
                     character3.setText(character);
                     character3.setFont(font);
                     if(state==1){
-                        character1_Button3.setText("正在使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        character1_Button3.setBackground(new Background(backgroundImage));
                     }else{
-                        character1_Button3.setText("使用");
+                        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
+                        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+                        character1_Button3.setBackground(new Background(backgroundImage));
+
                     }
                 }
 

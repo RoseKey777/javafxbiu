@@ -160,6 +160,23 @@ public class IndexController implements Initializable {
         this.help.setFont(spiderFont);
         this.toPVE.setFont(spiderFont);
 
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/bag_button_01.gif").toExternalForm(),172,84,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        playchoose.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/join_room_button_01.gif").toExternalForm(),172,84,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        gamehall.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/help_button_01.gif").toExternalForm(),172,84,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        help.setBackground(new Background(backgroundImage));
+
+        image1 = new Image(Login.class.getResource("/com/example/biubiu/images/computer_mode_button_01.gif").toExternalForm(),172,84,false,true);
+        backgroundImage =new BackgroundImage(image1,null,null,null,null);
+        toPVE.setBackground(new Background(backgroundImage));
+
+
         Image image = new Image(Login.class.getResource("/com/example/biubiu/image/gold.png").toExternalForm(),46,46,false,true);
         coin_icon.setGraphic(new ImageView(image));
         image = new Image(Login.class.getResource("/com/example/biubiu/image/加号.png").toExternalForm(),40,40,false,true);

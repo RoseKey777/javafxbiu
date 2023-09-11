@@ -25,14 +25,14 @@
       </Pane>
       <Pane fx:id="UpperInfoBar" layoutX="1.0" prefHeight="75.0" prefWidth="960.0" style="-fx-background-color: #8B4513;">
          <children>
-            <Label fx:id="coin_icon" layoutX="141.0" layoutY="14.0" prefHeight="48.0" prefWidth="48.0" />
-            <Label fx:id="coins" layoutX="217.0" layoutY="14.0" prefHeight="48.0" prefWidth="115.0">
+            <Label fx:id="coin_icon" layoutX="168.0" layoutY="14.0" prefHeight="48.0" prefWidth="48.0" />
+            <Label fx:id="coins" layoutX="244.0" layoutY="14.0" prefHeight="48.0" prefWidth="115.0">
                <font>
                   <Font size="32.0" />
                </font>
             </Label>
-            <Label fx:id="add_coin" layoutX="340.0" layoutY="14.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
-            <Button id="exitMenu" layoutX="24.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="50.0" prefWidth="50.0" text="Esc" />
+            <Label fx:id="add_coin" layoutX="367.0" layoutY="14.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
+            <Button id="exitMenu" fx:id="escape" layoutX="24.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="50.0" prefWidth="100.0" />
          </children></Pane>
       <TabPane layoutX="461.0" layoutY="122.0" prefHeight="320.0" prefWidth="421.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>

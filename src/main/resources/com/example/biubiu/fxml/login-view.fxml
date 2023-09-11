@@ -17,9 +17,9 @@
         <TextField fx:id="t_name" promptText="请输入用户名" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="密码：" GridPane.rowIndex="2" />
         <PasswordField fx:id="t_password" promptText="请输入密码" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button fx:id="login" text="登录"  GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Button fx:id="login" prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <!--       <Button fx:id="email" text="发送验证码"  GridPane.columnIndex="2" GridPane.rowIndex="4" />-->
-        <Button fx:id="register" text="注册" GridPane.rowIndex="4" />
+        <Button fx:id="register" prefHeight="30.0" prefWidth="50.0" GridPane.rowIndex="4" />
 
     </children>
     <columnConstraints>

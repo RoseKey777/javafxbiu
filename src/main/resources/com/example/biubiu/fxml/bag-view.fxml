@@ -11,13 +11,13 @@
 <AnchorPane prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.BagController">
 
     <children>
-        <Label fx:id="coins" layoutX="149.0" layoutY="14.0" prefHeight="48.0" prefWidth="115.0">
+        <Label fx:id="coins" layoutX="205.0" layoutY="15.0" prefHeight="48.0" prefWidth="115.0">
             <font>
                 <Font size="32.0" />
             </font>
         </Label>
-        <Label fx:id="coin_icon" layoutX="101.0" layoutY="14.0" prefHeight="48.0" prefWidth="48.0" />
-        <Label fx:id="add_coin" layoutX="250.0" layoutY="14.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
+        <Label fx:id="coin_icon" layoutX="157.0" layoutY="15.0" prefHeight="48.0" prefWidth="48.0" />
+        <Label fx:id="add_coin" layoutX="306.0" layoutY="15.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
         <TabPane layoutX="183.0" layoutY="107.0" prefHeight="421.0" prefWidth="647.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="武器装备">
@@ -39,19 +39,19 @@
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                             <children>
                                                 <Label fx:id="weapon1" alignment="CENTER" prefHeight="70.0" prefWidth="139.0" />
-                                                <Button fx:id="weapon_Button1" mnemonicParsing="false" onMouseClicked="#ButtonClicked" />
+                                                <Button fx:id="weapon_Button1" mnemonicParsing="false" onMouseClicked="#ButtonClicked" text="         " />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                                             <children>
                                                 <Label fx:id="weapon2" alignment="CENTER" prefHeight="70.0" prefWidth="139.0" />
-                                                <Button fx:id="weapon_Button2" mnemonicParsing="false" onMouseClicked="#ButtonClicked" />
+                                                <Button fx:id="weapon_Button2" mnemonicParsing="false" onMouseClicked="#ButtonClicked" text="         " />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                                             <children>
                                                 <Label fx:id="weapon3" alignment="CENTER" prefHeight="70.0" prefWidth="139.0" />
-                                                <Button fx:id="weapon_Button3" mnemonicParsing="false" onMouseClicked="#ButtonClicked" />
+                                                <Button fx:id="weapon_Button3" mnemonicParsing="false" onMouseClicked="#ButtonClicked" text="         " />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -99,19 +99,19 @@
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                             <children>
                                                 <Label fx:id="character1" alignment="CENTER" prefHeight="70.0" prefWidth="139.0" />
-                                                <Button fx:id="character1_Button1" mnemonicParsing="false" onMouseClicked="#ButtonClicked1" />
+                                                <Button fx:id="character1_Button1" mnemonicParsing="false" onMouseClicked="#ButtonClicked1" text="         " />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                                             <children>
                                                 <Label fx:id="character2" alignment="CENTER" prefHeight="70.0" prefWidth="139.0" />
-                                                <Button fx:id="character1_Button2" mnemonicParsing="false" onMouseClicked="#ButtonClicked1" />
+                                                <Button fx:id="character1_Button2" mnemonicParsing="false" onMouseClicked="#ButtonClicked1" text="         " />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                                             <children>
                                                 <Label fx:id="character3" alignment="CENTER" prefHeight="70.0" prefWidth="139.0" />
-                                                <Button fx:id="character1_Button3" mnemonicParsing="false" onMouseClicked="#ButtonClicked1" />
+                                                <Button fx:id="character1_Button3" mnemonicParsing="false" onMouseClicked="#ButtonClicked1" text="         " />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -163,6 +163,6 @@
             </tabs>
         </TabPane>
 
-        <Button id="exitMenu" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="48.0" prefWidth="49.0" text="Esc" />
+        <Button id="exitMenu" fx:id="escape" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="50.0" prefWidth="100.0" />
     </children>
 </AnchorPane>
