@@ -21,15 +21,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameScene {
 
-//    public String[] ips = new String[4];
+    public int Tim[] = new int[1005];
+
+    public int newdropid = 0;
+
     public String[] username = new String[4];
     public int numOfPlayer;
 
@@ -107,18 +107,29 @@ public class GameScene {
         }
 
 
-        for(int i = 0;i < drops.size(); ++i){
-            Drop drop = drops.get(i);
-            if(drop.alive){
-                drop.paint(graphicsContext);
-            }
-        }
-
         if(selfPlayer.alive && !selfPlayer.realDie){
             selfPlayer.paint(graphicsContext);
             selfPlayer.impact(drops);
         }
 
+        for(int i = 0;i < drops.size(); ++i){
+            Drop drop = drops.get(i);
+            if(drop.alive){
+                drop.paint(graphicsContext);
+            }else if(!drop.alive && drop.dieflag){
+                drop.dieflag = false;
+                newdropid ++;
+                Tim[newdropid] = 500;
+            }
+        }
+
+        for(int i = 1;i <= newdropid;++i){
+            if(Tim[i] > 0) Tim[i]--;
+            if(Tim[i] == 0){
+                Tim[i] --;
+                RandomCreatNewDrop();
+            }
+        }
 //        if(!selfPlayer.alive){
 //            selfPlayer
 //        }
@@ -172,6 +183,7 @@ public class GameScene {
             bullet.paint(graphicsContext);
         }
         for(EnemyBullet bullet:enemybullets){
+            if(!bullet.alive) continue;
             if(selfPlayer!=null && bullet.getContour().intersects(selfPlayer.getContour())){
                 if(selfPlayer.alive == false){
                     continue;
@@ -206,20 +218,45 @@ public class GameScene {
         }
     }
 
+    public boolean illegal(double xx,double yy){
+        return selfPlayer.illegal(xx,yy);
+    }
+
+    public void RandomCreatDrop(int num){
+        Random random = new Random();
+        for(int i = 0; i < num; ++i){
+            int typ = random.nextInt(5);
+            while(true){
+                double xx = random.nextDouble(928);
+                double yy = random.nextDouble(576);
+                if(illegal(xx,yy)){
+                    Drop drop = new Drop(dropURL[typ],xx,yy,typ,i);
+                    drops.add(drop);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void RandomCreatNewDrop(){
+        Random random = new Random();
+        int typ = random.nextInt(5);
+        while(true){
+            double xx = random.nextDouble(928);
+            double yy = random.nextDouble(576);
+            if(illegal(xx,yy)){
+                Drop drop = new Drop(dropURL[typ],xx,yy,typ,newdropid + 4);
+                drops.add(drop);
+                break;
+            }
+        }
+    }
+
+    public String[] dropURL= {"/com/example/biubiu/image/hp.png","/com/example/biubiu/image/danyao.png",
+            "/com/example/biubiu/image/die6.png","/com/example/biubiu/image/bomb.png","/com/example/biubiu/image/ran.png"};
+
     public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[],int mapchoose){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
         //拾取物绘制
-        Drop drop1 = new Drop("/com/example/biubiu/image/hp.png",200,300,0,0);
-        Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
-        Drop drop3 = new Drop("/com/example/biubiu/image/danyao.png",800,600,1,2);
-        Drop drop4 = new Drop("/com/example/biubiu/image/danyao.png",700,300,1,3);
-        Drop drop5 = new Drop("/com/example/biubiu/image/die6.png",300,600,2,4);
-        Drop drop6 = new Drop("/com/example/biubiu/image/die6.png",520,110,2,5);
-        drops.add(drop1);
-        drops.add(drop2);
-        drops.add(drop3);
-        drops.add(drop4);
-        drops.add(drop5);
-        drops.add(drop6);
 
         numOfPlayer = total;
         enemynum = numOfPlayer - 1;
@@ -233,6 +270,7 @@ public class GameScene {
         selfPlayer.username = username[roomchair];
         selfPlayer.alive = true;
         selfPlayer.NPCflag = 0;
+        RandomCreatDrop(5);
 
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer

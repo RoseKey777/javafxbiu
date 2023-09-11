@@ -8,11 +8,14 @@ public class Drop extends Sprite{
 
     public int id;
     public boolean alive;
+    public boolean dieflag;
+
     public Drop(String url,double x,double y,int typ,int idd){
         super(new Image(Background.class.getResource(url).toExternalForm()),
                 x, y ,32 ,32);
         type = typ;
         id = idd;
         alive = true;
+        dieflag = true;
     }
 }

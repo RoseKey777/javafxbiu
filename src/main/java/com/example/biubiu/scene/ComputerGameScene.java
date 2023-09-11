@@ -13,14 +13,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ComputerGameScene {
 
+    public int Tim[] = new int[1005];
+
+    public int newdropid = 0;
     public int enemynum;
     private Canvas canvas = new Canvas(960,640);
     private GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -62,20 +62,44 @@ public class ComputerGameScene {
 
     public String[] username = new String[8];
 
+    public boolean illegal(double xx,double yy){
+        return selfPlayer.illegal(xx,yy);
+    }
+    public void RandomCreatDrop(int num){
+        Random random = new Random();
+        for(int i = 0; i < num; ++i){
+            int typ = random.nextInt(5);
+            while(true){
+                double xx = random.nextDouble(928);
+                double yy = random.nextDouble(576);
+                if(illegal(xx,yy)){
+                    Drop drop = new Drop(dropURL[typ],xx,yy,typ,i);
+                    drops.add(drop);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void RandomCreatNewDrop(){
+        Random random = new Random();
+        int typ = random.nextInt(5);
+        while(true){
+            double xx = random.nextDouble(928);
+            double yy = random.nextDouble(576);
+            if(illegal(xx,yy)){
+                Drop drop = new Drop(dropURL[typ],xx,yy,typ,newdropid + 4);
+                drops.add(drop);
+                break;
+            }
+        }
+    }
+
+    public String[] dropURL= {"/com/example/biubiu/image/hp.png","/com/example/biubiu/image/danyao.png",
+            "/com/example/biubiu/image/die6.png","/com/example/biubiu/image/bomb.png","/com/example/biubiu/image/ran.png"};
+
     public void init(Stage stage, int mode, String playername, int mapchoose, int chaID,int weaID){
         //拾取物绘制
-        Drop drop1 = new Drop("/com/example/biubiu/image/hp.png",200,300,0,0);
-        Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
-        Drop drop3 = new Drop("/com/example/biubiu/image/danyao.png",800,600,1,2);
-        Drop drop4 = new Drop("/com/example/biubiu/image/danyao.png",700,300,1,3);
-        Drop drop5 = new Drop("/com/example/biubiu/image/die6.png",300,600,2,4);
-        Drop drop6 = new Drop("/com/example/biubiu/image/die6.png",520,110,2,5);
-        drops.add(drop1);
-        drops.add(drop2);
-        drops.add(drop3);
-        drops.add(drop4);
-        drops.add(drop5);
-        drops.add(drop6);
 
         enemynum = enemynums[mode];
 
@@ -100,6 +124,8 @@ public class ComputerGameScene {
                 0.0,mapchoose,this);
         selfPlayer.username = playername;
         selfPlayer.alive = true;
+
+        RandomCreatDrop(5);
 
         background.image = new Image(Background.class.getResource(mpURL[mapchoose]).toExternalForm());
         for(int i = 0;i < enemynum ;++i){
@@ -163,16 +189,30 @@ public class ComputerGameScene {
             }
         }
 
-        for(int i = 0;i < drops.size(); ++i){
-            Drop drop = drops.get(i);
-            if(drop.alive){
-                drop.paint(graphicsContext);
-            }
-        }
 
         if(selfPlayer.alive && !selfPlayer.realDie){
             selfPlayer.paint(graphicsContext);
             selfPlayer.impact(drops);
+        }
+
+        for(int i = 0;i < drops.size(); ++i){
+            Drop drop = drops.get(i);
+            if(drop.alive){
+                drop.paint(graphicsContext);
+            }else if(!drop.alive && drop.dieflag){
+                drop.dieflag = false;
+                newdropid ++;
+                System.out.println(newdropid);
+                Tim[newdropid] = 500;
+            }
+        }
+
+        for(int i = 1;i <= newdropid;++i){
+            if(Tim[i] > 0) Tim[i]--;
+            if(Tim[i] == 0){
+                Tim[i] --;
+                RandomCreatNewDrop();
+            }
         }
 
 //        if(!selfPlayer.alive){
