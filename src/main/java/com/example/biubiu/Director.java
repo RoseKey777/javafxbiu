@@ -28,6 +28,8 @@ public class Director {
     private WaitingRoom waitingRoom = new WaitingRoom();
 
     private Store store = new Store();
+
+    private Setting setting = new Setting();
     private Director(){}
 
     public static Director getInstance(){
@@ -74,6 +76,22 @@ public class Director {
         storeStart();
         stage.show();
     }
+
+    public void Tosetting(Stage stage){
+        Pane root = new Pane();
+        Scene scene = new Scene(root, WIDTH,HEIGHT);
+        stage.setTitle("biubiu");
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),WIDTH,HEIGHT,false,true));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
+        this.stage = stage;
+        settingStart();
+        stage.show();
+    }
+
+
 
     public void Tobag(Stage stage){
         Pane root = new Pane();
@@ -209,5 +227,9 @@ public class Director {
 
     public void waitingRoomStart(){
         waitingRoom.load(stage);
+    }
+
+    public void settingStart() {
+        setting.load(stage);
     }
 }
