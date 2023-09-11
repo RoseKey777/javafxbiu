@@ -15,9 +15,9 @@ public class Store {
     public void load(Stage stage){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/biubiu/fxml/store-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 900, 750);
+            Scene scene = new Scene(fxmlLoader.load(), 900, 640);
 
-            Image image = new Image(Index.class.getResource("/com/example/biubiu/image/store/window.png").toExternalForm(),900,750,false,true);
+            Image image = new Image(Index.class.getResource("/com/example/biubiu/image/store/window.png").toExternalForm(),900,640,false,true);
             BackgroundImage backgroundImage =new BackgroundImage(image,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,

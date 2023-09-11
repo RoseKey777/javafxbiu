@@ -66,7 +66,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) throws IOException {
         //启动客户端
-        clientSocket = new Socket("162.163.43.168",6666);
+        clientSocket = new Socket("localhost",6666);
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
         PrintWriter pw = new PrintWriter(

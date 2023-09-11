@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.pveController">
+<AnchorPane prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.pveController">
    <children>
-      <Button fx:id="easy" layoutX="200.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#easyMouseClicked" onMouseEntered="#easyMouseEntered" onMouseExited="#easyMouseExited" prefHeight="50.0" prefWidth="200.0" text="简单" />
-      <Button fx:id="medium" layoutX="200.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#mediumMouseClicked" onMouseEntered="#mediumMouseEntered" onMouseExited="#mediumMouseExited" prefHeight="50.0" prefWidth="200.0" text="中等" />
-      <Button fx:id="difficult" layoutX="200.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#difficultMouseClicked" onMouseEntered="#difficultMouseEntered" onMouseExited="#difficultMouseExited" prefHeight="50.0" prefWidth="200.0" text="困难" />
-      <Label layoutX="230.0" layoutY="42.0" prefHeight="69.0" prefWidth="188.0" text="欢迎来到人机模式" />
+      <Button fx:id="easy" layoutX="368.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#easyMouseClicked" onMouseEntered="#easyMouseEntered" onMouseExited="#easyMouseExited" prefHeight="50.0" prefWidth="218.0" text="简单" />
+      <Button fx:id="medium" layoutX="371.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#mediumMouseClicked" onMouseEntered="#mediumMouseEntered" onMouseExited="#mediumMouseExited" prefHeight="50.0" prefWidth="218.0" text="中等" />
+      <Button fx:id="difficult" layoutX="368.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#difficultMouseClicked" onMouseEntered="#difficultMouseEntered" onMouseExited="#difficultMouseExited" prefHeight="50.0" prefWidth="218.0" text="困难" />
+      <Label layoutX="350.0" layoutY="38.0" prefHeight="69.0" prefWidth="397.0" text="欢迎来到人机模式" textAlignment="CENTER">
+         <font>
+            <Font size="32.0" />
+         </font></Label>
       <Button id="exitMenu" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="48.0" prefWidth="49.0" text="Esc" />
    </children>
 </AnchorPane>

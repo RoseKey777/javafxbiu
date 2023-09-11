@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Director {
 
-    public static final double WIDTH = 1024, HEIGHT = 1024;
+    public static final double WIDTH = 960, HEIGHT = 640;
 
     private static Director instance = new Director();
 
@@ -52,7 +52,7 @@ public class Director {
         Pane root = new Pane();
         Scene scene = new Scene(root, WIDTH,HEIGHT);
         stage.setTitle("biubiu");
-        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),WIDTH,HEIGHT,false,true));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.setWidth(WIDTH);
@@ -65,7 +65,7 @@ public class Director {
         Pane root = new Pane();
         Scene scene = new Scene(root, WIDTH,HEIGHT);
         stage.setTitle("biubiu");
-        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),WIDTH,HEIGHT,false,true));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.setWidth(WIDTH);
@@ -79,7 +79,7 @@ public class Director {
         Pane root = new Pane();
         Scene scene = new Scene(root, WIDTH,HEIGHT);
         stage.setTitle("biubiu");
-        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),WIDTH,HEIGHT,false,true));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.setWidth(WIDTH);
@@ -93,7 +93,7 @@ public class Director {
         Pane root = new Pane();
         Scene scene = new Scene(root, WIDTH,HEIGHT);
         stage.setTitle("biubiu");
-        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),600,400,false,true));
+        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),WIDTH,HEIGHT,false,true));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.setWidth(WIDTH);

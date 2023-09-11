@@ -7,9 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="476.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.GamehallController">
+<AnchorPane prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.GamehallController">
    <children>
-      <GridPane alignment="CENTER" layoutX="77.0" layoutY="63.0" prefHeight="251.0" prefWidth="478.0">
+      <GridPane alignment="CENTER" layoutX="250.0" layoutY="150.0" prefHeight="251.0" prefWidth="478.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -71,13 +71,13 @@
             </VBox>
          </children>
       </GridPane>
-      <Button fx:id="joinBtn" layoutX="119.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#joinRoomClicked" prefHeight="30.0" prefWidth="109.0" text="加入房间" />
-      <Button fx:id="returnBtn" layoutX="404.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#returnClicked" prefHeight="30.0" prefWidth="109.0" text="返回" />
-      <Label fx:id="waitMsg" alignment="CENTER" layoutX="215.0" layoutY="25.0" prefHeight="47.0" prefWidth="202.0" text="等待加入...">
+      <Button fx:id="joinBtn" layoutX="320.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#joinRoomClicked" prefHeight="30.0" prefWidth="109.0" text="加入房间" />
+      <Button fx:id="returnBtn" layoutX="595.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#returnClicked" prefHeight="30.0" prefWidth="109.0" text="返回" />
+      <Label fx:id="waitMsg" alignment="CENTER" layoutX="379.0" layoutY="27.0" prefHeight="47.0" prefWidth="202.0" text="等待加入...">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Button fx:id="refreshBtn" layoutX="265.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#refresh" prefHeight="30.0" prefWidth="109.0" text="刷新" />
+      <Button fx:id="refreshBtn" layoutX="458.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#refresh" prefHeight="30.0" prefWidth="109.0" text="刷新" />
    </children>
 </AnchorPane>

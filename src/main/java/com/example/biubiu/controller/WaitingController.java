@@ -236,7 +236,7 @@ WaitingController implements Initializable {
         refreshRoom();
 
         try {
-            listener = new Listener("162.163.43.168", 6666);
+            listener = new Listener("localhost", 6666);
             new Thread(listener).start();
         } catch (IOException e) {
             e.printStackTrace();

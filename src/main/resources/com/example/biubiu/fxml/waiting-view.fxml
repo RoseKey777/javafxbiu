@@ -7,49 +7,49 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="456.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.WaitingController">
+<AnchorPane prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.WaitingController">
    <children>
       <Label fx:id="roomidLb" layoutX="37.0" layoutY="42.0" prefHeight="32.0" prefWidth="311.0" text="当前房间：">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Button fx:id="startBtn" layoutX="126.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#startClick" prefHeight="61.0" prefWidth="125.0" text="开始游戏" />
-      <Button fx:id="exitBtn" layoutX="388.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="61.0" prefWidth="125.0" text="退出" />
-      <VBox layoutX="76.0" layoutY="93.0" prefHeight="150.0" prefWidth="100.0">
+      <Button fx:id="startBtn" layoutX="114.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#startClick" prefHeight="61.0" prefWidth="125.0" text="开始游戏" />
+      <Button fx:id="exitBtn" layoutX="371.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="61.0" prefWidth="125.0" text="退出" />
+      <VBox layoutX="123.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name1" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player1" alignment="CENTER" prefHeight="108.0" prefWidth="100.0" text="无" />
             <Label alignment="CENTER" prefHeight="20.0" prefWidth="105.0" text="房主" />
          </children>
       </VBox>
-      <VBox layoutX="217.0" layoutY="93.0" prefHeight="150.0" prefWidth="100.0">
+      <VBox layoutX="264.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name2" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player2" alignment="CENTER" prefHeight="117.0" prefWidth="100.0" text="无" />
             <Label fx:id="prepare2" alignment="CENTER" prefHeight="20.0" prefWidth="105.0" />
          </children>
       </VBox>
-      <VBox layoutX="350.0" layoutY="93.0" prefHeight="150.0" prefWidth="100.0">
+      <VBox layoutX="397.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name3" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player3" alignment="CENTER" prefHeight="124.0" prefWidth="100.0" text="无" />
             <Label fx:id="prepare3" alignment="CENTER" prefHeight="11.0" prefWidth="100.0" />
          </children>
       </VBox>
-      <VBox layoutX="496.0" layoutY="93.0" prefHeight="150.0" prefWidth="100.0">
+      <VBox layoutX="543.0" layoutY="217.0" prefHeight="150.0" prefWidth="100.0">
          <children>
             <Label fx:id="name4" alignment="CENTER" prefHeight="20.0" prefWidth="131.0" />
             <Label fx:id="player4" alignment="CENTER" prefHeight="125.0" prefWidth="100.0" text="无" />
             <Label fx:id="prepare4" alignment="CENTER" prefHeight="20.0" prefWidth="105.0" />
          </children>
       </VBox>
-      <VBox layoutX="641.0" layoutY="74.0" prefHeight="170.0" prefWidth="150.0">
+      <VBox layoutX="688.0" layoutY="198.0" prefHeight="170.0" prefWidth="150.0">
          <children>
             <Label fx:id="mapNameLb" alignment="CENTER" prefHeight="20.0" prefWidth="150.0" />
             <Label fx:id="mapImgLb" alignment="CENTER" prefHeight="150.0" prefWidth="150.0" />
          </children>
       </VBox>
-      <Button fx:id="nextMapBtn" layoutX="654.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#nextMapClicked" prefHeight="61.0" prefWidth="125.0" text="下一张" />
+      <Button fx:id="nextMapBtn" layoutX="624.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#nextMapClicked" prefHeight="61.0" prefWidth="125.0" text="下一张" />
    </children>
 </AnchorPane>
