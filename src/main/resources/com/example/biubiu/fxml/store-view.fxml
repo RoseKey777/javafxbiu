@@ -61,25 +61,25 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Label fx:id="cargo3" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="66.0" text="商品1" />
+                                    <Label fx:id="cargo3" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="66.0" />
                                     <Button fx:id="cargoButton3" mnemonicParsing="false" onMouseClicked="#cargoShopping" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Label fx:id="cargo4" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="70.0" text="商品1" />
+                                    <Label fx:id="cargo4" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="70.0" />
                                     <Button fx:id="cargoButton4" mnemonicParsing="false" onMouseClicked="#cargoShopping" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <Label fx:id="cargo5" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="68.0" text="商品1" />
+                                    <Label fx:id="cargo5" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="68.0" />
                                     <Button fx:id="cargoButton5" mnemonicParsing="false" onMouseClicked="#cargoShopping" text="Button" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <Label fx:id="cargo6" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="70.0" text="商品1" />
+                                    <Label fx:id="cargo6" alignment="CENTER" onMouseClicked="#displayInformation" prefHeight="64.0" prefWidth="70.0" />
                                     <Button fx:id="cargoButton6" mnemonicParsing="false" onMouseClicked="#cargoShopping" text="Button" />
                                  </children>
                               </VBox>
@@ -137,7 +137,6 @@
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                                  <children>
                                     <Label fx:id="cargo19" alignment="CENTER" onMouseClicked="#displayInformationCharacter" prefHeight="64.0" prefWidth="73.0" />
-                                    <Button fx:id="cargoButton19" mnemonicParsing="false" onMouseClicked="#cargoShoppingCharacter" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

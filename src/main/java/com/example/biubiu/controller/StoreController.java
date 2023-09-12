@@ -347,7 +347,7 @@ public class StoreController implements Initializable {
                     Request request6 = new Request("insertweapon", data1 );
                     HelloApplication.sendRequest(request6);
                     button.setText("已购买");
-                    button.setVisible(true);
+                    button.setDisable(true);
                 }
             }
         } else {
@@ -420,7 +420,7 @@ public class StoreController implements Initializable {
                     Request request6 = new Request("insertCharacter", data1 );
                     HelloApplication.sendRequest(request6);
                     button.setText("已购买");
-                    button.setVisible(true);
+                    button.setDisable(true);
                 }
             }
         } else {

@@ -1,5 +1,7 @@
 package com.example.biubiu.controller;
 
+import com.example.biubiu.HelloApplication;
+import com.example.biubiu.domain.Request;
 import com.example.biubiu.scene.Login;
 import com.example.biubiu.util.DButil;
 import com.example.biubiu.util.SendMailUtil;
@@ -16,6 +18,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -102,24 +106,38 @@ public class RegisterController implements Initializable {
                 } catch (ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
-                sql = "insert into user (username,password) values(?,?)";
-                try {
-                    Connection connection = DButil.getconnection();
-                    pstmt = connection.prepareStatement(sql);
-                    pstmt.setString(1, username);
-                    pstmt.setString(2, password);
-                    int i = pstmt.executeUpdate();
-                    if (i > 0) {
-                        System.out.println("注册成功");
+                Map<String, Object> data = new HashMap<>();
+                data.put("username", username);
+                data.put("password", password);
+                Request request = new Request("signup", data);
+                String result = HelloApplication.sendRequest(request);
+                if(result.equals("注册成功")){
+                    System.out.println("注册成功");
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("information");
                         alert.setHeaderText(null);
                         alert.setContentText("注册成功!");
                         alert.showAndWait();
-                    }
-                } catch (SQLException | ClassNotFoundException ex) {
-                    throw new RuntimeException(ex);
                 }
+
+//                sql = "insert into user (username,password) values(?,?)";
+//                try {
+//                    Connection connection = DButil.getconnection();
+//                    pstmt = connection.prepareStatement(sql);
+//                    pstmt.setString(1, username);
+//                    pstmt.setString(2, password);
+//                    int i = pstmt.executeUpdate();
+//                    if (i > 0) {
+//                        System.out.println("注册成功");
+//                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                        alert.setTitle("information");
+//                        alert.setHeaderText(null);
+//                        alert.setContentText("注册成功!");
+//                        alert.showAndWait();
+//                    }
+//                } catch (SQLException | ClassNotFoundException ex) {
+//                    throw new RuntimeException(ex);
+//                }
             }
 
         });

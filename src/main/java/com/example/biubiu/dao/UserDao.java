@@ -112,7 +112,7 @@ public class UserDao {
                 return false;
             } else {
                 // 插入新用户信息
-                String insertQuery = "INSERT INTO user (username, password, coins, score) VALUES (?, ?, 0, 0)";
+                String insertQuery = "INSERT INTO user (username, password, coins, score) VALUES (?, ?, 30, 0)";
                 int rowsInserted = queryRunner.update(conn, insertQuery, username, password);
 
                 return rowsInserted > 0;
