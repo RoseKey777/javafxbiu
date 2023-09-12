@@ -48,7 +48,7 @@ public class ComputerGameScene {
 
     public List<Drop> drops = new ArrayList<>();
 
-    public int[] enemynums = {4,6,8};
+    public int[] enemynums = {2,3,4};
 
     private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
 

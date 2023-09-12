@@ -16,7 +16,7 @@
       </ImageView>
       <ImageView fx:id="flag" fitHeight="380.0" fitWidth="545.0" layoutX="116.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Avatar/avatar4.png" />
+            <Image url="@../image/lose.png" />
          </image>
       </ImageView>
       <ImageView fx:id="toIndex" fitHeight="71.0" fitWidth="293.0" layoutX="667.0" layoutY="429.0" onMouseClicked="#mouseClickedToIndex" onMouseEntered="#mouseEnteredToIndex" onMouseExited="#mouseExitedToIndex" pickOnBounds="true" preserveRatio="true">

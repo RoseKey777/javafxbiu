@@ -1,6 +1,7 @@
 package com.example.biubiu.sprite;
 
 import com.example.biubiu.Director;
+import com.example.biubiu.controller.LoginController;
 import com.example.biubiu.scene.ComputerGameScene;
 import com.example.biubiu.scene.GameScene;
 import com.example.biubiu.util.SoundEffect;
@@ -8,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.util.Random;
@@ -446,6 +448,18 @@ public class Enemy extends Role{
         if(block[mapChoose][realYYYY][realXXXX] == 10){//右上
             return false;
         }
+        if(block[mapChoose][realY][realX] == 5){//左上
+            return false;
+        }
+        if(block[mapChoose][realYY][realXX] == 5){//右下
+            return false;
+        }
+        if(block[mapChoose][realYYY][realXXX] == 5){//左下
+            return false;
+        }
+        if(block[mapChoose][realYYYY][realXXXX] == 5){//右上
+            return false;
+        }
 
         return true;
     }
@@ -733,7 +747,7 @@ public class Enemy extends Role{
     public void paint(GraphicsContext graphicsContext) {
         image = imageMap.get("walk");
         weaponImage = imageMap.get("weapon");
-        super.paint(graphicsContext);
+//        super.paint(graphicsContext);
         paintHP(graphicsContext);
         if(alive){
             if(numOfwudi > 0){
@@ -774,8 +788,12 @@ public class Enemy extends Role{
             graphicsContext.drawImage(image1,-16,-16,32,32);
             graphicsContext.restore();
 
+            super.paint(graphicsContext);
+
             graphicsContext.setFill(Color.GRAY);
-            graphicsContext.setFont(javafx.scene.text.Font.font("幼圆", FontWeight.BOLD,16));
+            String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+            Font font = Font.loadFont(fontPath, 16);
+            graphicsContext.setFont(font);
             graphicsContext.fillText(this.username, x, y + 50);
 
             if(NPCflag == 0) {

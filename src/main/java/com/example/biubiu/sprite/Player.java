@@ -440,6 +440,18 @@ public class Player extends Role{
         if(block[mapChoose][realYYYY][realXXXX] == 10){//右上
             return false;
         }
+        if(block[mapChoose][realY][realX] == 5){//左上
+            return false;
+        }
+        if(block[mapChoose][realYY][realXX] == 5){//右下
+            return false;
+        }
+        if(block[mapChoose][realYYY][realXXX] == 5){//左下
+            return false;
+        }
+        if(block[mapChoose][realYYYY][realXXXX] == 5){//右上
+            return false;
+        }
         return true;
     }
 

@@ -46,7 +46,7 @@ public class GameOverController {
     }
 
     public void flagSuccess() {
-        flag.setImage(new Image(GameOverController.class.getResource("/com/example/biubiu/Avatar/avatar35.png").toExternalForm()));
+        flag.setImage(new Image(GameOverController.class.getResource("/com/example/biubiu/image/win.png").toExternalForm()));
     }
 
 }
