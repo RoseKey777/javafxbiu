@@ -58,6 +58,7 @@ public class BagController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tabPane.setStyle("-fx-font-family: 'Zpix';");
+        coins.setStyle("-fx-font-family: 'Zpix';");
 
         Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
         BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);

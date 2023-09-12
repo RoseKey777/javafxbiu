@@ -4,10 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.example.biubiu.Director;
 import com.example.biubiu.HelloApplication;
 import com.example.biubiu.domain.Request;
+import com.example.biubiu.scene.Login;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -21,6 +25,7 @@ public class pveController  implements Initializable {
     public Button medium;
     public Button difficult;
     public Button easy;
+    public Button escape;
     public Label welcomeLb;
 
     private String username;
@@ -87,6 +92,19 @@ public class pveController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Font font = Font.loadFont(fontPath, 32);
         welcomeLb.setFont(font);
+
+        Image image = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
+        BackgroundImage backgroundImage =new BackgroundImage(image,null,null,null,null);
+        escape.setBackground(new Background(backgroundImage));
+        image = new Image(Login.class.getResource("/com/example/biubiu/images/easy_button_01.gif").toExternalForm(),180,90,false,true);
+        backgroundImage =new BackgroundImage(image,null,null,null,null);
+        easy.setBackground(new Background(backgroundImage));
+        image = new Image(Login.class.getResource("/com/example/biubiu/images/normal_button_01.gif").toExternalForm(),180,90,false,true);
+        backgroundImage =new BackgroundImage(image,null,null,null,null);
+        medium.setBackground(new Background(backgroundImage));
+        image = new Image(Login.class.getResource("/com/example/biubiu/images/hard_button_01.gif").toExternalForm(),180,90,false,true);
+        backgroundImage =new BackgroundImage(image,null,null,null,null);
+        difficult.setBackground(new Background(backgroundImage));
     }
 
     public void exitToIndex(MouseEvent mouseEvent) {

@@ -425,6 +425,7 @@ public class StoreController implements Initializable {
         Font font = Font.loadFont(fontPath, 20);
         shopLb.setFont(font);
         tabPane.setStyle("-fx-font-family: 'Zpix';");
+        coins.setStyle("-fx-font-family: 'Zpix';");
 
         for (Label label : Arrays.asList(
                 cargo1, cargo2, cargo3, cargo4, cargo5, cargo6)) {

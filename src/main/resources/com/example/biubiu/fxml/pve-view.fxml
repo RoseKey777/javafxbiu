@@ -9,13 +9,13 @@
 
 <AnchorPane prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.pveController">
    <children>
-      <Button fx:id="easy" layoutX="368.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#easyMouseClicked" onMouseEntered="#easyMouseEntered" onMouseExited="#easyMouseExited" prefHeight="50.0" prefWidth="218.0" text="简单" />
-      <Button fx:id="medium" layoutX="371.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#mediumMouseClicked" onMouseEntered="#mediumMouseEntered" onMouseExited="#mediumMouseExited" prefHeight="50.0" prefWidth="218.0" text="中等" />
-      <Button fx:id="difficult" layoutX="368.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#difficultMouseClicked" onMouseEntered="#difficultMouseEntered" onMouseExited="#difficultMouseExited" prefHeight="50.0" prefWidth="218.0" text="困难" />
+      <Button fx:id="easy" layoutX="390.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#easyMouseClicked" onMouseEntered="#easyMouseEntered" onMouseExited="#easyMouseExited" prefHeight="90.0" prefWidth="180.0" />
+      <Button fx:id="medium" layoutX="390.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#mediumMouseClicked" onMouseEntered="#mediumMouseEntered" onMouseExited="#mediumMouseExited" prefHeight="90.0" prefWidth="180.0" />
+      <Button fx:id="difficult" layoutX="390.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#difficultMouseClicked" onMouseEntered="#difficultMouseEntered" onMouseExited="#difficultMouseExited" prefHeight="90.0" prefWidth="180.0" />
       <Label fx:id="welcomeLb" layoutX="350.0" layoutY="38.0" prefHeight="69.0" prefWidth="397.0" text="欢迎来到人机模式" textAlignment="CENTER">
          <font>
             <Font size="32.0" />
          </font></Label>
-      <Button id="exitMenu" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="48.0" prefWidth="49.0" text="Esc" />
+      <Button id="exitMenu" fx:id="escape" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="50.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
