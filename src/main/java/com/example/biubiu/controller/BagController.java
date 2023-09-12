@@ -79,6 +79,13 @@ public class BagController implements Initializable {
         buttonList.add(character1_Button2);
         buttonList.add(character1_Button3);
 
+        weapon_Button1.setVisible(false);
+        weapon_Button2.setVisible(false);
+        weapon_Button3.setVisible(false);
+        character1_Button1.setVisible(false);
+        character1_Button2.setVisible(false);
+        character1_Button3.setVisible(false);
+
         Image image = new Image(Login.class.getResource("/com/example/biubiu/image/gold.png").toExternalForm(),46,46,false,true);
         coin_icon.setGraphic(new ImageView(image));
         image = new Image(Login.class.getResource("/com/example/biubiu/image/加号.png").toExternalForm(),40,40,false,true);
@@ -118,12 +125,12 @@ public class BagController implements Initializable {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         weapon_Button1.setBackground(new Background(backgroundImage));
-
+                        weapon_Button1.setVisible(true);
                     } else {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         weapon_Button1.setBackground(new Background(backgroundImage));
-
+                        weapon_Button1.setVisible(true);
                     }
                 }
                 if (i == 1) {
@@ -135,10 +142,12 @@ public class BagController implements Initializable {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         weapon_Button2.setBackground(new Background(backgroundImage));
+                        weapon_Button2.setVisible(true);
                     } else {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         weapon_Button2.setBackground(new Background(backgroundImage));
+                        weapon_Button2.setVisible(true);
                     }
                 }
                 if (i == 2) {
@@ -150,10 +159,12 @@ public class BagController implements Initializable {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         weapon_Button3.setBackground(new Background(backgroundImage));
+                        weapon_Button3.setVisible(true);
                     } else {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         weapon_Button3.setBackground(new Background(backgroundImage));
+                        weapon_Button3.setVisible(true);
                     }
                 }
 
@@ -175,10 +186,12 @@ public class BagController implements Initializable {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         character1_Button1.setBackground(new Background(backgroundImage));
+                        character1_Button1.setVisible(true);
                     }else{
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         character1_Button1.setBackground(new Background(backgroundImage));
+                        character1_Button1.setVisible(true);
                     }
                 }
                 if(i==1){
@@ -190,10 +203,12 @@ public class BagController implements Initializable {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         character1_Button2.setBackground(new Background(backgroundImage));
+                        character1_Button2.setVisible(true);
                     }else{
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         character1_Button2.setBackground(new Background(backgroundImage));
+                        character1_Button2.setVisible(true);
                     }
                 }
                 if(i==2){
@@ -205,10 +220,12 @@ public class BagController implements Initializable {
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/using_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         character1_Button3.setBackground(new Background(backgroundImage));
+                        character1_Button3.setVisible(true);
                     }else{
                         image1 = new Image(Login.class.getResource("/com/example/biubiu/images/unused_button_01.gif").toExternalForm(),60,30,false,true);
                         backgroundImage =new BackgroundImage(image1,null,null,null,null);
                         character1_Button3.setBackground(new Background(backgroundImage));
+                        character1_Button3.setVisible(true);
 
                     }
                 }
