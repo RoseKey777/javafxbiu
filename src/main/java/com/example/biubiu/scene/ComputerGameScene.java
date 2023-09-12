@@ -51,7 +51,7 @@ public class ComputerGameScene {
 
     public int[] enemynums = {2,3,4};
 
-    private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
+    private int [][]positionPlayer = {{32,32},{850,32},{32,500},{850,500}};
 
     private int [][]positionEnemy = {{32,500},{850,32},{32,400},{850,500},{32,450},{850,64},{32,430},{640,200}};
 

@@ -35,7 +35,7 @@ public class GameScene {
 
     public int enemynum;
 
-    private int [][]positionPlayer = {{32,32},{850,32},{32,850},{850,600}};
+    private int [][]positionPlayer = {{32,32},{850,32},{32,450},{850,450}};
     private int bulletdamage[] = {0,1,3,2};
 
     public String selfIP;//自己的IP
@@ -206,6 +206,8 @@ public class GameScene {
 
                 if(selfPlayer.hp <= 0){
                     selfPlayer.alive = false;
+                    Director.getInstance().gameOver(false,0);
+                    SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
                 }
                 if(enemynum == 1 && !selfPlayer.alive){
                     Director.getInstance().gameOver(false,0);
