@@ -19,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
@@ -30,7 +29,7 @@ import java.util.*;
 public class StoreController implements Initializable {
 
     @FXML
-    private Button escape;
+    private Button exitMenu;
     @FXML
     private Label cargo1;
     @FXML
@@ -146,9 +145,20 @@ public class StoreController implements Initializable {
 
             //将价格显示在Button上
             Button button = buttonList.get(i);
+            button.setVisible(true);
             button.setText("$" + " " + priceDouble);
 
             weaponList.add(weapon);
+//            //获取与label同一区域的button
+//            if (label.getParent() instanceof VBox) {
+//                VBox vBox = (VBox) label.getParent();
+//                for (Node node : vBox.getChildren()) {
+//                    if (node instanceof Button) {
+//                        button.setVisible(false);
+//                        break; // 找到一个 Label 后跳出循环
+//                    }
+//                }
+//            }
 
         }
     }
@@ -156,7 +166,7 @@ public class StoreController implements Initializable {
     void displayPurchasedWeapon(JSONArray array) {
         for (int i = 0; i < array.size(); i++){
             int index = array.getInteger(i);
-            System.out.println(index);
+//            System.out.println(index);
             Button button = buttonList.get(index-1);
             button.setText("已购买");
             button.setDisable(true);
@@ -166,8 +176,8 @@ public class StoreController implements Initializable {
     //初始化的显示（人物）
     @FXML
     void displayAllOfCharacters(JSONArray array) {
-        System.out.println(array);
-        System.out.println(labelList3);
+//        System.out.println(array);
+//        System.out.println(labelList3);
         for(int i = 0; i < array.size(); i++){
             Map<String, Object> item = JSON.parseObject(array.get(i).toString());
             String charactername = (String)item.get("charactername");
@@ -188,6 +198,7 @@ public class StoreController implements Initializable {
 
             //将价格显示在Button上
             Button button = buttonList3.get(i);
+            button.setVisible(true);
             button.setText("$" + " " + priceDouble);
 
             characterList.add(character);
@@ -197,11 +208,11 @@ public class StoreController implements Initializable {
 
     @FXML
     void displayPurchasedCharacter(JSONArray array) {
-        System.out.println(array);
+//        System.out.println(array);
         for (int i = 0; i < array.size(); i++){
             int index = array.getInteger(i);
             System.out.println(index);
-            Button button = buttonList3.get(index-1);
+            Button button = buttonList.get(index-1);
             button.setText("已购买");
             button.setDisable(true);
         }
@@ -212,41 +223,42 @@ public class StoreController implements Initializable {
     //点击事件
     @FXML
     void displayInformation(MouseEvent event){
-        Label label = (Label) event.getSource();
-        String information = "您点击了Label：" + label.getText();
 
+        Label label = (Label) event.getSource();
         // 获取Label的索引（示例中假设Label的索引与List中的索引一致）
         int labelIndex = labelList.indexOf(label);
-        // 获取对应武器的信息
-        Weapon weapon = weaponList.get(labelIndex);
-        Double damage = weapon.getDamage();
-        Double bulletspeed = weapon.getBulletspeed();
 
-        // 添加damage和bulletspeed信息到显示文本
-        String weaponMsg = "\n伤害：" + damage + "\n子弹速度：" + bulletspeed;
-        allOfMsg.appendText(weaponMsg + "\n");
+        // 检查标志来确定是否有武器信息
+        if (labelIndex >= 0 && labelIndex < weaponList.size()) {
+            // 获取对应武器的信息
+            Weapon weapon = weaponList.get(labelIndex);
+            String weaponame = weapon.getWeaponname();
+            Double damage = weapon.getDamage();
+            Double bulletspeed = weapon.getBulletspeed();
 
-        allOfMsg.appendText("确认购买此物品吗？" + "\n");
+            // 添加damage和bulletspeed信息到显示文本
+            String weaponMsg = "\n武器名称：" + weaponame + "\n伤害：" + damage + "\n子弹速度：" + bulletspeed;
+            allOfMsg.setText(weaponMsg + "\n");
+        }
     }
 
     //点击事件中的人物
     @FXML
     void displayInformationCharacter(MouseEvent event){
         Label label = (Label) event.getSource();
-        String information = "您点击了Label：" + label.getText();
 
         // 获取Label的索引（示例中假设Label的索引与List中的索引一致）
         int labelIndex = labelList3.indexOf(label);
-        // 获取对应武器的信息
-        Character character = characterList.get(labelIndex);
-        String characterName = character.getCharactername();
-        Double hp = character.getHp();
+        if (labelIndex >= 0 && labelIndex < characterList.size()) {
+            // 获取对应武器的信息
+            Character character = characterList.get(labelIndex);
+            String characterName = character.getCharactername();
+            Double hp = character.getHp();
 
-        // 添加damage和bulletspeed信息到显示文本
-        String characterMsg = "\n人物名称：" + characterName + "\nHP：" + hp;
-        allOfMsg.appendText(characterMsg + "\n");
-
-        allOfMsg.appendText("确认购买此人物吗？" + "\n");
+            // 添加damage和bulletspeed信息到显示文本
+            String characterMsg = "\n人物名称：" + characterName + "\nHP：" + hp;
+            allOfMsg.setText(characterMsg + "\n");
+        }
     }
 
     //退出，返回主界面
@@ -260,25 +272,6 @@ public class StoreController implements Initializable {
     public void cargoShopping(MouseEvent mouseEvent) {
 
         Button button = (Button) mouseEvent.getSource();
-        String buttonText = button.getText();
-        String labelInfo = "";
-
-        // 获取与Button同在一个VBox中的Label
-        if (button.getParent() instanceof VBox) {
-            VBox vBox = (VBox) button.getParent();
-            for (Node node : vBox.getChildren()) {
-                if (node instanceof Label) {
-                    labelInfo = ((Label) node).getText();
-                    break; // 找到一个 Label 后跳出循环
-                }
-            }
-        }
-
-
-        String information = "您点击了Button：" + buttonText + "\n与Button同在一个VBox的Label：" + labelInfo;
-        allOfMsg.appendText(information + "\n");
-
-        allOfMsg.appendText("确认购买此物品吗？" + "\n");
 
         // 创建一个确认对话框
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
@@ -339,13 +332,9 @@ public class StoreController implements Initializable {
                     HelloApplication.sendRequest(request6);
                     button.setText("已购买");
                 }
-                allOfMsg.appendText(information + "\n");
-                allOfMsg.appendText("购买成功！\n");
             }
         } else {
             // 用户点击了取消按钮，取消购买操作
-            allOfMsg.appendText(information + "\n");
-            allOfMsg.appendText("购买已取消。\n");
         }
     }
 
@@ -354,27 +343,8 @@ public class StoreController implements Initializable {
     public void cargoShoppingCharacter(MouseEvent mouseEvent) {
 
         Button button = (Button) mouseEvent.getSource();
-        String buttonText = button.getText();
-        String labelInfo = "";
 
-        // 获取与Button同在一个VBox中的Label
-        if (button.getParent() instanceof VBox) {
-            VBox vBox = (VBox) button.getParent();
-            for (Node node : vBox.getChildren()) {
-                if (node instanceof Label) {
-                    labelInfo = ((Label) node).getText();
-                    break; // 找到一个 Label 后跳出循环
-                }
-            }
-        }
-
-
-        String information = "您点击了Button：" + buttonText + "\n与Button同在一个VBox的Label：" + labelInfo;
-        allOfMsg.appendText(information + "\n");
-
-        allOfMsg.appendText("确认购买此物品吗？" + "\n");
-
-        // 创建一个确认对话框
+        // 创建一个确认对话框F
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("确认购买");
         confirmationDialog.setHeaderText("请确认您的购买");
@@ -433,13 +403,9 @@ public class StoreController implements Initializable {
                     HelloApplication.sendRequest(request6);
                     button.setText("已购买");
                 }
-                allOfMsg.appendText(information + "\n");
-                allOfMsg.appendText("购买成功！\n");
             }
         } else {
             // 用户点击了取消按钮，取消购买操作
-            allOfMsg.appendText(information + "\n");
-            allOfMsg.appendText("购买已取消。\n");
         }
     }
 
@@ -447,11 +413,6 @@ public class StoreController implements Initializable {
     //商店初始化
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
-        BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
-        escape.setBackground(new Background(backgroundImage));
-
         for (Label label : Arrays.asList(
                 cargo1, cargo2, cargo3, cargo4, cargo5, cargo6)) {
             labelList.add(label);
@@ -465,12 +426,15 @@ public class StoreController implements Initializable {
         for (Button button : Arrays.asList(
                 cargoButton1, cargoButton2, cargoButton3, cargoButton4, cargoButton5, cargoButton6)) {
             buttonList.add(button);
+            button.setVisible(false);
         }
 
         for (Button button : Arrays.asList(
                 cargoButton13, cargoButton14, cargoButton15, cargoButton16, cargoButton17, cargoButton18)) {
             buttonList3.add(button);
+            button.setVisible(false);
         }
+
 
         Image image = new Image(
                 Login.class.getResource("/com/example/biubiu/image/gold.png").toExternalForm(),
@@ -493,7 +457,7 @@ public class StoreController implements Initializable {
         //显示所有武器
         Request request2 = new Request("getAllWeapon", null);
         JSONArray array = JSON.parseArray(HelloApplication.sendRequest(request2));
-        System.out.println(array);
+//        System.out.println(array);
         displayAllOfWeapons(array);
 
         //显示用户已购买的武器
@@ -506,7 +470,7 @@ public class StoreController implements Initializable {
         //显示所有人物
         Request request7 = new Request("getAllCharacter", null);
         JSONArray arrayCharacter = JSON.parseArray(HelloApplication.sendRequest(request7));
-        System.out.println(arrayCharacter);
+//        System.out.println(arrayCharacter);
         displayAllOfCharacters(arrayCharacter);
 
         //显示用户已拥有的人物
@@ -515,6 +479,8 @@ public class StoreController implements Initializable {
         Request request8 = new Request("getPlayerAllCharacter", jsonObject);
         JSONArray arrayCharacter2 = JSON.parseArray(HelloApplication.sendRequest(request8));
         displayPurchasedCharacter(arrayCharacter2);
+
+
 
     }
 

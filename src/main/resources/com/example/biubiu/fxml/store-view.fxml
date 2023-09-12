@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.StoreController">
    <children>
-      <TextArea fx:id="allOfMsg" layoutX="564.0" layoutY="450.0" prefHeight="174.0" prefWidth="282.0" />
+      <TextArea fx:id="allOfMsg" layoutX="461.0" layoutY="452.0" prefHeight="174.0" prefWidth="282.0" />
       <ImageView fitHeight="340.0" fitWidth="580.0" layoutX="-130.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/store/owner.png" />
