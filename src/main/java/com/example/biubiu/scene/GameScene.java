@@ -116,11 +116,12 @@ public class GameScene {
             Drop drop = drops.get(i);
             if(drop.alive){
                 drop.paint(graphicsContext);
-            }else if(!drop.alive && drop.dieflag){
-                drop.dieflag = false;
-                newdropid ++;
-                Tim[newdropid] = 500;
             }
+//            else if(!drop.alive && drop.dieflag){
+//                drop.dieflag = false;
+//                newdropid ++;
+//                Tim[newdropid] = 500;
+//            }
         }
 
         for(int i = 1;i <= newdropid;++i){
@@ -257,6 +258,19 @@ public class GameScene {
 
     public void init(Stage stage,int total, int roomchair, int ChaID[], int WeaID[], String ips[],int mapchoose){//房间总人数,我是第几人(0开始,角色编号数组,武器编号数组,用户IP数组
         //拾取物绘制
+        newdropid = 0;
+        Drop drop1 = new Drop("/com/example/biubiu/image/hp.png",200,300,0,0);
+        Drop drop2 = new Drop("/com/example/biubiu/image/hp.png",400,500,0,1);
+        Drop drop3 = new Drop("/com/example/biubiu/image/danyao.png",800,400,1,2);
+        Drop drop4 = new Drop("/com/example/biubiu/image/die6.png",700,300,2,3);
+        Drop drop5 = new Drop("/com/example/biubiu/image/bomb.png",300,200,3,4);
+        Drop drop6 = new Drop("/com/example/biubiu/image/ran.png",520,110,4,5);
+        drops.add(drop1);
+        drops.add(drop2);
+        drops.add(drop3);
+        drops.add(drop4);
+        drops.add(drop5);
+        drops.add(drop6);
 
         numOfPlayer = total;
         enemynum = numOfPlayer - 1;
@@ -270,7 +284,7 @@ public class GameScene {
         selfPlayer.username = username[roomchair];
         selfPlayer.alive = true;
         selfPlayer.NPCflag = 0;
-        RandomCreatDrop(5);
+//        RandomCreatDrop(5);
 
         for(int i = 0;i < numOfPlayer ;++i){
             if(i == roomchair) continue;//roomchair这个位置的是selfplayer

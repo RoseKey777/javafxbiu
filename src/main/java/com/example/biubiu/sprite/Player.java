@@ -468,7 +468,10 @@ public class Player extends Role{
                     }
                 }
                 drop.alive = false;
-//                gameScene.drops.remove(drop);
+
+                gameScene.newdropid ++;
+                gameScene.Tim[gameScene.newdropid] = 500;
+
                 return drop.type;
             }
         }
