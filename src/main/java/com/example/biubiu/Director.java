@@ -77,18 +77,8 @@ public class Director {
         stage.show();
     }
 
-    public void Tosetting(Stage stage){
-        Pane root = new Pane();
-        Scene scene = new Scene(root, WIDTH,HEIGHT);
-        stage.setTitle("biubiu");
-        stage.getIcons().add(new Image(getClass().getResource("image/background.png").toExternalForm(),WIDTH,HEIGHT,false,true));
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.setWidth(WIDTH);
-        stage.setHeight(HEIGHT);
-        this.stage = stage;
+    public void Tosetting(){
         settingStart();
-        stage.show();
     }
 
 
@@ -230,6 +220,14 @@ public class Director {
     }
 
     public void settingStart() {
-        setting.load(stage);
+        // 创建设置界面
+        Setting setting = new Setting();
+
+        // 设置主程序窗口关闭时的操作
+        stage.setOnCloseRequest(event -> {
+            // 关闭设置界面
+            setting.close();
+        });
+        setting.load();
     }
 }
