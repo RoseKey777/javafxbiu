@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GamehallController implements Initializable {
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
 
     @FXML
     private Button joinBtn;
@@ -119,7 +121,7 @@ public class GamehallController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/start_button_01.gif").toExternalForm(),120,60,false,true);
+        Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/join_room_button_01.gif").toExternalForm(),120,60,false,true);
         BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
         joinBtn.setBackground(new Background(backgroundImage));
 
@@ -148,6 +150,15 @@ public class GamehallController implements Initializable {
         numberList.add(number6);
         numberList.add(number7);
         numberList.add(number8);
+
+        for(int i = 0; i < 8; i++){
+            Font font = Font.loadFont(fontPath, 20);
+            labelList.get(i).setFont(font);
+            font = Font.loadFont(fontPath, 15);
+            numberList.get(i).setFont(font);
+        }
+        Font font = Font.loadFont(fontPath, 30);
+        waitMsg.setFont(font);
 
         //为标签绑定点击函数
         for(int i = 0; i < 8; i++){

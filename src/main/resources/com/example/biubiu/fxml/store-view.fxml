@@ -8,15 +8,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.StoreController">
    <children>
-      <TextArea fx:id="allOfMsg" layoutX="461.0" layoutY="452.0" prefHeight="174.0" prefWidth="282.0" />
-      <ImageView fitHeight="340.0" fitWidth="580.0" layoutX="-130.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/store/owner.png" />
-         </image>
-      </ImageView>
+      <TextArea fx:id="allOfMsg" layoutX="181.0" layoutY="159.0" prefHeight="123.0" prefWidth="243.0" />
       <Pane layoutX="352.0" layoutY="75.0" prefHeight="34.0" prefWidth="199.0">
          <children>
-            <Label alignment="CENTER" layoutX="8.0" layoutY="-3.0" prefHeight="34.0" prefWidth="183.0" style="-fx-background-image: url('../image/store/title.png'); -fx-background-color: brown;" text="游戏商店">
+            <Label fx:id="shopLb" alignment="CENTER" layoutX="8.0" layoutY="-3.0" prefHeight="34.0" prefWidth="183.0" style="-fx-background-image: url('../image/store/title.png'); -fx-background-color: brown;" text="游戏商店">
                <font>
                   <Font name="Calibri" size="20.0" />
                </font>
@@ -34,7 +29,7 @@
             <Label fx:id="add_coin" layoutX="367.0" layoutY="14.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
             <Button id="exitMenu" fx:id="escape" layoutX="24.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#exitToIndex" prefHeight="50.0" prefWidth="100.0" />
          </children></Pane>
-      <TabPane layoutX="461.0" layoutY="122.0" prefHeight="320.0" prefWidth="421.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="461.0" layoutY="122.0" prefHeight="320.0" prefWidth="421.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="武器装备">
             <content>

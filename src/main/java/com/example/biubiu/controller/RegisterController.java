@@ -5,13 +5,11 @@ import com.example.biubiu.util.DButil;
 import com.example.biubiu.util.SendMailUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -22,6 +20,18 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
+
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+
+    @FXML
+    private Label usernameLb;
+    @FXML
+    private Label passwordLb;
+    @FXML
+    private Label emailLb;
+    @FXML
+    private Label codeLb;
+
     @FXML
     private TextField t_name;
 
@@ -40,6 +50,17 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Font font = Font.loadFont(fontPath, 15);
+        usernameLb.setFont(font);
+        passwordLb.setFont(font);
+        emailLb.setFont(font);
+        codeLb.setFont(font);
+        font = Font.loadFont(fontPath, 13);
+        t_name.setFont(font);
+        t_password.setFont(font);
+        t_email.setFont(font);
+        t_code.setFont(font);
 
         Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/register_button_01.gif").toExternalForm(),50,30,false,true);
         BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);

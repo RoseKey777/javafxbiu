@@ -38,6 +38,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Flow;
 
 public class IndexController implements Initializable {
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+
     @FXML
     public Button toPVE;
     public ListView<String> List;
@@ -68,6 +70,8 @@ public class IndexController implements Initializable {
     private Label coins;
     @FXML
     private Label dengji;
+    @FXML
+    private Label paihangbang;
     @FXML
     private Button help;
     @FXML
@@ -148,17 +152,15 @@ public class IndexController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String fontPath = IndexController.class.getResource("/com/example/biubiu/spider.ttf").toExternalForm();
-        Font spiderFont = new Font(fontPath,20);
-        this.setting.setFont(spiderFont);
-        System.out.println(spiderFont);
-        this.username.setFont(spiderFont);
-        this.dengji.setFont(spiderFont);
-        this.gamehall.setFont(spiderFont);
-        this.playchoose.setFont(spiderFont);
-        this.store.setFont(spiderFont);
-        this.help.setFont(spiderFont);
-        this.toPVE.setFont(spiderFont);
+        Font font = Font.loadFont(fontPath, 15);
+        username.setFont(font);
+        dengji.setFont(font);
+        font = Font.loadFont(fontPath, 32);
+        scores.setFont(font);
+        coins.setFont(font);
+        paihangbang.setFont(font);
+        List.setStyle("-fx-font-family:'Zpix'; -fx-font-size: 15px;");
+        list_scores.setStyle("-fx-font-family:'Zpix'; -fx-font-size: 15px;");
 
         Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/bag_button_01.gif").toExternalForm(),172,84,false,true);
         BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);

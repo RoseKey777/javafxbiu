@@ -9,17 +9,17 @@
 
 <GridPane fx:id="gr" alignment="CENTER" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.RegisterController">
     <children>
-        <Label text="欢迎登陆biubiu游戏" GridPane.columnSpan="2">
+        <Label GridPane.columnSpan="2">
             <font>
                 <Font size="29.0" />
             </font></Label>
-        <Label text="账户：" GridPane.rowIndex="1" />
+        <Label fx:id="usernameLb" text="账户：" GridPane.rowIndex="1" />
         <TextField fx:id="t_name" promptText="请输入用户名" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label text="密码：" GridPane.rowIndex="2" />
+        <Label fx:id="passwordLb" text="密码：" GridPane.rowIndex="2" />
         <PasswordField fx:id="t_password" promptText="请输入密码" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label text="邮箱：" GridPane.rowIndex="3" />
+        <Label fx:id="emailLb" text="邮箱：" GridPane.rowIndex="3" />
         <TextField fx:id="t_email" promptText="请输入邮箱" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Label text="验证码：" GridPane.rowIndex="4" />
+        <Label fx:id="codeLb" text="验证码：" GridPane.rowIndex="4" />
         <TextField fx:id="t_code" promptText="请输入验证码" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Button fx:id="email" prefHeight="30.0" prefWidth="50.0" GridPane.rowIndex="5" />
         <Button fx:id="register" prefHeight="30.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />

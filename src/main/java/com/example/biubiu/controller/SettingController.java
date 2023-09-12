@@ -6,19 +6,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SettingController implements Initializable {
+
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+
+    @FXML
+    private Label settingLb;
+    @FXML
+    private Label volumeLb;
+    @FXML
+    private Label effectLb;
+    @FXML
+    private Label bgmLb;
+
     @FXML
     private Slider volumeSlider;
 
@@ -41,6 +51,15 @@ public class SettingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Font font = Font.loadFont(fontPath, 20);
+        settingLb.setFont(font);
+        font = Font.loadFont(fontPath, 15);
+        volumeLb.setFont(font);
+        effectLb.setFont(font);
+        bgmLb.setFont(font);
+        backgroundMusicComboBox.setStyle("-fx-font-family: 'Zpix';");
+
         // 在界面加载时执行的初始化逻辑
 
 //        gun1.setAutoPlay(true);

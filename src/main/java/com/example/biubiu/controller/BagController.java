@@ -9,10 +9,7 @@ import com.example.biubiu.scene.Login;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +23,7 @@ import java.net.URL;
 import java.util.*;
 
 public class BagController implements Initializable {
+
     public Label weapon1;
     public Button weapon_Button1;
     public Label character1;
@@ -46,6 +44,8 @@ public class BagController implements Initializable {
     private Label add_coin;
     @FXML
     private Button escape;
+    @FXML
+    private TabPane tabPane;
 
     private String username;
     private ArrayList<Label> labelList = new ArrayList<>();
@@ -57,6 +57,8 @@ public class BagController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tabPane.setStyle("-fx-font-family: 'Zpix';");
+
         Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
         BackgroundImage backgroundImage =new BackgroundImage(image1,null,null,null,null);
         escape.setBackground(new Background(backgroundImage));

@@ -18,7 +18,7 @@
         </Label>
         <Label fx:id="coin_icon" layoutX="157.0" layoutY="15.0" prefHeight="48.0" prefWidth="48.0" />
         <Label fx:id="add_coin" layoutX="306.0" layoutY="15.0" onMouseEntered="#addMouseEntered" prefHeight="48.0" prefWidth="48.0" />
-        <TabPane layoutX="183.0" layoutY="107.0" prefHeight="421.0" prefWidth="647.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="tabPane" layoutX="183.0" layoutY="107.0" prefHeight="421.0" prefWidth="647.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="武器装备">
                     <content>

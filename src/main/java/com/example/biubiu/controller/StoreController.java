@@ -19,7 +19,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 
 import java.math.BigDecimal;
@@ -28,8 +30,14 @@ import java.util.*;
 
 public class StoreController implements Initializable {
 
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
     @FXML
-    private Button exitMenu;
+    private Label shopLb;
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Button escape;
     @FXML
     private Label cargo1;
     @FXML
@@ -413,6 +421,11 @@ public class StoreController implements Initializable {
     //商店初始化
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Font font = Font.loadFont(fontPath, 20);
+        shopLb.setFont(font);
+        tabPane.setStyle("-fx-font-family: 'Zpix';");
+
         for (Label label : Arrays.asList(
                 cargo1, cargo2, cargo3, cargo4, cargo5, cargo6)) {
             labelList.add(label);
@@ -444,7 +457,9 @@ public class StoreController implements Initializable {
         image = new Image(Login.class.getResource("/com/example/biubiu/image/加号.png").toExternalForm(),40,40,false,true);
         add_coin.setGraphic(new ImageView(image));
 
-
+        image = new Image(Login.class.getResource("/com/example/biubiu/images/escape_button_01.gif").toExternalForm(),100,50,false,true);
+        BackgroundImage backgroundImage1 =new BackgroundImage(image,null,null,null,null);
+        escape.setBackground(new Background(backgroundImage1));
 
         Request request1 = new Request("getuserinfo", null);
         String str = HelloApplication.sendRequest(request1);

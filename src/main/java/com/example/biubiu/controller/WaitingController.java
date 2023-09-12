@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.text.Font;
 
 import java.io.*;
 import java.net.Socket;
@@ -31,6 +32,8 @@ import java.util.ResourceBundle;
 public class
 WaitingController implements Initializable {
 
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+
     private Room room = new Room();
     private int myNumber;
 
@@ -38,6 +41,9 @@ WaitingController implements Initializable {
 
     @FXML
     private Label roomidLb;
+
+    @FXML
+    private Label roomMasterLb;
 
     @FXML
     private Button startBtn;
@@ -247,6 +253,19 @@ WaitingController implements Initializable {
         mapImgList.add("/com/example/biubiu/image/desert.png");
         mapImgList.add("/com/example/biubiu/image/ocean.png");
         mapImgList.add("/com/example/biubiu/image/forest.png");
+
+        Font font = Font.loadFont(fontPath, 30);
+        roomidLb.setFont(font);
+        font = Font.loadFont(fontPath, 20);
+        for(int i = 0; i < 4; i++){
+            playerList.get(i).setFont(font);
+        }
+        mapNameLb.setFont(font);
+        font = Font.loadFont(fontPath, 15);
+        for(int i = 0; i < 4; i++){
+            nameList.get(i).setFont(font);
+        }
+        roomMasterLb.setFont(font);
 
         Request request = new Request("getCurrentRoom", null);
         String str = HelloApplication.sendRequest(request);

@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +31,14 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+
+    @FXML
+    private Label usernameLb;
+
+    @FXML
+    private Label passwordLb;
 
     @FXML
     private TextField t_name;
@@ -50,6 +59,13 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Font font = Font.loadFont(fontPath, 15);
+        usernameLb.setFont(font);
+        passwordLb.setFont(font);
+        font = Font.loadFont(fontPath, 13);
+        t_name.setFont(font);
+        t_password.setFont(font);
 
         Image image1 = new Image(Login.class.getResource("/com/example/biubiu/images/login_button_01.gif").toExternalForm(),50,30,false,true);
         BackgroundImage backgroundImage1 =new BackgroundImage(image1,null,null,null,null);
@@ -109,6 +125,8 @@ public class LoginController implements Initializable {
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load(), 400, 300);
+                //scene.getStylesheets().add("/com/example/biubiu/fusion-pixel-10px-monospaced-zh_hans.ttf");
+                //scene.getStylesheets().add(HelloApplication.class.getResource("/com/example/biubiu/font.css").toExternalForm());
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

@@ -1,6 +1,7 @@
 package com.example.biubiu.sprite;
 
 import com.example.biubiu.Director;
+import com.example.biubiu.controller.LoginController;
 import com.example.biubiu.scene.ComputerGameScene;
 import com.example.biubiu.scene.GameScene;
 import com.example.biubiu.util.SoundEffect;
@@ -8,8 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.text.FontWeight;
-import javafx.scene.transform.Scale;
+import javafx.scene.text.Font;
 
 import java.sql.Struct;
 import java.util.List;
@@ -636,7 +636,9 @@ public class Player extends Role{
             super.paint(graphicsContext);
 
             graphicsContext.setFill(Color.GRAY);
-            graphicsContext.setFont(javafx.scene.text.Font.font("幼圆", FontWeight.BOLD,16));
+            String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+            Font font = Font.loadFont(fontPath, 16);
+            graphicsContext.setFont(font);
             graphicsContext.fillText(this.username, x, y + 50);
 
             move();

@@ -9,20 +9,20 @@
     <children>
         <Pane layoutX="113.0" layoutY="14.0" prefHeight="42.0" prefWidth="200.0">
             <children>
-                <Label layoutX="80.0" layoutY="8.0" text="设置">
+                <Label fx:id="settingLb" layoutX="80.0" layoutY="8.0" text="设置">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
             </children>
         </Pane>
-        <Label layoutX="92.0" layoutY="64.0" text="音量" />
-        <Label layoutX="92.0" layoutY="131.0" text="音效" />
+        <Label fx:id="volumeLb" layoutX="92.0" layoutY="64.0" text="音量" />
+        <Label fx:id="effectLb" layoutX="92.0" layoutY="131.0" text="音效" />
         <Slider fx:id="volumeSlider" layoutX="163.0" layoutY="65.0" max="1.0" onMouseDragged="#onVolumeSliderDragged" />
         <Slider fx:id="soundEffectSlider" layoutX="163.0" layoutY="132.0" max="1.0" onMouseDragged="#onSoundEffectSliderDragged" />
         <Button layoutX="67.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#playingMusic" text="播放" />
         <ComboBox fx:id="backgroundMusicComboBox" editable="true" layoutX="164.0" layoutY="190.0" prefWidth="150.0" />
-        <Label layoutX="85.0" layoutY="195.0" text="背景音乐" />
+        <Label fx:id="bgmLb" layoutX="85.0" layoutY="195.0" text="背景音乐" />
         <Button layoutX="163.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#stoppingMusic" text="停止" />
         <RadioButton fx:id="loopRadioButton" layoutX="270.0" layoutY="280.0" onAction="#onLoopRadioButtonSelected" selected="true" text="循环播放" />
     </children>

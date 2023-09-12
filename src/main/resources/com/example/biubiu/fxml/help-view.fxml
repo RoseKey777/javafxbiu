@@ -8,6 +8,6 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.HelpController">
    <children>
-      <TextArea prefHeight="300.0" prefWidth="500.0" text="&#10;游戏操作：&#10;鼠标左键射击；W/S上下移动，A/D左右移动&#10;&#10;如何开始：&#10;游戏加载完毕后根据提示开始游戏。&#10;&#10;游戏目标：&#10;合理操作，击败敌人。&#10;&#10;" />
+      <TextArea fx:id="text" prefHeight="300.0" prefWidth="500.0" text="&#10;游戏操作：&#10;鼠标左键射击；W/S上下移动，A/D左右移动&#10;&#10;如何开始：&#10;游戏加载完毕后根据提示开始游戏。&#10;&#10;游戏目标：&#10;合理操作，击败敌人。&#10;&#10;" />
    </children>
 </AnchorPane>

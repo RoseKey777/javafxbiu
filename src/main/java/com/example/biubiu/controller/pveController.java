@@ -6,6 +6,7 @@ import com.example.biubiu.HelloApplication;
 import com.example.biubiu.domain.Request;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -16,9 +17,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class pveController  implements Initializable {
+    private String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
     public Button medium;
     public Button difficult;
     public Button easy;
+    public Label welcomeLb;
 
     private String username;
 
@@ -82,11 +85,8 @@ public class pveController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String fontPath = IndexController.class.getResource("/com/example/biubiu/spider.ttf").toExternalForm();
-        Font spiderFont = new Font(fontPath,20);
-        this.easy.setFont(spiderFont);
-        this.medium.setFont(spiderFont);
-        this.difficult.setFont(spiderFont);
+        Font font = Font.loadFont(fontPath, 32);
+        welcomeLb.setFont(font);
     }
 
     public void exitToIndex(MouseEvent mouseEvent) {

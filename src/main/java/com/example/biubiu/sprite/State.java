@@ -1,8 +1,12 @@
 package com.example.biubiu.sprite;
 
+import com.example.biubiu.controller.LoginController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+import java.awt.*;
 
 public class State extends Sprite{
 
@@ -47,7 +51,9 @@ public class State extends Sprite{
         graphicsContext.drawImage(imageC,x + 38,y + 80,64,64);
 
         graphicsContext.setFill(Color.WHITE);
-        graphicsContext.setFont(javafx.scene.text.Font.font("Arial", 16));
+        String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();
+        Font font = Font.loadFont(fontPath, 16);
+        graphicsContext.setFont(font);
         graphicsContext.fillText("速度: " + speed, x + 150, y + 80);
         graphicsContext.fillText("弹药: " + numOfbullet, x + 150, y + 112);
         graphicsContext.fillText("子弹速度: " + tmpbulletspeed, x + 300, y + 80);

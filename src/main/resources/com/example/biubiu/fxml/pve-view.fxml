@@ -12,7 +12,7 @@
       <Button fx:id="easy" layoutX="368.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#easyMouseClicked" onMouseEntered="#easyMouseEntered" onMouseExited="#easyMouseExited" prefHeight="50.0" prefWidth="218.0" text="简单" />
       <Button fx:id="medium" layoutX="371.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#mediumMouseClicked" onMouseEntered="#mediumMouseEntered" onMouseExited="#mediumMouseExited" prefHeight="50.0" prefWidth="218.0" text="中等" />
       <Button fx:id="difficult" layoutX="368.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#difficultMouseClicked" onMouseEntered="#difficultMouseEntered" onMouseExited="#difficultMouseExited" prefHeight="50.0" prefWidth="218.0" text="困难" />
-      <Label layoutX="350.0" layoutY="38.0" prefHeight="69.0" prefWidth="397.0" text="欢迎来到人机模式" textAlignment="CENTER">
+      <Label fx:id="welcomeLb" layoutX="350.0" layoutY="38.0" prefHeight="69.0" prefWidth="397.0" text="欢迎来到人机模式" textAlignment="CENTER">
          <font>
             <Font size="32.0" />
          </font></Label>
