@@ -416,7 +416,6 @@ public class StoreController implements Initializable {
                     Map<String, Object> data1 = new HashMap<>();
                     data1.put("username", username);
                     data1.put("characterid", buttonIndex + 1);
-                    System.out.println(buttonIndex+1);
                     Request request6 = new Request("insertCharacter", data1 );
                     HelloApplication.sendRequest(request6);
                     button.setText("已购买");
@@ -505,7 +504,6 @@ public class StoreController implements Initializable {
         data.put("username",username);
         Request request8 = new Request("getPlayerAllCharacter", data);
         JSONArray arrayCharacter2 = JSON.parseArray(HelloApplication.sendRequest(request8));
-        System.out.println("1111111111111111"+arrayCharacter2);
         displayPurchasedCharacter(arrayCharacter2);
 
 

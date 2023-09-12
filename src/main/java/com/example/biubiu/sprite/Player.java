@@ -461,21 +461,29 @@ public class Player extends Role{
             if(drop.alive && getContour().intersects(drop.getContour())){
                 if(drop.type == 0){
                     hp ++;
+                    SoundEffect.play("/com/example/biubiu/mp3/heal.mp3");
                 }else if(drop.type == 1){
                     numOfbullet += 10;
+                    SoundEffect.play("/com/example/biubiu/mp3/bullet.mp3");
                 }else if(drop.type == 2){
                     numOfwudi += 3;
+                    SoundEffect.play("/com/example/biubiu/mp3/dun.mp3");
                 }else if(drop.type == 3){
+                    SoundEffect.play("/com/example/biubiu/mp3/boom.mp3");
                     hp --;
                 }else if(drop.type == 4){
                     int ii = random.nextInt(4);
                     if(ii == 0){
                         hp ++;
+                        SoundEffect.play("/com/example/biubiu/mp3/heal.mp3");
                     }else if(ii == 1){
                         numOfbullet += 10;
+                        SoundEffect.play("/com/example/biubiu/mp3/bullet.mp3");
                     }else if(ii == 2){
                         numOfwudi += 3;
+                        SoundEffect.play("/com/example/biubiu/mp3/dun.mp3");
                     }else if(ii == 3){
+                        SoundEffect.play("/com/example/biubiu/mp3/boom.mp3");
                         hp --;
                     }
                 }

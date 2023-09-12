@@ -24,7 +24,7 @@ public class State extends Sprite{
             "/com/example/biubiu/image/run/Run3_0.gif"};
 
     private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
-            "/com/example/biubiu/image/Kar98k.png"};
+            "/com/example/biubiu/image/M1A1 Thompson.png"};
 
     private int []numbullet = {0, 50, 40, 50};
 
@@ -38,7 +38,7 @@ public class State extends Sprite{
         super.paint(graphicsContext);
         for(int i = 1; i <= hp;++i){
             Image image1 = new Image(Player.class.getResource("/com/example/biubiu/image/hp.png").toExternalForm());
-            graphicsContext.drawImage(image1,x + 80 + 32 * (i-1),y + 24,32,32);
+            graphicsContext.drawImage(image1,x + 120 + 32 * (i-1),y + 24,32,32);
         }
         Image imageB = new Image(State.class.getResource(chaURL[ChaID]).toExternalForm());
         Image imageC = new Image(State.class.getResource(weaURL[WeaID]).toExternalForm());
@@ -48,7 +48,7 @@ public class State extends Sprite{
         int tmpbulletdamage = bulletdamage[WeaID];
 
         graphicsContext.drawImage(imageB,x + 38,y + 8,64,64);
-        graphicsContext.drawImage(imageC,x + 38,y + 80,64,64);
+        graphicsContext.drawImage(imageC,x + 38,y + 60,64,64);
 
         graphicsContext.setFill(Color.WHITE);
         String fontPath = LoginController.class.getResource("/com/example/biubiu/zpix.ttf").toExternalForm();

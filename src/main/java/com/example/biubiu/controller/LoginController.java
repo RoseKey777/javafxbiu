@@ -7,6 +7,7 @@ import com.example.biubiu.domain.Request;
 import com.example.biubiu.domain.User;
 import com.example.biubiu.scene.Login;
 import com.example.biubiu.util.DButil;
+import com.example.biubiu.util.MusicPlayer;
 import com.example.biubiu.util.SendMailUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -103,6 +104,7 @@ public class LoginController implements Initializable {
                         map.put("password",password);
                         Stage stage = Director.getInstance().getStage();
                         Director.getInstance().Toindex(stage);
+                        MusicPlayer.Musicplay();
 
 
                     }else {

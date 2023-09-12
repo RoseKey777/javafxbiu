@@ -233,7 +233,7 @@ public class IndexController implements Initializable {
         File file = fileChooser.showOpenDialog(new Stage());
         if(file!=null){
             String absolutePath = file.getAbsolutePath();
-            String substring = absolutePath.substring(31);
+            String substring = absolutePath.substring(44);
             String replace = substring.replace("\\", "/");
             System.out.println(replace);
             Image image = new Image(Index.class.getResource(replace).toExternalForm(),60,60,false,true);
@@ -278,7 +278,7 @@ public class IndexController implements Initializable {
                 new FXMLLoader(HelloApplication.class.getResource("/com/example/biubiu/fxml/help-view.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 500, 300);
+            scene = new Scene(fxmlLoader.load(), 640, 500);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

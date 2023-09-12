@@ -2,6 +2,7 @@ package com.example.biubiu.scene;
 
 import com.example.biubiu.Director;
 import com.example.biubiu.sprite.*;
+import com.example.biubiu.util.SoundEffect;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -255,9 +256,11 @@ public class ComputerGameScene {
                         enemynum --;
                         if(enemynum == 0){
                             Director.getInstance().gameOver(true,gamemode + 1);
+                            SoundEffect.play("/com/example/biubiu/mp3/win.mp3");
                         }
                         if(!selfPlayer.alive){
                             Director.getInstance().gameOver(false,gamemode + 1);
+                            SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
                         }
                     }
                     if(enemy.alive && enemy.illegal(enemy.x + 5 * dmg * Math.cos(bullet.dir),
@@ -275,7 +278,7 @@ public class ComputerGameScene {
                 int dmg = bulletdamage[bullet.bullettype];
 
                 if(selfPlayer.hp>0) {
-
+                    SoundEffect.play("/com/example/biubiu/mp3/pain.mp3");
                     if(selfPlayer.numOfwudi >= dmg){
                         selfPlayer.numOfwudi -= dmg;
                     }else if(selfPlayer.numOfwudi > 0 && selfPlayer.numOfwudi < dmg){
@@ -291,6 +294,7 @@ public class ComputerGameScene {
                 }
                 if(!selfPlayer.alive){
                     Director.getInstance().gameOver(false,gamemode + 1);
+                    SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
                 }
                 if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * dmg * Math.cos(bullet.dir),
                         selfPlayer.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
@@ -310,7 +314,7 @@ public class ComputerGameScene {
                 int dmg = bulletdamage[bullet.bullettype];
 
                 if(selfPlayer.hp>0) {
-
+                    SoundEffect.play("/com/example/biubiu/mp3/pain.mp3");
                     if(selfPlayer.numOfwudi >= dmg){
                         selfPlayer.numOfwudi -= dmg;
                     }else if(selfPlayer.numOfwudi > 0 && selfPlayer.numOfwudi < dmg){
@@ -326,6 +330,7 @@ public class ComputerGameScene {
                 }
                 if(!selfPlayer.alive){
                     Director.getInstance().gameOver(false,gamemode + 1);
+                    SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
                 }
                 if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * dmg * Math.cos(bullet.dir),
                         selfPlayer.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
@@ -382,6 +387,7 @@ public class ComputerGameScene {
             }
             if(keyCode.equals(KeyCode.Y) && !running){
                 Director.getInstance().gameOver(false,888);
+                SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
             }
             if(keyEvent.getEventType() == KeyEvent.KEY_RELEASED){
                 selfPlayer.released(keyCode);

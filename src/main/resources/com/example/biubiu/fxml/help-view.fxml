@@ -8,6 +8,6 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biubiu.controller.HelpController">
    <children>
-      <TextArea fx:id="text" prefHeight="300.0" prefWidth="500.0" text="&#10;游戏操作：&#10;鼠标左键射击；W/S上下移动，A/D左右移动&#10;&#10;如何开始：&#10;游戏加载完毕后根据提示开始游戏。&#10;&#10;游戏目标：&#10;合理操作，击败敌人。&#10;&#10;" />
+      <TextArea fx:id="text" prefHeight="500.0" prefWidth="640.0" text="游戏操作：&#10;鼠标左键射击；W/S上下移动，A/D左右移动&#10;&#10;如何开始：&#10;游戏加载完毕后根据提示开始游戏。&#10;&#10;游戏目标：&#10;合理操作，击败敌人。&#10;&#10;游戏模式：&#10;可分为人机模式和联机模式，人机模式分为简单、中等和困难三种模式。&#10;&#10;个性化设置：&#10;玩家可按照个人喜好选择地图和背景音乐。&#10;&#10;游戏特色：&#10;游戏中不同武器有不同特性，地图中会随机掉落特殊道具：爱心，玩家血量&#10;加一；护甲，玩家护甲加三；炸弹，玩家扣除一点血量；弹药，玩家补充十&#10;发弹药；随机道具：获得以上四种道具之一。&#10;" />
    </children>
 </AnchorPane>

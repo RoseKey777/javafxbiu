@@ -173,9 +173,11 @@ public class GameScene {
                         enemynum --;
                         if(enemynum == 0){
                             Director.getInstance().gameOver(true,0);
+                            SoundEffect.play("/com/example/biubiu/mp3/win.mp3");
                         }
                         if(enemynum == 1 && !selfPlayer.alive){
                             Director.getInstance().gameOver(false,0);
+                            SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
                         }
                     }
                     bullet.alive = false;
@@ -191,7 +193,7 @@ public class GameScene {
                 }
                 int dmg = bulletdamage[bullet.bullettype];
                 if(selfPlayer.hp>0) {
-
+                    SoundEffect.play("/com/example/biubiu/mp3/pain.mp3");
                     if(selfPlayer.numOfwudi >= dmg){
                         selfPlayer.numOfwudi -= dmg;
                     }else if(selfPlayer.numOfwudi > 0 && selfPlayer.numOfwudi < dmg){
@@ -207,6 +209,7 @@ public class GameScene {
                 }
                 if(enemynum == 1 && !selfPlayer.alive){
                     Director.getInstance().gameOver(false,0);
+                    SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
                 }
                 if(selfPlayer!=null && selfPlayer.illegal(selfPlayer.x + 5 * dmg * Math.cos(bullet.dir),
                         selfPlayer.y - 5 * dmg * Math.sin(bullet.dir))){//击退特效
@@ -385,6 +388,7 @@ public class GameScene {
             }
             if(keyCode.equals(KeyCode.Y)){
                 Director.getInstance().gameOver(false,889);
+                SoundEffect.play("/com/example/biubiu/mp3/gg.mp3");
             }
             if(keyEvent.getEventType() == KeyEvent.KEY_RELEASED){
                 selfPlayer.released(keyCode);
