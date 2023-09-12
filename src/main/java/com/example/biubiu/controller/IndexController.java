@@ -261,7 +261,7 @@ public class IndexController implements Initializable {
     //TODO:设置界面
     public void settingMouseClicked(MouseEvent mouseEvent) {
         Stage stage = Director.getInstance().getStage();
-        Director.getInstance().Tosetting(stage);
+        Director.getInstance().Tosetting();
     }
 
 

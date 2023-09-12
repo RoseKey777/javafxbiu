@@ -256,11 +256,11 @@ public class Player extends Role{
     double sceneX,sceneY;
 
     private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
-            "/com/example/biubiu/image/Kar98k.png"};
+            "/com/example/biubiu/image/M1A1 Thompson.png"};
 
-    private int []numbullet = {0,50, 40, 50};
+    private int []numbullet = {0,50, 40, 60};
 
-    private double spd[] = {0,2, 4, 1.5};
+    private double spd[] = {0,1, 2, 0.75};
     private double hps[] = {0,10, 8, 12};
     private double bulletspeed[] = {0,5, 7, 8};
 
@@ -469,8 +469,8 @@ public class Player extends Role{
                 }
                 drop.alive = false;
 
-                gameScene.newdropid ++;
-                gameScene.Tim[gameScene.newdropid] = 500;
+                if(gameScene!= null) gameScene.newdropid ++;
+                if(gameScene!= null) gameScene.Tim[gameScene.newdropid] = 500;
 
                 return drop.type;
             }
@@ -591,7 +591,7 @@ public class Player extends Role{
     public void paint(GraphicsContext graphicsContext) {
         image = imageMap.get("walk");
         weaponImage = imageMap.get("weapon");
-        super.paint(graphicsContext);
+//        super.paint(graphicsContext);
         paintHP(graphicsContext);
 //        if(weaponDir == -Math.PI/2)
         if(alive){
@@ -632,6 +632,8 @@ public class Player extends Role{
 
             graphicsContext.drawImage(image1,-16,-16,32,32);
             graphicsContext.restore();
+
+            super.paint(graphicsContext);
 
             graphicsContext.setFill(Color.GRAY);
             graphicsContext.setFont(javafx.scene.text.Font.font("幼圆", FontWeight.BOLD,16));

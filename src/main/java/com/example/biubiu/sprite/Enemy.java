@@ -262,9 +262,9 @@ public class Enemy extends Role{
 
 
     private String[] weaURL = {"","/com/example/biubiu/image/ak47.png","/com/example/biubiu/image/awm.png",
-            "/com/example/biubiu/image/Kar98k.png"};
+            "/com/example/biubiu/image/M1A1 Thompson.png"};
 
-    private double spd[] = {0, 2, 4, 1.5};
+    private double spd[] = {0,1, 2, 0.75};
     private double hps[] = {0, 10, 8, 12};
     private double bulletspeed[] = {0,5,7,8};
 
