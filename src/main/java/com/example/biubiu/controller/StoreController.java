@@ -220,7 +220,7 @@ public class StoreController implements Initializable {
         for (int i = 0; i < array.size(); i++){
             int index = array.getInteger(i);
             System.out.println(index);
-            Button button = buttonList.get(index-1);
+            Button button = buttonList3.get(index-1);
             button.setText("已购买");
             button.setDisable(true);
         }
@@ -262,9 +262,17 @@ public class StoreController implements Initializable {
             Character character = characterList.get(labelIndex);
             String characterName = character.getCharactername();
             Double hp = character.getHp();
+            Double characterSpeed = Double.valueOf(0);
+            if (labelIndex == 0){
+                 characterSpeed = 2.0;
+            }else if(labelIndex == 1){
+                 characterSpeed = 4.0;
+            }else if(labelIndex == 2){
+                characterSpeed = 1.5;
+            }
 
             // 添加damage和bulletspeed信息到显示文本
-            String characterMsg = "\n人物名称：" + characterName + "\nHP：" + hp;
+            String characterMsg = "\n人物名称：" + characterName + "\nHP：" + hp + "\n人物速度：" + characterSpeed;
             allOfMsg.setText(characterMsg + "\n");
         }
     }
@@ -407,7 +415,8 @@ public class StoreController implements Initializable {
                     Map<String, Object> data1 = new HashMap<>();
                     data1.put("username", username);
                     data1.put("characterid", buttonIndex + 1);
-                    Request request6 = new Request("insertweapon", data1 );
+                    System.out.println(buttonIndex+1);
+                    Request request6 = new Request("insertCharacter", data1 );
                     HelloApplication.sendRequest(request6);
                     button.setText("已购买");
                 }
@@ -490,10 +499,11 @@ public class StoreController implements Initializable {
         displayAllOfCharacters(arrayCharacter);
 
         //显示用户已拥有的人物
-        JSONObject jsonObjectCharacter = new JSONObject();
-        jsonObject.put("username", username);
-        Request request8 = new Request("getPlayerAllCharacter", jsonObject);
+        Map<String, Object> data = new HashMap<>();
+        data.put("username",username);
+        Request request8 = new Request("getPlayerAllCharacter", data);
         JSONArray arrayCharacter2 = JSON.parseArray(HelloApplication.sendRequest(request8));
+        System.out.println("1111111111111111"+arrayCharacter2);
         displayPurchasedCharacter(arrayCharacter2);
 
 
