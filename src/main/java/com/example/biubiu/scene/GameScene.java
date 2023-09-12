@@ -246,8 +246,12 @@ public class GameScene {
             double xx = random.nextDouble(928);
             double yy = random.nextDouble(576);
             if(illegal(xx,yy)){
-                Drop drop = new Drop(dropURL[typ],xx,yy,typ,newdropid + 4);
+                int len = drops.size();
+                Drop drop = new Drop(dropURL[typ],xx,yy,typ,len);
                 drops.add(drop);
+                String tmpString = "newdrop|"+ selfIP +"|" + xx + "|" + yy + "|" + typ +
+                        "|" + len + "|";
+                sendToAll(tmpString);
                 break;
             }
         }
@@ -555,6 +559,13 @@ public class GameScene {
                     int dropid = Integer.parseInt(dataList[i]);
                     drops.get(dropid).alive = false;
                 }
+            }else if("newdrop".equals(dataList[0])){
+                double tmpx = Double.parseDouble(dataList[2]);
+                double tmpy = Double.parseDouble(dataList[3]);
+                int typp = Integer.parseInt(dataList[4]);
+                int idd = Integer.parseInt(dataList[5]);
+                Drop drop = new Drop(dropURL[typp],tmpx,tmpy,typp,idd);
+                drops.add(drop);
             }
         }
     }
