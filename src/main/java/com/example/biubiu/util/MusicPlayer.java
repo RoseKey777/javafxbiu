@@ -18,10 +18,13 @@ public class MusicPlayer {
     public static void changeUrl(String boxText){
         if ("Music1".equals(boxText)) {
             url1 = "/com/example/biubiu/mp3/BackgroundMusic/Music1.mp3";
+            MusicPlayer.Musicplay();
         } else if ("Music2".equals(boxText)) {
             url1 = "/com/example/biubiu/mp3/BackgroundMusic/Music2.mp3";
+            MusicPlayer.Musicplay();
         } else if ("Music3".equals(boxText)) {
             url1 = "/com/example/biubiu/mp3/BackgroundMusic/Music3.mp3";
+            MusicPlayer.Musicplay();
         }
     }
     public static void Musicplay() {
